@@ -1,8 +1,8 @@
-package de.htwg.se.yourgame
+package de.htwg.se.Tank
 
-import de.htwg.se.yourgame.model.Player
+import de.htwg.se.Tank.model.Player
 
-object YourGame {
+object Tank {
   def main(args: Array[String]): Unit = {
     val student = Player("Your Name")
     println("Hello, " + student.name)
