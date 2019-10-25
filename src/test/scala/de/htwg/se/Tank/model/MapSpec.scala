@@ -3,13 +3,22 @@ import org.scalatest._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 
-class MapSpec extends WordSpec with Matchers{
+class MapSpec extends WordSpec with Matchers {
   private val x = 100
   private val y = 100
-  "A Map" should {
-    val map = Map(x, y)
-    "have set" in {
-      map.generate() should be(x , y)
+  private val x1 = 20
+  private val y1 = 10
+  "A Map" when { "new" should {
+      val map = Map(x, y)
+      "have set x" in {
+        map.x should be(x)
+      }
+      "have set y" in {
+        map.y should be(y)
+      }
+      "generate Pos" in {
+        map.generatePos() should be (x, y)
+      }
     }
   }
 }
