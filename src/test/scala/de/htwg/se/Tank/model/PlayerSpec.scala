@@ -23,16 +23,4 @@ class PlayerSpec extends WordSpec with Matchers {
     }
   }}
 
-//  "A Shot" when {
-//    "new" should {
-//      val player = Player("Your Name", lp)
-//      "have lifepoints" in {
-//        player.lp should be (lp)
-//      }
-//      "have a nice String representation" in {
-//        player.damagetaken should be > 0
-//      }
-//    }
-//  }
-
 }
