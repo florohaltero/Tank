@@ -23,8 +23,9 @@ case class Map(beginOfMap : (Int,Int),
     null
   }
 
-  def setFX(i: Int) = i match {
+  def setFX(i: Int): Boolean = i match {
     case 0 => fx = (x: Double) => math.sin(0.5 * x + 2)
+      true
   }
 
 }
