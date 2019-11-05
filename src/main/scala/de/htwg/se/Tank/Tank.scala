@@ -1,10 +1,10 @@
 package de.htwg.se.Tank
 
-import de.htwg.se.Tank.model.Player
+import de.htwg.se.Tank.model.{Player, Round}
 
 object Tank {
   def main(args: Array[String]): Unit = {
-    val student = Player("Your Name", 100)
+    val student = Player("Your Name")
     println("Hello, " + student.name)
   }
 }
