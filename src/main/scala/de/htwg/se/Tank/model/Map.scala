@@ -10,7 +10,7 @@ case class Map(beginOfMap : (Int,Int),
 
   def posInMap(pos: Position): Boolean = {
     if (pos.x >= beginOfMap._1 && pos.y >= beginOfMap._2 && pos.x <= endOfMap._1 && pos.y <= endOfMap._2) {
-      true
+      return true
     }
     false
   }
@@ -20,11 +20,13 @@ case class Map(beginOfMap : (Int,Int),
     if (posInMap(Position(x, y))) {
       return y
     }
-    null
+    0.0
   }
 
   def setFX(i: Int): Boolean = i match {
     case 0 => fx = (x: Double) => math.sin(0.5 * x + 2)
+      true
+    case 1 => fx = (x: Double) => 20
       true
   }
 

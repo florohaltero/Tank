@@ -12,12 +12,6 @@ class GameInitializerSpec extends WordSpec with Matchers{
     "have name" in {
       newGame.name should be ("Tank")
     }
-    "have Party Name" in {
-      newGame.partyname should be ("Battle")
-    }
-    "have return" in {
-      newGame.setPartyName("Sascha vs Flo") should be
-      "Sascha vs Flo"
-    }
+
   }
 }
