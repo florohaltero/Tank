@@ -9,4 +9,6 @@ object GameInitializer {
     partyname = s
     partyname
   }
+
+
 }
