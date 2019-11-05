@@ -7,4 +7,6 @@ object GameInitializer {
   def setGame(partyname :String, map: Int, name1: String, name2: String): Game ={
     Game(partyname,Map((0,0),(100,50),map), Player(name1), Player(name2))
   }
+
+
 }
