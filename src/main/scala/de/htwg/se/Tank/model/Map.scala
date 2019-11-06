@@ -4,7 +4,10 @@ package de.htwg.se.Tank.model
 case class Map(beginOfMap : (Int,Int),
                endOfMap : (Int,Int),
                map: Int ){
-
+  override def toString: String = {
+    var s = "Start Map " + beginOfMap + " End Map: " + endOfMap + "\n" +"MapFunction: " + fx
+    s
+  }
   var fx: Double => Double = (x:Double) => math.sin(0.5 * x + 2)
   setFX(map)
 
@@ -31,3 +34,4 @@ case class Map(beginOfMap : (Int,Int),
   }
 
 }
+
