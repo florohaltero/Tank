@@ -1,10 +1,10 @@
 package de.htwg.se.Tank.model
 
-case class Player(name: String) {
+case class Player(id: Int, name: String, pos: Position) {
    override def toString:String = {
-      var s = "Player: " + name + "\n" +  tank.toString
+      val s = "Player: " + name + "\n" + tank.toString
       s
    }
-   val tank = Tank(Position(0,0),100,CanonAngle(1))
+   val tank = Tank(pos, 100, CanonAngle(1))
 }
 
