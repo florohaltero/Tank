@@ -1,11 +1,40 @@
 package de.htwg.se.Tank.model
+import scala.collection.mutable.ListBuffer
+import scala.collection.mutable.ListBuffer
 //import scala.math
 
 case class Map(beginOfMap : (Int,Int),
                endOfMap : (Int,Int),
                map: Int ){
   override def toString: String = {
-    var s = "Start Map " + beginOfMap + " End Map: " + endOfMap + "\n" +"MapFunction: " + fx
+    //var s = "Start Map " + beginOfMap + " End Map: " + endOfMap + "\n" +"MapFunction: " + fx
+    var s = ""
+
+    for(i <- endOfMap._2.until(beginOfMap._2).by(-1)){
+      s += "||"
+      for(j <- beginOfMap._1 to endOfMap._1){
+
+
+        if(ListFX.contains((j,i))) {
+          s += "+"
+        } else if( i == beginOfMap._2 + 1){
+          s += "="
+        } else if(i == endOfMap._2){
+          s += "="
+        } else {
+          s+= " "
+        }
+        //if(j == 0){
+        //  s += "="
+        //}
+        if(j == endOfMap._1){
+          s += "||"
+        }
+
+      }
+      s += "\n"
+    }
+
     s
   }
 
@@ -13,12 +42,16 @@ case class Map(beginOfMap : (Int,Int),
   //var y = 15;
   final val POSX_RANGE = 0.2
   final val NOPOS_RANGE = 0.1
+  var ListFX = getFXList()
   //setFX(map)
-  var fxList : List[(Int, Int)]
-  for(i <- beginOfMap._1 to endOfMap._1) {
-    fxList = (i, fx(i).toInt) :: fxList
-  }
 
+  def getFXList() : List[(Int,Int)] ={
+    var listbuffer : ListBuffer[(Int,Int)] = ListBuffer.empty[(Int,Int)]
+    for(i <- beginOfMap._1 to endOfMap._1) {
+      listbuffer.append((i, fx(i).toInt))
+    }
+    listbuffer.toList
+  }
   def posInMap(pos: Position): Boolean = {
     if (pos.x >= beginOfMap._1 && pos.y >= beginOfMap._2 && pos.x <= endOfMap._1 && pos.y <= endOfMap._2) {
       return true
