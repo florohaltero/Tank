@@ -8,15 +8,17 @@ case class Map(beginOfMap : (Int,Int),
     var s = "Start Map " + beginOfMap + " End Map: " + endOfMap + "\n" +"MapFunction: " + fx
     s
   }
+
   var fx: Double => Double = (x:Double) => 5 * math.sin(0.1 * x) + 10
   //var y = 15;
   final val POSX_RANGE = 0.2
   final val NOPOS_RANGE = 0.1
   //setFX(map)
-  var fxList = List(Int, Int)
+  var fxList : List[(Int, Int)]
   for(i <- beginOfMap._1 to endOfMap._1) {
-    fxList += (i, fx(i))
+    fxList = (i, fx(i).toInt) :: fxList
   }
+
   def posInMap(pos: Position): Boolean = {
     if (pos.x >= beginOfMap._1 && pos.y >= beginOfMap._2 && pos.x <= endOfMap._1 && pos.y <= endOfMap._2) {
       return true
