@@ -12,7 +12,7 @@ object Tank {
 
     var input : String = ""
     val tui = new TUI
-    var g1: Game = GameInitializer.setGame("Standard", 0, "Flo", "Sascha")
+    var g1: Game = GameInitializer.setGame("Standard", 1, "Flo", "Sascha")
     //println("Type name of Player1 and Player2:")
     do {
       println("Game : " + g1.toString)
