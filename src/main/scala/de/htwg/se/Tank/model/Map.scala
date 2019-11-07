@@ -5,11 +5,12 @@ import scala.collection.mutable.ListBuffer
 
 case class Map(beginOfMap : (Int,Int),
                endOfMap : (Int,Int),
-               map: Int ){
+               map: Int , name1 : String, name2 : String){
   override def toString: String = {
     //var s = "Start Map " + beginOfMap + " End Map: " + endOfMap + "\n" +"MapFunction: " + fx
     var s = ""
-
+    s += p1.toString + "\n"
+    s += p2.toString + "\n"
     for(i <- endOfMap._2.until(beginOfMap._2).by(-1)){
       s += "||"
       for(j <- beginOfMap._1 to endOfMap._1){
@@ -19,12 +20,16 @@ case class Map(beginOfMap : (Int,Int),
           s += "="
         } else if(i == endOfMap._2){
           s += "="
-        } else {
+        }  else {
           s+= " "
         }
-        //if(j == 0){
-        //  s += "="
-        //}
+        if((i == p1.pos.y.toInt && j == p1.pos.x.toInt)) {
+          s += "T"
+        }
+        if((i == p2.pos.y.toInt && j == p2.pos.x.toInt)){
+          s += "T"
+        }
+
         if(j == endOfMap._1){
           s += "||"
         }
@@ -37,6 +42,8 @@ case class Map(beginOfMap : (Int,Int),
   var fx: Double => Double = (x:Double) => 5 * math.sin(0.1 * x) + 10
   //var y = 15;
   setFX(map)
+  val p1 = Player(1,name1,this.generatePos(1))
+  val p2 = Player(2,name2, this.generatePos(2))
   final val POSX_RANGE = 0.2
   final val NOPOS_RANGE = 0.1
   var ListFX = getFXList()
@@ -71,16 +78,16 @@ case class Map(beginOfMap : (Int,Int),
       true
   }
 
- def generatePos(player: Player):Position={
+ def generatePos(id : Int):Position={
    var pos:Position=null
-   if(player.id == 1) {
+   if(id == 1) {
      val begin = (beginOfMap._1 + NOPOS_RANGE * endOfMap._1).toInt
      val end = (begin + POSX_RANGE * endOfMap._1).toInt
      val x = (Math.random()*end + begin)
      val y = fx(x)
      pos = Position(x,y)
    }
-   if(player.id == 2){
+   if(id == 2){
      val begin = (endOfMap._1 - NOPOS_RANGE * endOfMap._1).toInt
      val end = (begin - POSX_RANGE * endOfMap._1).toInt
      val x = (Math.random()*(begin-end) + end)
@@ -90,6 +97,8 @@ case class Map(beginOfMap : (Int,Int),
     pos
 
  }
+
+
 
 }
 

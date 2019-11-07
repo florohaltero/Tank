@@ -9,7 +9,7 @@ class MapSpec extends WordSpec with Matchers {
   private val x1 = 20
   private val y1 = 10
   "A Map" when { "new" should {
-      val map = Map((0,0),(x,y),0)
+      val map = Map((0,0),(x,y),0, "Flo", "Sascha")
 /*      "have set x" in {
         map.x should be(x)
       }

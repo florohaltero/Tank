@@ -5,7 +5,7 @@ case class Tank(pos: Position, lp: Int, canonAngle: CanonAngle) {
     var s = "Pos(x,y): (" + pos.x + "," + pos.y + ") Life: " + lp + " CannonAngle: " + canonAngle.angle
     s
   }
-
+  val hitbox = Hitbox(5, 10, pos)
   def moveLeft(): Tank = {
     copy(pos.move(pos.x - 1, pos.y), lp, canonAngle)
   }
@@ -19,7 +19,7 @@ case class Tank(pos: Position, lp: Int, canonAngle: CanonAngle) {
     copy(pos, lp, canonAngle.moveCanon(canonAngle.angle - 5))
   }
   def shoot(power: Int): Boolean = {
-    val hitbox = Hitbox(5, 10, pos)
+
     if (hitbox.posInHitbox(Calc.shootCalc(pos, canonAngle, power)).equals(true)) {
 
 
