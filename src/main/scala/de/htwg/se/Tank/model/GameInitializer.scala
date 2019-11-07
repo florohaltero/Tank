@@ -5,7 +5,12 @@ object GameInitializer {
   val name = "Tank"
 
   def setGame(partyname :String, map: Int, name1: String, name2: String): Game ={
-    Game(partyname,Map((0,0),(100,50),map), Player(name1), Player(name2))
+    val mapObject = Map((0,0),(100,50),map)
+    var p1 = Player(1, name1, Position(0,0))
+    var p2 = Player(2, name2, Position(0,0))
+    p1 = Player(1, name1, mapObject.generatePos(p1))
+    p2 = Player(2, name2, mapObject.generatePos(p2))
+    Game(partyname,mapObject, p1, p2)
   }
 
 
