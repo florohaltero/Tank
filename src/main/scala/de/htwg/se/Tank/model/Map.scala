@@ -40,10 +40,11 @@ case class Map(beginOfMap : (Int,Int),
 
   var fx: Double => Double = (x:Double) => 5 * math.sin(0.1 * x) + 10
   //var y = 15;
+  setFX(map)
   final val POSX_RANGE = 0.2
   final val NOPOS_RANGE = 0.1
   var ListFX = getFXList()
-  //setFX(map)
+
 
   def getFXList() : List[(Int,Int)] ={
     var listbuffer : ListBuffer[(Int,Int)] = ListBuffer.empty[(Int,Int)]
@@ -68,7 +69,7 @@ case class Map(beginOfMap : (Int,Int),
   }
 
   def setFX(i: Int): Boolean = i match {
-    case 0 => fx = (x: Double) => 5*math.sin(0.1 * x)+10
+    case 0 => fx = (x: Double) => 5*math.sin(0.1 * x) + 10
       true
     case 1 => fx = (x: Double) => 20
       true
