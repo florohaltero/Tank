@@ -13,8 +13,6 @@ case class Map(beginOfMap : (Int,Int),
     for(i <- endOfMap._2.until(beginOfMap._2).by(-1)){
       s += "||"
       for(j <- beginOfMap._1 to endOfMap._1){
-
-
         if(ListFX.contains((j,i))) {
           s += "+"
         } else if( i == beginOfMap._2 + 1){
@@ -30,11 +28,9 @@ case class Map(beginOfMap : (Int,Int),
         if(j == endOfMap._1){
           s += "||"
         }
-
       }
       s += "\n"
     }
-
     s
   }
 
