@@ -29,7 +29,6 @@ case class Map(beginOfMap : (Int,Int),
         if((i == p2.pos.y.toInt && j == p2.pos.x.toInt)){
           s += "T"
         }
-
         if(j == endOfMap._1){
           s += "||"
         }
@@ -42,13 +41,20 @@ case class Map(beginOfMap : (Int,Int),
   var fx: Double => Double = (x:Double) => 5 * math.sin(0.1 * x) + 10
   //var y = 15;
   setFX(map)
-  val p1 = Player(1,name1,this.generatePos(1))
-  val p2 = Player(2,name2, this.generatePos(2))
+  var p1 = Player(1,name1,this.generatePos(1))
+  var p2 = Player(2,name2, this.generatePos(2))
   final val POSX_RANGE = 0.2
   final val NOPOS_RANGE = 0.1
   var ListFX = getFXList()
 
-
+  def moveLeft(p: Player) : Player ={
+    p.pos = Position(p.pos.x-5,fx(p.pos.x-5) )
+    p
+  }
+  def moveRight(p: Player) : Player ={
+    p.pos = Position(p.pos.x + 5,fx(p.pos.x + 5) )
+    p
+  }
   def getFXList() : List[(Int,Int)] ={
     var listbuffer : ListBuffer[(Int,Int)] = ListBuffer.empty[(Int,Int)]
     for(i <- beginOfMap._1 to endOfMap._1) {
@@ -62,7 +68,7 @@ case class Map(beginOfMap : (Int,Int),
     }
     false
   }
-
+/*
   def getYFromMapFct(x: Double): Double = {
     val y = fx(x)
     if (posInMap(Position(x, y))) {
@@ -70,7 +76,7 @@ case class Map(beginOfMap : (Int,Int),
     }
     0.0
   }
-
+*/
   def setFX(i: Int): Boolean = i match {
     case 0 => fx = (x: Double) => 5*math.sin(0.1 * x) + 10
       true

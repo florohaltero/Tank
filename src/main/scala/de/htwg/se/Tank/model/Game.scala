@@ -7,7 +7,11 @@ case class Game(partyname :String, map: Int, player1: String,player2: String){
     name += mapObject.toString
     name
   }
-  val mapObject = Map((0,0),(200,50),map, player1, player2)
+  var mapObject = Map((0,0),(40,20),map, player1, player2)
+
+//  def setMap(map :Map)  : Game = {
+//    null
+//  }
 
 
 }

@@ -7,7 +7,7 @@ case class Tank(pos: Position, lp: Int, canonAngle: CanonAngle) {
   }
   val hitbox = Hitbox(5, 10, pos)
   def moveLeft(): Tank = {
-    copy(pos.move(pos.x - 1, pos.y), lp, canonAngle)
+    copy(pos.move(pos.x - 5, pos.y), lp, canonAngle)
   }
   def moveRight(): Tank = {
     copy(pos.move(pos.x + 1, pos.y), lp, canonAngle)
