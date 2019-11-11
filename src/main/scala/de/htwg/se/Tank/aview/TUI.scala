@@ -5,10 +5,10 @@ import de.htwg.se.Tank.model.{Game, GameInitializer}
 import de.htwg.se.Tank.util.Observer
 
 class TUI(controller: Controller) extends Observer{
+  controller.add(this)
 
   def processInputLine(input: String): Unit ={
     input match {
-      case "q" =>
       case "m0" => controller.setGame("Standard", 0, controller.game.player1, controller.game.player2)
       case "m1" => controller.setGame("Standard", 1, controller.game.player1, controller.game.player2)
       case "p" => controller.setGame("Standard", 1, "Player1","Player2")
