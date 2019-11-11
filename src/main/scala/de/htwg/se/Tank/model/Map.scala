@@ -23,11 +23,11 @@ case class Map(beginOfMap : (Int,Int),
         }  else {
           s+= " "
         }
-        if((i == p1.pos.y.toInt && j == p1.pos.x.toInt)) {
-          s += "T"
+        if(i == p1.pos.y.toInt && j == p1.pos.x.toInt) {
+          s += "T1"
         }
         if((i == p2.pos.y.toInt && j == p2.pos.x.toInt)){
-          s += "T"
+          s += "T2"
         }
         if(j == endOfMap._1){
           s += "||"
@@ -101,10 +101,6 @@ case class Map(beginOfMap : (Int,Int),
      pos = Position(x,y)
    }
     pos
-
  }
-
-
-
 }
 
