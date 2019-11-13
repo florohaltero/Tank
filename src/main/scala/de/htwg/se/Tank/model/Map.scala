@@ -35,6 +35,7 @@ case class Map(beginOfMap : (Int,Int),
       }
       s += "\n"
     }
+    s+= "Aktiver Spieler: " + activePlayer.name + " restliche Anzahl Züge: " + moves
     s
   }
 
@@ -43,18 +44,53 @@ case class Map(beginOfMap : (Int,Int),
   setFX(map)
   var p1 = Player(1,name1,this.generatePos(1))
   var p2 = Player(2,name2, this.generatePos(2))
+  final val NUMBER_OF_MOVES : Int = 5
+  var moves = NUMBER_OF_MOVES
+  var activePlayer = p1
+
+  var round = Round
+  //round.apply()
   final val POSX_RANGE = 0.2
   final val NOPOS_RANGE = 0.1
   var ListFX = getFXList()
 
-  def moveLeft(p: Player) : Player ={
-    p.pos = Position(p.pos.x-5,fx(p.pos.x-5) )
-    p
+  private def checkActivePlayer(): Unit ={
+    if(moves == 0) {
+      changePlayer()
+    }
   }
-  def moveRight(p: Player) : Player ={
-    p.pos = Position(p.pos.x + 5,fx(p.pos.x + 5) )
-    p
+  private def changePlayer(){
+    if(activePlayer == p1) {
+      activePlayer = p2
+      moves = NUMBER_OF_MOVES
+    } else {
+      activePlayer = p1
+      moves = NUMBER_OF_MOVES
+    }
   }
+
+  def moveLeft() : Player ={
+    val tmp : Position = activePlayer.pos
+    activePlayer.pos = Position(activePlayer.pos.x-1,fx(activePlayer.pos.x-1))
+    if(!posInMap(activePlayer.pos)){
+      activePlayer.pos = tmp
+    }
+    moves -= 1
+    checkActivePlayer()
+    activePlayer
+  }
+
+  def moveRight() : Player ={
+    val tmp : Position = activePlayer.pos
+    activePlayer.pos = Position(activePlayer.pos.x + 1,fx(activePlayer.pos.x + 1) )
+    if(!posInMap(activePlayer.pos)){
+      activePlayer.pos = tmp
+    }
+    moves -= 1
+    checkActivePlayer()
+    activePlayer
+  }
+
   def getFXList() : List[(Int,Int)] ={
     var listbuffer : ListBuffer[(Int,Int)] = ListBuffer.empty[(Int,Int)]
     for(i <- beginOfMap._1 to endOfMap._1) {
@@ -62,6 +98,7 @@ case class Map(beginOfMap : (Int,Int),
     }
     listbuffer.toList
   }
+
   def posInMap(pos: Position): Boolean = {
     if (pos.x >= beginOfMap._1 && pos.y >= beginOfMap._2 && pos.x <= endOfMap._1 && pos.y <= endOfMap._2) {
       return true
@@ -78,7 +115,7 @@ case class Map(beginOfMap : (Int,Int),
   }
 */
   def setFX(i: Int): Boolean = i match {
-    case 0 => fx = (x: Double) => 5*math.sin(0.1 * x) + 10
+    case 0 => fx = (x: Double) => 5*math.sin(0.1 * x) + 2
       true
     case 1 => fx = (x: Double) => 20
       true

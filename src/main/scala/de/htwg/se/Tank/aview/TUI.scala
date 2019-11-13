@@ -12,10 +12,8 @@ class TUI(controller: Controller) extends Observer{
       case "m0" => controller.setGame("Standard", 0, controller.game.player1, controller.game.player2)
       case "m1" => controller.setGame("Standard", 1, controller.game.player1, controller.game.player2)
       case "p" => controller.setGame("Standard", 1, "Player1","Player2")
-      case "p1l" => controller.moveLeft(controller.game,controller.game.mapObject.p1)
-      case "p1r" => controller.moveRight(controller.game,controller.game.mapObject.p1)
-      case "p2l" => controller.moveLeft(controller.game,controller.game.mapObject.p2)
-      case "p2r" => controller.moveRight(controller.game,controller.game.mapObject.p2)
+      case "l" => controller.moveLeft()
+      case "r" => controller.moveRight()
     }
   }
 

@@ -8,12 +8,12 @@ class Controller(var game: Game)  extends Observable{
     game = Game(partyname, map , name1, name2)
     notifyObservers
   }
-  def  moveLeft(game: Game, p: Player) : Unit = {
-    game.mapObject.moveLeft(p)
+  def  moveLeft() : Unit = {
+    game.mapObject.moveLeft()
     notifyObservers
   }
-  def  moveRight(game: Game, p: Player) : Unit = {
-    game.mapObject.moveRight(p)
+  def  moveRight() : Unit = {
+    game.mapObject.moveRight()
     notifyObservers
   }
 
