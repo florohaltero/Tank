@@ -13,6 +13,6 @@ case class Game(partyname :String, map: Int, player1: String,player2: String){
   var mapObject = Map((0,0), (MAP_X,MAP_Y), map, player1, player2)
 
 //  def setMap(map :Map)  : Game = {
-//    null test
+//    null tests
 //  }
 }
