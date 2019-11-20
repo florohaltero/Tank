@@ -2,7 +2,7 @@ package de.htwg.se.Tank.model
 import org.scalatest._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-
+import org.scalatest.PrivateMethodTester._
 @RunWith(classOf[JUnitRunner])
 class MapSpec extends WordSpec with Matchers {
   private val x = 100
@@ -52,5 +52,40 @@ class MapSpec extends WordSpec with Matchers {
     }
     }
   }
+  "A map2" when {"generated Position Player1" should {
+    val map = Map((0,0),(3,3), 0, "Flo", "Sascha")
+    map.p1.pos = map.generatePos(1,1)
+    "changed Player" in {
+      val changePlayer = PrivateMethod[String]('changePlayer)
+      map invokePrivate changePlayer()
+      map.activePlayer should be (map.p2)
+      map invokePrivate changePlayer()
+      map.activePlayer should be (map.p1)
+    }
+    "check active Player" in{
+      map.moves = 0
+      val checkActivePlayer = PrivateMethod[String]('checkActivePlayer)
+      map invokePrivate checkActivePlayer()
+      map.activePlayer should be (map.p2)
+    }
+    map.setFX(1)
+    "have f1" in {
+      map.map should be (0)
+    }
+    "have moveLeft" in {
+      map.moveLeft()
+      map.moves should be (4)
+    }
+    "have moveLeft in Map" in {
+      map.moveLeft()
+      map.p1.pos.x should be (1)
+    }
+    "have moveRight" in {
+      map.moveRight()
+      map.moves should be (2)
+    }
 
+  }
+
+  }
 }

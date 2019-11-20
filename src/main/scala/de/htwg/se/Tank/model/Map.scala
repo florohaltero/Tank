@@ -121,7 +121,7 @@ case class Map(beginOfMap : (Int,Int),
       true
   }
 
- private def generatePos(id : Int, xPos: Int):Position={
+  def generatePos(id : Int, xPos: Int):Position={
    var pos:Position = null
    var x : Double = 0;
    if(id == 1) {
