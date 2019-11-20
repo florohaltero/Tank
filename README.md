@@ -32,6 +32,7 @@ Then
 * clone on partners account
 * push and pull back and forth
 
+Travis badge:
 
 [![Build Status](https://travis-ci.org/florohaltero/Tank.svg?branch=Continuous-Deployment)](https://travis-ci.org/florohaltero/Tank)
 
