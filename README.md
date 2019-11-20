@@ -33,3 +33,9 @@ Then
 * push and pull back and forth
 
 
+[![Build Status](https://travis-ci.org/florohaltero/Tank.svg?branch=Continuous-Deployment)](https://travis-ci.org/florohaltero/Tank)
+
+Coveralls badge:
+
+[![Coverage Status](https://coveralls.io/repos/github/florohaltero/Tank/badge.svg?branch=Continuous-Deployment)](https://coveralls.io/github/florohaltero/Tank?branch=Continuous-Deployment)
+
