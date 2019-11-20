@@ -32,4 +32,10 @@ Then
 * clone on partners account
 * push and pull back and forth
 
+Travis badge:
 
+[![Build Status](https://travis-ci.org/florohaltero/Tank.svg?branch=master)](https://travis-ci.org/florohaltero/Tank)
+
+Coveralls badge:
+
+[![Coverage Status](https://coveralls.io/repos/github/florohaltero/Tank/badge.svg?branch=Continuous-Deployment)](https://coveralls.io/github/florohaltero/Tank?branch=Continuous-Deployment)
