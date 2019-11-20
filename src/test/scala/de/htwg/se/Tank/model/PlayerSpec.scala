@@ -21,7 +21,7 @@ class PlayerSpec extends WordSpec with Matchers {
       player.pos.y should be (0)
     }
     "have a nice String representation" in {
-      player.toString should be("Player: Flo\nPos(x,y): (0.0,0.0) Life: 100 CannonAngle: 1")
+      player.toString should be("Player: Flo\nPos(x,y): (0.0,0.0) Life: 100 CannonAngle: 10")
     }
 
   }}
