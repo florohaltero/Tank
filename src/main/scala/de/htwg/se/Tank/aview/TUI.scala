@@ -1,7 +1,7 @@
 package de.htwg.se.Tank.aview
 
 import de.htwg.se.Tank.controller.Controller
-import de.htwg.se.Tank.model.{Game, GameInitializer}
+import de.htwg.se.Tank.model.Game
 import de.htwg.se.Tank.util.Observer
 
 class TUI(controller: Controller) extends Observer{
