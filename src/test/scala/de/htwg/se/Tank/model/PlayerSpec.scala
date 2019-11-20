@@ -9,6 +9,7 @@ class PlayerSpec extends WordSpec with Matchers {
   private val lp = 100
   "A Player" when { "new" should {
     val player = Player(1,"Flo", Position(0,0))
+    player.tank = Tank(player.pos, 100, 10)
     "have a id" in {
       player.id should be (1)
     }
@@ -20,7 +21,7 @@ class PlayerSpec extends WordSpec with Matchers {
       player.pos.y should be (0)
     }
     "have a nice String representation" in {
-      player.toString should be("Player: Flo\nPos(x,y): (0.0,0.0) Life: 100 CannonAngle: 1")
+      player.toString should be("Player: Flo\nPos(x,y): (0.0,0.0) Life: 100 CannonAngle: 10")
     }
 
   }}
