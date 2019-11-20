@@ -33,7 +33,7 @@ class MapSpec extends WordSpec with Matchers {
         map.name2 should be("Sascha")
       }
 
-    map.setFX(1)
+    map.setFX(0)
     "have fx" in {
       map.map should be (0)
     }
@@ -43,6 +43,48 @@ class MapSpec extends WordSpec with Matchers {
     "have no Pos in Map" in {
       map.posInMap(Position(-1,0)) should be (false)
     }
+    "have Number of moves" in {
+      map.moves should be (5)
     }
+    }
+  }
+  "A Map1" when { "new" should {
+    val map = Map((0,0),(x,y), 1, "Flo", "Sascha")
+    "have beginOfMap x1" in {
+      map.beginOfMap._1 should be(0)
+    }
+    "have beginOfMap y1" in {
+      map.beginOfMap._2 should be(0)
+    }
+    "have endOfMap x1" in {
+      map.endOfMap._1 should be(100)
+    }
+    "have endOfMap y1" in {
+      map.endOfMap._2 should be(100)
+    }
+    "have map1" in {
+      map.map should be (1)
+    }
+    "have Player1_1" in {
+      map.name1 should be ("Flo")
+    }
+    "have Player2_1" in {
+      map.name2 should be("Sascha")
+    }
+
+    map.setFX(1)
+    "have fx1" in {
+      map.map should be (1)
+    }
+    "have Pos in Map" in {
+      map.posInMap(Position(50,50)) should be (true)
+    }
+    "have no Pos in Map" in {
+      map.posInMap(Position(-1,0)) should be (false)
+    }
+    "have Number of moves" in {
+      map.moves should be (5)
+    }
+  }
   }
 }
