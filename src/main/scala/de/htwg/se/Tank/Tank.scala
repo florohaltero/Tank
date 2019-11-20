@@ -2,7 +2,6 @@ package de.htwg.se.Tank
 
 import de.htwg.se.Tank.aview.TUI
 import de.htwg.se.Tank.controller.Controller
-import de.htwg.se.Tank.model.GameInitializer
 import de.htwg.se.Tank.model.Game
 
 
