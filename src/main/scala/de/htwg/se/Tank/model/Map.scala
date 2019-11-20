@@ -42,8 +42,8 @@ case class Map(beginOfMap : (Int,Int),
   var fx: Double => Double = (x:Double) => 5 * math.sin(0.1 * x) + 10
   //var y = 15;
   setFX(map)
-  var p1 = Player(1,name1,this.generatePos(1))
-  var p2 = Player(2,name2, this.generatePos(2))
+  var p1 = Player(1,name1,this.generatePos(1,0))
+  var p2 = Player(2,name2, this.generatePos(2,0))
   final val NUMBER_OF_MOVES : Int = 5
   var moves = NUMBER_OF_MOVES
   var activePlayer = p1
@@ -121,23 +121,34 @@ case class Map(beginOfMap : (Int,Int),
       true
   }
 
- def generatePos(id : Int):Position={
-   var pos:Position=null
+ private def generatePos(id : Int, xPos: Int):Position={
+   var pos:Position = null
+   var x : Double = 0;
    if(id == 1) {
      val begin = (beginOfMap._1 + NOPOS_RANGE * endOfMap._1).toInt
      val end = (begin + POSX_RANGE * endOfMap._1).toInt
-     val x = (Math.random()*end + begin)
+     if(xPos == 0){
+       x = (Math.random()*end + begin)
+     } else{
+       x = xPos
+     }
+
      val y = fx(x)
      pos = Position(x,y)
-   }
-   if(id == 2){
+   } else if(id == 2){
      val begin = (endOfMap._1 - NOPOS_RANGE * endOfMap._1).toInt
      val end = (begin - POSX_RANGE * endOfMap._1).toInt
-     val x = (Math.random()*(begin-end) + end)
+     if(xPos == 0){
+       x = (Math.random()*end + begin)
+     } else{
+       x = xPos
+     }
      val y = fx(x)
      pos = Position(x,y)
+   } else {
+      throw new IllegalArgumentException
    }
-    pos
+   pos
  }
 }
 

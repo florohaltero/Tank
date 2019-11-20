@@ -14,10 +14,10 @@ class GameSpec extends WordSpec with Matchers{
       game_0.map should be (0)
     }
     "have Player 1" in {
-      game_0.player1 should be ("Flo")
+      game_0.name1 should be ("Flo")
     }
     "have Player 2" in {
-      game_0.player2 should be ("Sascha")
+      game_0.name2 should be ("Sascha")
     }
     "have Player1 map" in {
       game_0.mapObject.p1.name should be ("Flo")
