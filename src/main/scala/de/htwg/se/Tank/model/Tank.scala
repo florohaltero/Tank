@@ -21,8 +21,6 @@ case class Tank(pos: Position, lp: Int, canonAngle: CanonAngle) {
   def shoot(power: Int): Boolean = {
 
     if (hitbox.posInHitbox(Calc.shootCalc(pos, canonAngle, power)).equals(true)) {
-
-
       return true
     }
     false
