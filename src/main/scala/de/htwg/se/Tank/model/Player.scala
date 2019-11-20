@@ -5,6 +5,6 @@ case class Player(id: Int, name: String,var pos: Position) {
       val s = "Player: " + name + "\n" + tank.toString
       s
    }
-   var tank = Tank(pos, 100, CanonAngle(1))
+   var tank = Tank(pos, 100, 10)
 }
 

@@ -139,7 +139,7 @@ case class Map(beginOfMap : (Int,Int),
      val begin = (endOfMap._1 - NOPOS_RANGE * endOfMap._1).toInt
      val end = (begin - POSX_RANGE * endOfMap._1).toInt
      if(xPos == 0){
-       x = (Math.random()*end + begin)
+       x = (Math.random()*(begin-end) + end)
      } else{
        x = xPos
      }

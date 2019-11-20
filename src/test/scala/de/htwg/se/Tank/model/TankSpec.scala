@@ -6,7 +6,7 @@ import org.scalatest.junit.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class TankSpec extends WordSpec with Matchers {
   val pos = Position(200,50)
-  val angle = CanonAngle(1)
+  val angle = 10
   "A Tank" when { "new" should {
     val tank = Tank(pos, 100, angle)
     "have Position X" in {
@@ -19,7 +19,7 @@ class TankSpec extends WordSpec with Matchers {
       tank.lp should be (100)
     }
     "have Canon Angle" in {
-      tank.canonAngle.angle should be (1)
+      tank.canonAngle should be (10)
     }
     }}
 }

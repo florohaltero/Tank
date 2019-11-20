@@ -6,10 +6,9 @@ import de.htwg.se.Tank.util.Observer
 import org.scalatest.{Matchers, WordSpec}
 
 class ControllerSpec extends WordSpec with Matchers {
-
   "A Controller" when {
     "observed by an Observer" should {
-      val game = new Game("Standard", 0, "Flo", "Sasch")
+      val game = Game("Standard", 0, "Flo", "Sasch")
       val controller = new Controller(game)
       val observer = new Observer {
         var updated: Boolean = false
