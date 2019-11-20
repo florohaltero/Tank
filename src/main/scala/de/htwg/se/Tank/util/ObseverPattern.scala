@@ -1,7 +1,7 @@
 package de.htwg.se.Tank.util
 
 class TestObject extends Observer {
-  def update:Unit = println("Ping")
+  def update:Boolean = {println("Ping");true}
 }
 object ObserverPattern {
   val observable = new Observable                 //> observable  : de.htwg.util.Observable = de.htwg.util.Observable@23394894
