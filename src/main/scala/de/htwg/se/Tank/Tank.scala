@@ -7,21 +7,22 @@ import de.htwg.se.Tank.model.Game
 
 object Tank {
   def main(args: Array[String]): Unit = {
-    //val student = Player("Your Name")
-    //println("Hello, " + student.name)
     val lines = scala.io.Source.fromFile("Tank_label.txt").mkString
     print(lines)
+    println("Spieler 1: ")
+    val name1 = scala.io.StdIn.readLine()
+    println("Spieler 2: ")
+    val name2 = scala.io.StdIn.readLine()
+    println("Map(0, 1): ")
+    val map = scala.io.StdIn.readLine()
 
     var input : String = ""
-    val controller = new Controller(Game("Standard", 0, "Flo", "Sasch"))
+    val controller = new Controller(Game("Standard", map.toInt, name1, name2))
     val tui = new TUI(controller)
     controller.notifyObservers
-//    var g1: Unit = GameInitializer.setGame("Standard", 0, "Flo", "Sascha")
-    //println("Type name of Player1 and Player2:")
     do {
       input = scala.io.StdIn.readLine()
       tui.processInputLine(input)
     } while (input != "q")
-
   }
 }

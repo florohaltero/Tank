@@ -3,7 +3,6 @@ package de.htwg.se.Tank.model
 case class Game(partyname :String, map: Int, name1: String,name2: String){
   override def toString: String = {
     var name = "\n" + "partyname: " + partyname + "\n"
-    name += name1.toString + "\n" + name2.toString + "\n"
     name += mapObject.toString
     name
   }
