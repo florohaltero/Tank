@@ -14,7 +14,7 @@ object Tank {
     print(lines)
 
     var input : String = ""
-    val controller = new Controller(Game("Standard",0,"Flo","Sasch"))
+    val controller = new Controller(Game("Standard", 0, "Flo", "Sasch"))
     val tui = new TUI(controller)
     controller.notifyObservers
 //    var g1: Unit = GameInitializer.setGame("Standard", 0, "Flo", "Sascha")

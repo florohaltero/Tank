@@ -115,7 +115,7 @@ case class Map(beginOfMap : (Int,Int),
   }
 */
   def setFX(i: Int): Boolean = i match {
-    case 0 => fx = (x: Double) => 5*math.sin(0.1 * x) + 2
+    case 0 => fx = (x: Double) => 5*math.sin(0.1 * x) + 7
       true
     case 1 => fx = (x: Double) => 20
       true

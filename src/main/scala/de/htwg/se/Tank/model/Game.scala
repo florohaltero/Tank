@@ -7,14 +7,12 @@ case class Game(partyname :String, map: Int, player1: String,player2: String){
     name += mapObject.toString
     name
   }
-  final val MAP_X = 20
-  final val MAP_Y = 10
+  final val MAP_X = 100
+  final val MAP_Y = 20
 
-  var mapObject = Map((0,0),(MAP_X,MAP_Y),map, player1, player2)
+  var mapObject = Map((0,0), (MAP_X,MAP_Y), map, player1, player2)
 
 //  def setMap(map :Map)  : Game = {
 //    null
 //  }
-
-
 }
