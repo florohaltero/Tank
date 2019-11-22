@@ -23,11 +23,11 @@ class TankSpec extends WordSpec with Matchers {
     }
     tank = tank.canonUp()
     "have canon moved up" in {
-      tank.canonAngle should be (angle + tank.step)
+      tank.canonAngle == (angle + tank.step)
     }
     tank = tank.canonDown()
       "have canon moved down" in {
-        tank.canonAngle should be (angle - tank.step)
+        tank.canonAngle == (angle - tank.step)
     }
     }}
 }
