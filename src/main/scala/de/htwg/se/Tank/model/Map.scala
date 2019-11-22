@@ -48,7 +48,7 @@ case class Map(beginOfMap : (Int,Int),
   var moves = NUMBER_OF_MOVES
   var activePlayer = p1
 
-  var round = Round
+  //var round = Round
   //round.apply()
   final val POSX_RANGE = 0.2
   final val NOPOS_RANGE = 0.1
