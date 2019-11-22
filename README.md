@@ -34,7 +34,7 @@ Then
 
 Travis badge:
 
-[![Build Status](https://travis-ci.org/florohaltero/Tank.svg?branch=master)](https://travis-ci.org/florohaltero/Tank)
+[![Build Status](https://travis-ci.org/florohaltero/Tank.svg?branch=Continuous-Deployment)](https://travis-ci.org/florohaltero/Tank)
 
 Coveralls badge:
 
