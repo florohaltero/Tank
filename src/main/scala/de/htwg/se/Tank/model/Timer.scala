@@ -1,5 +1,5 @@
 package de.htwg.se.Tank.model
-
+/*
 object Timer {
   def apply(interval: Int, repeats: Boolean = true)(op: => Unit) {
     val timeOut = new javax.swing.AbstractAction() {
@@ -10,3 +10,6 @@ object Timer {
     t.start()
   }
 }
+
+
+ */
