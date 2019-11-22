@@ -8,7 +8,7 @@ class TankSpec extends WordSpec with Matchers {
   val pos = Position(200,50)
   val angle = 10
   "A Tank" when { "new" should {
-    val tank = Tank(pos, 100, angle)
+    var tank = Tank(pos, 100, angle)
     "have Position X" in {
       tank.pos.x should be (200)
     }
@@ -21,11 +21,11 @@ class TankSpec extends WordSpec with Matchers {
     "have Canon Angle" in {
       tank.canonAngle should be (10)
     }
-    tank.canonUp()
+    tank = tank.canonUp()
     "have canon moved up" in {
       tank.canonAngle should be (angle + tank.step)
     }
-    tank.canonDown()
+    tank = tank.canonDown()
       "have canon moved down" in {
         tank.canonAngle should be (angle - tank.step)
     }
