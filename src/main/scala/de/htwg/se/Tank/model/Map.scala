@@ -1,11 +1,56 @@
 package de.htwg.se.Tank.model
-import scala.collection.mutable.ListBuffer
+
+
+
 import scala.collection.mutable.ListBuffer
 //import scala.math
 
 case class Map(beginOfMap : (Int,Int),
                endOfMap : (Int,Int),
                map: Int , name1 : String, name2 : String){
+
+  object StateContext{
+    var state : State = _
+    trait State {
+      def changePlayer(): State
+      def setPlayer(): State
+    }
+    case class P1State() extends State {
+      override def changePlayer(): State = {
+        activePlayer = p2
+        moves = NUMBER_OF_MOVES
+        state = P2State()
+        state
+      }
+
+      override def setPlayer(): State ={
+        activePlayer = p1
+        moves = NUMBER_OF_MOVES
+        state = P1State()
+        state
+      }
+    }
+    case class P2State() extends State {
+      override def changePlayer(): State = {
+        activePlayer = p1
+        moves = NUMBER_OF_MOVES
+        state = P1State()
+        state
+      }
+      override def setPlayer(): State ={
+        activePlayer = p2
+        moves = NUMBER_OF_MOVES
+        state = P2State()
+        state
+      }
+    }
+    def getState:State = {state}
+    def setState(s: State):Unit = {
+      state = s
+      state.setPlayer()
+    }
+  }
+
   override def toString: String = {
     //var s = "Start Map " + beginOfMap + " End Map: " + endOfMap + "\n" +"MapFunction: " + fx
     var s = ""
@@ -40,32 +85,24 @@ case class Map(beginOfMap : (Int,Int),
   }
 
   var fx: Double => Double = (x:Double) => 5 * math.sin(0.1 * x) + 10
-  //var y = 15;
   setFX(map)
   var p1 = Player(1,name1,this.generatePos(1,0))
   var p2 = Player(2,name2, this.generatePos(2,0))
-  final val NUMBER_OF_MOVES : Int = 5
-  var moves = NUMBER_OF_MOVES
-  var activePlayer = p1
+  final val NUMBER_OF_MOVES : Int = 2
+  var moves : Int = _
+  var activePlayer : Player = _
+  StateContext.setState(StateContext.P2State())
 
-  //var round = Round
-  //round.apply()
   final val POSX_RANGE = 0.2
   final val NOPOS_RANGE = 0.1
   var ListFX = getFXList()
 
-  private def checkActivePlayer(): Unit ={
+  private def checkActivePlayer(): Boolean ={
     if(moves == 0) {
-      changePlayer()
-    }
-  }
-  private def changePlayer(){
-    if(activePlayer == p1) {
-      activePlayer = p2
-      moves = NUMBER_OF_MOVES
+      StateContext.state.changePlayer()
+      true
     } else {
-      activePlayer = p1
-      moves = NUMBER_OF_MOVES
+      false
     }
   }
 

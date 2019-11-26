@@ -6,5 +6,7 @@ case class Player(id: Int, name: String,var pos: Position) {
       s
    }
    var tank = Tank(pos, 100, 10)
+
+
 }
 

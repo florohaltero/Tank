@@ -12,8 +12,8 @@ class TUI(controller: Controller) extends Observer{
       case "m0" => controller.setGame("Standard", 0, controller.game.name1, controller.game.name2)
       case "m1" => controller.setGame("Standard", 1, controller.game.name1, controller.game.name2)
       case "p" => controller.setGame("Standard", 1, "Player1","Player2")
-      case x => if (x == "l") controller.moveLeft() else println("Fehler Eingabe")
-      case x => if (x == "r") controller.moveRight() else println("Fehler Eingabe")
+      case "l" => controller.moveLeft()
+      case "r" => controller.moveRight()
     }
   }
 
