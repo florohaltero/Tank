@@ -10,6 +10,12 @@ class GameSpec extends WordSpec with Matchers{
     "have partyname" in {
       game_0.partyname should be("Standard")
     }
+    "have Map_x" in {
+      game_0.mapObject.endOfMap._1 should be(100)
+    }
+    "have Map_y" in {
+      game_0.mapObject.endOfMap._2 should be(20)
+    }
     "have map" in {
       game_0.map should be (0)
     }

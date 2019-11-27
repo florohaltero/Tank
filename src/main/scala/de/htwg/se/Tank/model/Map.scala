@@ -1,9 +1,8 @@
 package de.htwg.se.Tank.model
 
-
-
 import scala.collection.mutable.ListBuffer
 //import scala.math
+
 
 case class Map(beginOfMap : (Int,Int),
                endOfMap : (Int,Int),
@@ -205,4 +204,5 @@ case class Map(beginOfMap : (Int,Int),
    pos
  }
 }
+
 
