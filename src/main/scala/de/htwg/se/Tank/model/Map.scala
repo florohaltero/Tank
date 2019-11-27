@@ -58,11 +58,12 @@ case class Map(beginOfMap : (Int,Int),
     for(i <- endOfMap._2.until(beginOfMap._2).by(-1)){
       s += "||"
       for(j <- beginOfMap._1 to endOfMap._1){
+        if(shotList.contains(j,i)) {
+          s += "*"
+        }
         if(ListFX.contains((j,i))) {
           s += "+"
-        } else if(shotList.contains(j,i)) {
-          s += "*"
-        } else if( i == beginOfMap._2 + 1){
+        }  else if( i == beginOfMap._2 + 1){
           s += "="
         } else if(i == endOfMap._2){
           s += "="
@@ -92,6 +93,7 @@ case class Map(beginOfMap : (Int,Int),
   final val NUMBER_OF_MOVES : Int = 2
   var moves : Int = _
   var activePlayer : Player = _
+  //Player 1 fängt an
   StateContext.setState(StateContext.P1State())
   var shotList: List[((Int),(Int))] = List.empty
   final val POSX_RANGE = 0.2
@@ -140,8 +142,8 @@ case class Map(beginOfMap : (Int,Int),
   }
 
   def shoot(power :Int) : Unit = {
-    shotList = Calc.shootCalc(activePlayer.pos,activePlayer.tank.canonAngle,power,(beginOfMap._1,endOfMap._1))
-
+    //shotList = Calc.shootCalc(activePlayer.pos,activePlayer.tank.canonAngle,power,(beginOfMap._1,endOfMap._1))
+    println("Shoot")
   }
 
   def getFXList() : List[(Int,Int)] ={
