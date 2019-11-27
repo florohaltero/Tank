@@ -16,6 +16,18 @@ class Controller(var game: Game) extends Observable{
     game.mapObject.moveRight()
     notifyObservers
   }
+  def moveAngleUp() : Unit ={
+    game.mapObject.moveAngleUp()
+    notifyObservers
+  }
+  def moveAngleDown() : Unit ={
+    game.mapObject.moveAngleDown()
+    notifyObservers
+  }
+  def shoot() : Unit ={
+    game.mapObject.shoot(30)
+    notifyObservers
+  }
 
   def gametoString: String = game.toString
 }
