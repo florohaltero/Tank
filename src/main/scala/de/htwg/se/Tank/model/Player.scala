@@ -5,7 +5,7 @@ case class Player(id: Int, name: String,var pos: Position) {
       val s = "Player: " + name + "\n" + tank.toString
       s
    }
-   var tank = Tank(pos, 100, 90)
+   var tank = Tank(pos, 100, 30)
 
 
 }

@@ -25,7 +25,7 @@ class Controller(var game: Game) extends Observable{
     notifyObservers
   }
   def shoot() : Unit ={
-    game.mapObject.shoot(30)
+    game.mapObject.shoot(20)
     notifyObservers
   }
 
