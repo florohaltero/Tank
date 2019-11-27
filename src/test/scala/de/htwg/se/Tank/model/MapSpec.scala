@@ -48,7 +48,7 @@ class MapSpec extends WordSpec with Matchers {
       map.posInMap(Position(-1,0)) should be (false)
     }
     "have Number of moves" in {
-      map.moves should be (5)
+      map.moves should be (2)
     }
     }
   }
@@ -56,17 +56,23 @@ class MapSpec extends WordSpec with Matchers {
     val map = Map((0,0),(3,3), 0, "Flo", "Sascha")
     map.p1.pos = map.generatePos(1,1)
     "changed Player" in {
-      val changePlayer = PrivateMethod[String]('changePlayer)
-      map invokePrivate changePlayer()
+      map.activePlayer should be (map.p1)
+      map.StateContext.state.changePlayer()
       map.activePlayer should be (map.p2)
-      map invokePrivate changePlayer()
+    }
+    "check active Player" in {
+      map.moves = 0
+      map.StateContext.state.changePlayer()
       map.activePlayer should be (map.p1)
     }
-    "check active Player" in{
-      map.moves = 0
-      val checkActivePlayer = PrivateMethod[String]('checkActivePlayer)
-      map invokePrivate checkActivePlayer()
-      map.activePlayer should be (map.p2)
+    map.StateContext.P1State().setPlayer()
+    "set Player" in {
+      map.activePlayer should be (map.p1)
+      map.StateContext.state should be (map.StateContext.P1State())
+    }
+    map.StateContext.getState
+    "StateComtext state" in {
+      map.StateContext.state should be (map.StateContext.P1State())
     }
     map.setFX(1)
     "have f1" in {
@@ -74,7 +80,7 @@ class MapSpec extends WordSpec with Matchers {
     }
     "have moveLeft" in {
       map.moveLeft()
-      map.moves should be (4)
+      map.moves should be (1)
     }
     "have moveLeft in Map" in {
       map.moveLeft()
@@ -82,7 +88,7 @@ class MapSpec extends WordSpec with Matchers {
     }
     "have moveRight" in {
       map.moveRight()
-      map.moves should be (2)
+      map.moves should be (1)
     }
 
   }
