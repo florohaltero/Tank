@@ -11,10 +11,10 @@ class GameSpec extends WordSpec with Matchers{
       game_0.partyname should be("Standard")
     }
     "have Map_x" in {
-      game_0.mapObject.endOfMap._1 should be(100)
+      game_0.mapObject.endOfMap._1 should be(30)
     }
     "have Map_y" in {
-      game_0.mapObject.endOfMap._2 should be(20)
+      game_0.mapObject.endOfMap._2 should be(15)
     }
     "have map" in {
       game_0.map should be (0)
@@ -27,9 +27,6 @@ class GameSpec extends WordSpec with Matchers{
     }
     "have Player1 map" in {
       game_0.mapObject.p1.name should be ("Flo")
-    }
-    "have Player2" in {
-      game_0.mapObject.p2.name should be ("Sascha")
     }
   }}
 }
