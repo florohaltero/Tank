@@ -28,5 +28,8 @@ class GameSpec extends WordSpec with Matchers{
     "have Player1 map" in {
       game_0.mapObject.p1.name should be ("Flo")
     }
+    "have toString" in {
+      game_0.toString() should be (game_0.toString())
+    }
   }}
 }
