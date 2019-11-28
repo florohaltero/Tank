@@ -12,6 +12,11 @@ class MapSpec extends WordSpec with Matchers {
   var fx: Double => Double = (x:Double) => 5*x
   "A Map" when { "new" should {
       val map = Map((0,0),(x,y), 0, "Flo", "Sascha")
+      map.StateContext.P2State().setPlayer()
+      "set Player2" in {
+        map.activePlayer should be (map.p2)
+        map.StateContext.state should be (map.StateContext.P2State())
+      }
       "have beginOfMap x" in {
         map.beginOfMap._1 should be(0)
       }
