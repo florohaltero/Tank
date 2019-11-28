@@ -8,16 +8,20 @@ trait ItemTemplate {
 
 case class ItemHealth() extends ItemTemplate {
   override val name: String = "Health"
+
   override def item(): Unit = {
     println("Health")
   }
+
   override val value: Integer = 25
 }
 
 case class ItemMoreMoves() extends ItemTemplate {
   override val name: String = "More Moves"
+
   override def item(): Unit = {
-    println("More MOOOVES")
+    println("MORE MOOOOOOVES")
   }
+
   override val value: Integer = 2
 }
