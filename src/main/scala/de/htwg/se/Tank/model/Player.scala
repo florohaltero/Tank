@@ -1,5 +1,5 @@
 package de.htwg.se.Tank.model
-trait Player{
+trait Player {
    val id : Integer
    var tank : Tank
    val name : String
@@ -7,7 +7,7 @@ trait Player{
 
 }
 
-object PlayerFactory{
+object PlayerFactory {
    val PLAYER1 : Int = 1
    val PLAYER2 : Int = 2
    val LIFEPOINTS : Int = 100
