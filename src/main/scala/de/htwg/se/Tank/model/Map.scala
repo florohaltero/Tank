@@ -93,7 +93,7 @@ case class Map(beginOfMap : (Int,Int),
   //var p1 = Player.apply(1,name1,this.generatePos(1,0))
   var p1 = PlayerFactory.createPlayer1(name1,this.generatePos(1,0))
   //var p2 = Player.apply(2,name2, this.generatePos(2,0))
-  var p2 = PlayerFactory.createPlayer2(name1,this.generatePos(2,0))
+  var p2 = PlayerFactory.createPlayer2(name2,this.generatePos(2,0))
   final val NUMBER_OF_MOVES : Int = 2
   var moves : Int = _
   var activePlayer : Player = _
