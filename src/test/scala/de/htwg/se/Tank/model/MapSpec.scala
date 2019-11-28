@@ -105,6 +105,14 @@ class MapSpec extends WordSpec with Matchers {
     "have String" in {
       map.toString() should be(map.toString())
     }
+    map.moveAngleUp()
+    "Angled up" in {
+      map.activePlayer.tank.canonAngle should be (30)
+    }
+    map.moveAngleDown()
+    "Angled down" in {
+      map.activePlayer.tank.canonAngle should be (30)
+    }
   }
 
   }
