@@ -22,6 +22,5 @@ case class ItemMoreMoves() extends ItemTemplate {
   override def item(): Unit = {
     println("MORE MOOOOOOVES")
   }
-
   override val value: Integer = 2
 }
