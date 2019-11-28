@@ -31,6 +31,20 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.moveRight()
         observer.updated should be(true)
       }
+      controller.game.mapObject.moveAngleUp()
+      "have Angled Up" in {
+        controller.game.mapObject.activePlayer.tank.canonAngle should be (30)
+      }
+      "have Angled down" in {
+        controller.game.mapObject.activePlayer.tank.canonAngle should be (30)
+      }
+      controller.shoot()
+      "have shot " in {
+        controller.game.mapObject.shoot(20) should be (controller.game.mapObject.shoot(20))
+      }
+      "have toString" in {
+        controller.toString() should be (controller.toString())
+      }
     }
   }
 }
