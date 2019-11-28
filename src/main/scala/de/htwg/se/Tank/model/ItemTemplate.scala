@@ -3,25 +3,21 @@ package de.htwg.se.Tank.model
 trait ItemTemplate {
   val name :  String
   def item() : Unit
-  val value: String
+  val value: Integer
 }
 
 case class ItemHealth() extends ItemTemplate {
   override val name: String = "Health"
-
   override def item(): Unit = {
     println("Health")
   }
-
-  override val value: String = ""
+  override val value: Integer = 25
 }
 
-case class ItemMoreDmg() extends ItemTemplate {
-  override val name: String = "More Damage"
-
+case class ItemMoreMoves() extends ItemTemplate {
+  override val name: String = "More Moves"
   override def item(): Unit = {
-    println("Damage")
+    println("More MOOOVES")
   }
-
-  override val value: String = ""
+  override val value: Integer = 2
 }

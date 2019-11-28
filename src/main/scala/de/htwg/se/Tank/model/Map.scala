@@ -1,10 +1,5 @@
 package de.htwg.se.Tank.model
-
-
-
 import scala.collection.mutable.ListBuffer
-//import scala.math
-
 
 case class Map(beginOfMap : (Int,Int),
                endOfMap : (Int,Int),
@@ -90,9 +85,8 @@ case class Map(beginOfMap : (Int,Int),
 
   var fx: Double => Double = (x:Double) => 5 * math.sin(0.1 * x) + 10
   setFX(map)
-  //var p1 = Player.apply(1,name1,this.generatePos(1,0))
+
   var p1 = PlayerFactory.createPlayer1(name1,this.generatePos(1,0))
-  //var p2 = Player.apply(2,name2, this.generatePos(2,0))
   var p2 = PlayerFactory.createPlayer2(name2,this.generatePos(2,0))
   final val NUMBER_OF_MOVES : Int = 2
   var moves : Int = _
@@ -109,9 +103,7 @@ case class Map(beginOfMap : (Int,Int),
     if(moves == 0) {
       StateContext.state.changePlayer()
       true
-    } else {
-      false
-    }
+    } else {false}
   }
 
   def moveLeft() : Player ={
@@ -192,13 +184,12 @@ case class Map(beginOfMap : (Int,Int),
      } else{
        x = xPos
      }
-
      val y = fx(x)
      pos = Position(x,y)
    } else if(id == 2){
      val begin = (endOfMap._1 - NOPOS_RANGE * endOfMap._1).toInt
      val end = (begin - POSX_RANGE * endOfMap._1).toInt
-     if(xPos == 0){
+     if(xPos == 0) {
        x = (Math.random()*(begin-end) + end)
      } else{
        x = xPos
