@@ -8,7 +8,7 @@ import org.scalatest.junit.JUnitRunner
 class PlayerSpec extends WordSpec with Matchers {
   private val lp = 100
   "A Player" when { "new" should {
-    val player = Player(1,"Flo", Position(0,0))
+    val player = PlayerFactory.createPlayer1("Flo", Position(0,0))
     player.tank = Tank(player.pos, 100, 10)
     "have a id" in {
       player.id should be (1)

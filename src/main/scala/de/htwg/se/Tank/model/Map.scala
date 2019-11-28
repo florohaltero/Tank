@@ -1,5 +1,7 @@
 package de.htwg.se.Tank.model
 
+
+
 import scala.collection.mutable.ListBuffer
 //import scala.math
 
@@ -88,11 +90,14 @@ case class Map(beginOfMap : (Int,Int),
 
   var fx: Double => Double = (x:Double) => 5 * math.sin(0.1 * x) + 10
   setFX(map)
-  var p1 = Player(1,name1,this.generatePos(1,0))
-  var p2 = Player(2,name2, this.generatePos(2,0))
+  //var p1 = Player.apply(1,name1,this.generatePos(1,0))
+  var p1 = PlayerFactory.createPlayer1(name1,this.generatePos(1,0))
+  //var p2 = Player.apply(2,name2, this.generatePos(2,0))
+  var p2 = PlayerFactory.createPlayer2(name1,this.generatePos(2,0))
   final val NUMBER_OF_MOVES : Int = 2
   var moves : Int = _
   var activePlayer : Player = _
+
   //Player 1 fängt an
   StateContext.setState(StateContext.P1State())
   var shotList: List[((Int),(Int))] = List.empty
