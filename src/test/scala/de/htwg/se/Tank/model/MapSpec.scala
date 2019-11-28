@@ -96,7 +96,10 @@ class MapSpec extends WordSpec with Matchers {
     "have NOPOS_RANGE" in {
       map.NOPOS_RANGE should be (0.1)
     }
-
+    map.toString()
+    "have String" in {
+      map.toString() should be(map.toString())
+    }
   }
 
   }
