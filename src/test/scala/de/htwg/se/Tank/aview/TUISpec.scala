@@ -8,7 +8,7 @@ import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class TUISpec extends WordSpec with Matchers{
-  /*
+
   "A Tank Tui" should {
     val controller = new Controller(Game("Standard", 0, "Flo", "Sascha"))
     val tui = new TUI(controller)
@@ -20,7 +20,7 @@ class TUISpec extends WordSpec with Matchers{
     }
     "shoot on in input 'f'" in {
       tui.processInputLine("f")
-      controller.shoot() should be (Unit)
+      controller.shoot() should be (controller.shoot())
     }
     "move Tank right on input 'r'" in {
       tui.processInputLine("r")
@@ -29,7 +29,7 @@ class TUISpec extends WordSpec with Matchers{
     }
   }
 
-   */
+
 
 
 }

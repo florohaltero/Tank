@@ -17,6 +17,7 @@ class TUI(controller: Controller) extends Observer{
       case "w" => controller.moveAngleUp()
       case "s" => controller.moveAngleDown()
       case "f" => controller.shoot()
+      case x => if (x == "fjbsibr") println("macht nichts") else controller.moveLeft()
     }
   }
 
