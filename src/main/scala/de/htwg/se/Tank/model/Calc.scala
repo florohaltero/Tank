@@ -1,7 +1,6 @@
 package de.htwg.se.Tank.model
 import scala.collection.mutable.ListBuffer
 object Calc {
-
   final val G = 9.81
   def shootCalc(startPos: Position, angle: Int, power: Int, begin_end : (Int,Int)): List[(Double, Double)] = {
     // Berechnungen
@@ -11,7 +10,7 @@ object Calc {
     val sx = startPos.x
     var x = startPos.x
     var y : Double = 0
-    var listbuffer : ListBuffer[(Double,Double)] = ListBuffer.empty[(Double,Double)]
+    val listbuffer: ListBuffer[(Double, Double)] = ListBuffer.empty[(Double, Double)]
     var t : Double= 0
     while(y >= 0 && x < begin_end._2){
       //Berechnung von x,y Koordinate
