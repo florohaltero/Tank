@@ -31,8 +31,8 @@ class TUISpec extends WordSpec with Matchers{
       tui.processInputLine("d")
       player1.tank.canonAngle should be (player1.tank.canonAngle)
     }
-    "moce Tank Canon Angle on input 'a'" in {
-      tui.processInputLine("a")
+    "moce Tank Canon Angle on input 's'" in {
+      tui.processInputLine("s")
       player1.tank.canonAngle should be (player1.tank.canonAngle)
     }
   }
