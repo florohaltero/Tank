@@ -36,7 +36,7 @@ class PlayerSpec extends WordSpec with Matchers {
     "have player1" in {
       j.PLAYER1 should be (1)
       j.PLAYER2 should be (2)
-      j.LIFEPOINTS should be (100)
+      j.LP should be (100)
       j.DEFAULT_A should be (30)
     }
     "have player2" in {
