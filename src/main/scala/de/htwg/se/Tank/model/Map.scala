@@ -5,84 +5,6 @@ case class Map(beginOfMap : (Int,Int),
                endOfMap : (Int,Int),
                map: Int , name1 : String, name2 : String){
 
-  object StateContext{
-    var state : State = _
-    trait State {
-      def changePlayer(): State
-      def setPlayer(): State
-    }
-    case class P1State() extends State {
-      override def changePlayer(): State = {
-        activePlayer = p2
-        moves = NUMBER_OF_MOVES
-        state = P2State()
-        state
-      }
-
-      override def setPlayer(): State ={
-        activePlayer = p1
-        moves = NUMBER_OF_MOVES
-        state = P1State()
-        state
-      }
-    }
-    case class P2State() extends State {
-      override def changePlayer(): State = {
-        activePlayer = p1
-        moves = NUMBER_OF_MOVES
-        state = P1State()
-        state
-      }
-      override def setPlayer(): State ={
-        activePlayer = p2
-        moves = NUMBER_OF_MOVES
-        state = P2State()
-        state
-      }
-    }
-    def getState:State = {state}
-    def setState(s: State):Unit = {
-      state = s
-      state.setPlayer()
-    }
-  }
-
-  override def toString: String = {
-    //var s = "Start Map " + beginOfMap + " End Map: " + endOfMap + "\n" +"MapFunction: " + fx
-    var s = ""
-    s += p1.toString + "\n"
-    s += p2.toString + "\n"
-    for(i <- endOfMap._2.until(beginOfMap._2).by(-1)){
-      s += "||"
-      for(j <- beginOfMap._1 to endOfMap._1){
-        if(shotList.contains(j,i)) {
-          s += "*"
-        }
-        if(ListFX.contains((j,i))) {
-          s += "+"
-        }  else if( i == beginOfMap._2 + 1){
-          s += "="
-        } else if(i == endOfMap._2){
-          s += "="
-        }  else {
-          s+= " "
-        }
-        if(i == p1.pos.y.toInt && j == p1.pos.x.toInt) {
-          s += "T1"
-        }
-        if((i == p2.pos.y.toInt && j == p2.pos.x.toInt)){
-          s += "T2"
-        }
-        if(j == endOfMap._1){
-          s += "||"
-        }
-      }
-      s += "\n"
-    }
-    s+= "Aktiver Spieler: " + activePlayer.name + " restliche Anzahl Züge: " + moves
-    s
-  }
-
   var fx: Double => Double = (x:Double) => 5 * math.sin(0.1 * x) + 10
   setFX(map)
 
@@ -201,6 +123,84 @@ case class Map(beginOfMap : (Int,Int),
    }
    pos
  }
+
+  object StateContext{
+    var state : State = _
+    trait State {
+      def changePlayer(): State
+      def setPlayer(): State
+    }
+    case class P1State() extends State {
+      override def changePlayer(): State = {
+        activePlayer = p2
+        moves = NUMBER_OF_MOVES
+        state = P2State()
+        state
+      }
+
+      override def setPlayer(): State ={
+        activePlayer = p1
+        moves = NUMBER_OF_MOVES
+        state = P1State()
+        state
+      }
+    }
+    case class P2State() extends State {
+      override def changePlayer(): State = {
+        activePlayer = p1
+        moves = NUMBER_OF_MOVES
+        state = P1State()
+        state
+      }
+      override def setPlayer(): State ={
+        activePlayer = p2
+        moves = NUMBER_OF_MOVES
+        state = P2State()
+        state
+      }
+    }
+    def getState:State = {state}
+    def setState(s: State):Unit = {
+      state = s
+      state.setPlayer()
+    }
+  }
+
+  override def toString: String = {
+    //var s = "Start Map " + beginOfMap + " End Map: " + endOfMap + "\n" +"MapFunction: " + fx
+    var s = ""
+    s += p1.toString + "\n"
+    s += p2.toString + "\n"
+    for(i <- endOfMap._2.until(beginOfMap._2).by(-1)){
+      s += "||"
+      for(j <- beginOfMap._1 to endOfMap._1){
+        if(shotList.contains(j,i)) {
+          s += "*"
+        }
+        if(ListFX.contains((j,i))) {
+          s += "+"
+        }  else if( i == beginOfMap._2 + 1){
+          s += "="
+        } else if(i == endOfMap._2){
+          s += "="
+        }  else {
+          s+= " "
+        }
+        if(i == p1.pos.y.toInt && j == p1.pos.x.toInt) {
+          s += "T1"
+        }
+        if((i == p2.pos.y.toInt && j == p2.pos.x.toInt)){
+          s += "T2"
+        }
+        if(j == endOfMap._1){
+          s += "||"
+        }
+      }
+      s += "\n"
+    }
+    s+= "Aktiver Spieler: " + activePlayer.name + " restliche Anzahl Züge: " + moves
+    s
+  }
 }
 
 
