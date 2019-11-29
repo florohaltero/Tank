@@ -1,5 +1,7 @@
 package de.htwg.se.Tank.model
 
+import java.util
+
 case class Game(partyname :String, map: Int, name1: String,name2: String){
   override def toString: String = {
     var name = "\n" + "partyname: " + partyname + "\n"
@@ -8,5 +10,7 @@ case class Game(partyname :String, map: Int, name1: String,name2: String){
   }
   final val MAP_X = 30
   final val MAP_Y = 15
+  //var mapObject : AbstractMap = Map((0,0), (MAP_X,MAP_Y), map, name1, name2)
   var mapObject = Map((0,0), (MAP_X,MAP_Y), map, name1, name2)
+
 }
