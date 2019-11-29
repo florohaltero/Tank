@@ -27,6 +27,14 @@ class TUISpec extends WordSpec with Matchers{
       //controller.game.mapObject.activePlayer.pos.x should be (controller.game.mapObject.activePlayer.pos.x)
       player1.pos.x should be (player1.pos.x)
     }
+    "move Tank Canon Angle on input 'w'" in {
+      tui.processInputLine("d")
+      player1.tank.canonAngle should be (player1.tank.canonAngle)
+    }
+    "moce Tank Canon Angle on input 'a'" in {
+      tui.processInputLine("a")
+      player1.tank.canonAngle should be (player1.tank.canonAngle)
+    }
   }
 
 
