@@ -24,5 +24,16 @@ object Calc {
     }
     listbuffer.toList
   }
+
+//  def hit(game: Game): Tuple2[Boolean, Game] = {
+//    val hit = Calc.shootCalc(game.mapObject.p1.pos, game.mapObject.p1.tank.canonAngle, 50, game.mapObject.beginOfMap)
+//    var res: Tuple2[Boolean, Game] = (false, game)
+//    for (game.mapObject.getFXList() <- hit) {
+//      if (game.mapObject.getFXList() == hit) {
+//        res = (true, game)
+//      }
+//    }
+//    res
+//  }
 }
 
