@@ -3,7 +3,7 @@ import scala.collection.mutable.ListBuffer
 
 case class Map(beginOfMap : (Int,Int),
                endOfMap : (Int,Int),
-               map: Int , name1 : String, name2 : String){
+               map: Int , name1 : String, name2 : String) {
 
   var fx: Double => Double = (x:Double) => 5 * math.sin(0.1 * x) + 10
   setFX(map)
