@@ -27,4 +27,9 @@ class UndoManager {
       }
     }
   }
+
+  def deleteCommands : Unit ={
+    undoStack = Nil
+    redoStack = Nil
+  }
 }

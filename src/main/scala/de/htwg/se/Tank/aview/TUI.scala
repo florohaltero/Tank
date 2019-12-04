@@ -11,11 +11,11 @@ class TUI(controller: Controller) extends Observer{
     input match {
       case "m0" => controller.setGame("Standard", 0, controller.game.name1, controller.game.name2)
       case "m1" => controller.setGame("Standard", 1, controller.game.name1, controller.game.name2)
-      case "p" => controller.setGame("Standard", 1, "Player1","Player2")
       case "a" => controller.moveLeft()
       case "d" => controller.moveRight()
       case "w" => controller.moveAngleUp()
       case "s" => controller.moveAngleDown()
+      case "p" => controller.changePlayer()
       case "f" => controller.shoot()
       case "z" => controller.undo
       case "y" => controller.redo
