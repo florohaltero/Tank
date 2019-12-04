@@ -12,6 +12,12 @@ class Controller(var game: Game) extends Observable {
     game = Game(partyname, map , name1, name2)
     notifyObservers
   }
+
+  def changePlayer() : Unit = {
+    undoManager.doStep(new ChangePlayerCommand(this))
+    //undoManager.deleteCommands
+    notifyObservers
+  }
   def moveLeft() : Unit = {
     undoManager.doStep(new LeftCommand(this))
     notifyObservers

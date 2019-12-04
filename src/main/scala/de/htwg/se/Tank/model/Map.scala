@@ -28,25 +28,38 @@ case class Map(beginOfMap : (Int,Int),
     } else {false}
   }
 
-  def moveLeft() : Player ={
-    val tmp : Position = activePlayer.pos
-    activePlayer.pos = Position(activePlayer.pos.x-1,fx(activePlayer.pos.x-1))
-    if(!posInMap(activePlayer.pos)){
-      activePlayer.pos = tmp
+  def moveLeft(undo: Boolean) : Player ={
+    if(moves > 0 || undo) {
+      val tmp : Position = activePlayer.pos
+      activePlayer.pos = Position(activePlayer.pos.x-1,fx(activePlayer.pos.x-1))
+      if(!posInMap(activePlayer.pos)){
+        activePlayer.pos = tmp
+      }
+      if(undo){
+        moves += 1
+      } else {
+        moves -= 1
+      }
     }
-    moves -= 1
-    checkActivePlayer()
+    //checkActivePlayer()
     activePlayer
   }
 
-  def moveRight() : Player ={
-    val tmp : Position = activePlayer.pos
-    activePlayer.pos = Position(activePlayer.pos.x + 1,fx(activePlayer.pos.x + 1) )
-    if(!posInMap(activePlayer.pos)){
-      activePlayer.pos = tmp
+  def moveRight(undo: Boolean) : Player ={
+    if(moves > 0 || undo) {
+      val tmp : Position = activePlayer.pos
+      activePlayer.pos = Position(activePlayer.pos.x + 1,fx(activePlayer.pos.x + 1) )
+      if(!posInMap(activePlayer.pos)){
+        activePlayer.pos = tmp
+      }
+      if(undo){
+        moves += 1
+      } else {
+        moves -= 1
+      }
+
     }
-    moves -= 1
-    checkActivePlayer()
+    //checkActivePlayer()
     activePlayer
   }
 
