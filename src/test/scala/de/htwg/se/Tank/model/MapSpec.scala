@@ -93,7 +93,7 @@ class MapSpec extends WordSpec with Matchers {
     }
     "have moveRight" in {
       map.moveRight(false)
-      map.moves should be (1)
+      map.moves should be (0)
     }
     "have POSX_RANGE" in {
       map.POSX_RANGE should be (0.2)
