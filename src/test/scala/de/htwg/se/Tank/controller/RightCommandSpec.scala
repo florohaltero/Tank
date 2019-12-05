@@ -9,7 +9,7 @@ class RightCommandSpec extends WordSpec with Matchers {
   "A Command right" when { "new" should {
     val game = Game("Standard", 0, "Flo", "Sasch")
     val controller = new Controller(game)
-    val rightCommand = new LeftCommand(controller)
+    val rightCommand = new RightCommand(controller)
     rightCommand.doStep
     "do Step" in {
       controller.game.mapObject.p1.pos.x should be (controller.game.mapObject.p1.pos.x)
