@@ -33,7 +33,7 @@ case class ItemHealth() extends ItemTemplate {
   }
   override val value: Integer = 25
   override def msgItem(): String = {
-    "Healt Item"
+    "Health Item"
   }
 }
 
