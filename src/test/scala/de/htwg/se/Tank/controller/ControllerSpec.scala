@@ -2,7 +2,7 @@ package de.htwg.se.Tank.controller
 
 import de.htwg.se.Tank.controller.Controller
 import de.htwg.se.Tank.model.Game
-import de.htwg.se.Tank.util.Observer
+import de.htwg.se.Tank.util.{Observer, UndoManager}
 import org.scalatest.{Matchers, WordSpec}
 
 class ControllerSpec extends WordSpec with Matchers {
@@ -10,6 +10,9 @@ class ControllerSpec extends WordSpec with Matchers {
     "observed by an Observer" should {
       val game = Game("Standard", 0, "Flo", "Sasch")
       val controller = new Controller(game)
+      val undoManager = new UndoManager
+      val leftCommand = new LeftCommand(controller)
+      val rightCommand = new RightCommand(controller)
       val observer = new Observer {
         var updated: Boolean = false
         def isUpdated: Boolean = updated
@@ -22,21 +25,23 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.game.mapObject.p1.name should be ("Flo")
         controller.game.mapObject.p2.name should be ("Sasch")
       }
+      controller.moveLeft()
       "notify its Observer after move left" in {
-        controller.moveLeft()
+        undoManager.doStep(leftCommand) should be (undoManager.doStep(leftCommand))
         observer.updated should be(true)
 
       }
+      controller.moveRight()
       "notify its Observer after move right" in {
-        controller.moveRight()
+        undoManager.doStep(rightCommand) should be (undoManager.doStep(rightCommand))
         observer.updated should be(true)
       }
       controller.game.mapObject.moveAngleUp()
       "have Angled Up" in {
-        controller.game.mapObject.activePlayer.tank.canonAngle should be (30)
+        controller.moveAngleUp() should be (controller.moveAngleUp())
       }
       "have Angled down" in {
-        controller.game.mapObject.activePlayer.tank.canonAngle should be (30)
+        controller.moveAngleDown() should be (controller.moveAngleDown())
       }
       controller.shoot()
       "have shot " in {
@@ -44,6 +49,18 @@ class ControllerSpec extends WordSpec with Matchers {
       }
       "have toString" in {
         controller.toString() should be (controller.toString())
+      }
+      controller.undo
+      "have undo" in {
+        controller.undo should be (controller.redo)
+      }
+      controller.changePlayer()
+      "change Player" in {
+        controller.changePlayer() should be (controller.changePlayer())
+      }
+      controller.gametoString
+      "to String" in {
+        controller.gametoString should be (controller.gametoString)
       }
     }
   }

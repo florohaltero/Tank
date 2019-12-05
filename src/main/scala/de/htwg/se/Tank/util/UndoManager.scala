@@ -3,6 +3,7 @@ package de.htwg.se.Tank.util
 class UndoManager {
   private var undoStack: List[Command]= Nil
   private var redoStack: List[Command]= Nil
+
   def doStep(command: Command): Unit = {
     undoStack = command::undoStack
     command.doStep
@@ -28,8 +29,8 @@ class UndoManager {
     }
   }
 
-  def deleteCommands : Unit ={
-    undoStack = Nil
-    redoStack = Nil
-  }
+//  def deleteCommands : Unit ={
+//    undoStack = Nil
+//    redoStack = Nil
+//  }
 }
