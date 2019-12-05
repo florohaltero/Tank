@@ -35,7 +35,7 @@ case class Map(beginOfMap : (Int,Int),
       if(!posInMap(activePlayer.pos)){
         activePlayer.pos = tmp
       }
-      if(undo){
+      if(undo) {
         moves += 1
       } else {
         moves -= 1
@@ -52,7 +52,7 @@ case class Map(beginOfMap : (Int,Int),
       if(!posInMap(activePlayer.pos)){
         activePlayer.pos = tmp
       }
-      if(undo){
+      if(undo) {
         moves += 1
       } else {
         moves -= 1
@@ -137,7 +137,7 @@ case class Map(beginOfMap : (Int,Int),
    pos
  }
 
-  object StateContext{
+  object StateContext {
     var state : State = _
     trait State {
       def changePlayer(): State
