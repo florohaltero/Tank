@@ -109,14 +109,14 @@ case class Map(beginOfMap : (Int,Int),
   }
 
   def generatePos(id : Int, xPos: Int):Position={
-   var pos:Position = null
+   var pos: Position = Position(0,0)
    var x : Double = 0;
    if(id == 1) {
      val begin = (beginOfMap._1 + NOPOS_RANGE * endOfMap._1).toInt
      val end = (begin + POSX_RANGE * endOfMap._1).toInt
      if(xPos == 0){
        x = (Math.random()*end + begin)
-     } else{
+     } else {
        x = xPos
      }
      val y = fx(x)
@@ -131,8 +131,6 @@ case class Map(beginOfMap : (Int,Int),
      }
      val y = fx(x)
      pos = Position(x,y)
-   } else {
-      throw new IllegalArgumentException
    }
    pos
  }
