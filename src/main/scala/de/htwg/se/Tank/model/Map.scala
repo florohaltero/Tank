@@ -7,19 +7,17 @@ case class Map(beginOfMap : (Int,Int),
 
   var fx: Double => Double = (x:Double) => 5 * math.sin(0.1 * x) + 10
   setFX(map)
-
   var p1 = PlayerFactory.createPlayer1(name1,this.generatePos(1,0))
   var p2 = PlayerFactory.createPlayer2(name2,this.generatePos(2,0))
   final val NUMBER_OF_MOVES : Int = 2
   var moves : Int = _
   var activePlayer : Player = _
-
   //Player 1 fängt an
   StateContext.setState(StateContext.P1State())
   var shotList: List[((Int),(Int))] = List.empty
   final val POSX_RANGE = 0.2
   final val NOPOS_RANGE = 0.1
-  var ListFX = getFXList()
+  final val ListFX = getFXList()
 
   private def checkActivePlayer(): Boolean ={
     if(moves == 0) {
@@ -28,36 +26,53 @@ case class Map(beginOfMap : (Int,Int),
     } else {false}
   }
 
-  def moveLeft(undo: Boolean) : Player ={
-    if(moves > 0 || undo) {
+  def moveLeft() : Player ={
+    if(moves > 0) {
       val tmp : Position = activePlayer.pos
       activePlayer.pos = Position(activePlayer.pos.x-1,fx(activePlayer.pos.x-1))
       if(!posInMap(activePlayer.pos)){
         activePlayer.pos = tmp
       }
-      if(undo) {
-        moves += 1
-      } else {
-        moves -= 1
-      }
+      moves -= 1
     }
     //checkActivePlayer()
     activePlayer
   }
 
-  def moveRight(undo: Boolean) : Player ={
-    if(moves > 0 || undo) {
+  def undoMoveLeft() : Player ={
+    if(moves < NUMBER_OF_MOVES) {
+      val tmp : Position = activePlayer.pos
+      activePlayer.pos = Position(activePlayer.pos.x+1,fx(activePlayer.pos.x+1))
+      if(!posInMap(activePlayer.pos)){
+        activePlayer.pos = tmp
+      }
+      moves += 1
+    }
+    //checkActivePlayer()
+    activePlayer
+  }
+
+  def moveRight() : Player ={
+    if(moves > 0) {
       val tmp : Position = activePlayer.pos
       activePlayer.pos = Position(activePlayer.pos.x + 1,fx(activePlayer.pos.x + 1) )
       if(!posInMap(activePlayer.pos)){
         activePlayer.pos = tmp
       }
-      if(undo) {
-        moves += 1
-      } else {
         moves -= 1
-      }
+    }
+    //checkActivePlayer()
+    activePlayer
+  }
 
+  def undoMoveRight() : Player ={
+    if(moves < NUMBER_OF_MOVES) {
+      val tmp : Position = activePlayer.pos
+      activePlayer.pos = Position(activePlayer.pos.x - 1,fx(activePlayer.pos.x - 1) )
+      if(!posInMap(activePlayer.pos)){
+        activePlayer.pos = tmp
+      }
+      moves += 1
     }
     //checkActivePlayer()
     activePlayer
@@ -126,7 +141,7 @@ case class Map(beginOfMap : (Int,Int),
      val end = (begin - POSX_RANGE * endOfMap._1).toInt
      if(xPos == 0) {
        x = (Math.random()*(begin-end) + end)
-     } else{
+     } else {
        x = xPos
      }
      val y = fx(x)
@@ -137,10 +152,13 @@ case class Map(beginOfMap : (Int,Int),
 
   object StateContext {
     var state : State = _
+    var last_moves : Int = _
+
     trait State {
       def changePlayer(): State
       def setPlayer(): State
     }
+
     case class P1State() extends State {
       override def changePlayer(): State = {
         activePlayer = p2
