@@ -1,14 +1,11 @@
 package de.htwg.se.Tank.model
 import scala.collection.mutable.ListBuffer
 
-case class Map(beginOfMap : (Int,Int),
-               endOfMap : (Int,Int),
-               map: Int , name1 : String, name2 : String) {
+object Map{
 
   var fx: Double => Double = (x:Double) => 5 * math.sin(0.1 * x) + 10
-  setFX(map)
-  var p1 = PlayerFactory.createPlayer1(name1,this.generatePos(1,0))
-  var p2 = PlayerFactory.createPlayer2(name2,this.generatePos(2,0))
+  var p1 : Player = null
+  var p2 : Player = null
   final val NUMBER_OF_MOVES : Int = 2
   var moves : Int = _
   var activePlayer : Player = _
@@ -18,6 +15,8 @@ case class Map(beginOfMap : (Int,Int),
   final val POSX_RANGE = 0.2
   final val NOPOS_RANGE = 0.1
   final val ListFX = getFXList()
+  var beginOfMap : (Int,Int) = (0,0)
+  var endOfMap : (Int,Int) = (0,0)
 
   private def checkActivePlayer(): Boolean ={
     if(moves == 0) {
@@ -154,7 +153,6 @@ case class Map(beginOfMap : (Int,Int),
 
   object StateContext {
     var state : State = _
-    var last_moves : Int = _
 
     trait State {
       def changePlayer(): State
