@@ -1,6 +1,7 @@
 package de.htwg.se.Tank.controller
 
 import de.htwg.se.Tank.controller.Controller
+import de.htwg.se.Tank.model.Map
 import de.htwg.se.Tank.model.Game
 import de.htwg.se.Tank.util.{Observer, UndoManager}
 import org.scalatest.{Matchers, WordSpec}
@@ -22,8 +23,8 @@ class ControllerSpec extends WordSpec with Matchers {
       "notify its Observer after creation" in {
         controller.setGame("Standard", 0, "Flo", "Sasch")
         observer.updated should be(true)
-        controller.game.mapObject.p1.name should be ("Flo")
-        controller.game.mapObject.p2.name should be ("Sasch")
+        Map.p1.name should be ("Flo")
+        Map.p2.name should be ("Sasch")
       }
       controller.moveLeft()
       "notify its Observer after move left" in {
@@ -36,7 +37,7 @@ class ControllerSpec extends WordSpec with Matchers {
         undoManager.doStep(rightCommand) should be (undoManager.doStep(rightCommand))
         observer.updated should be(true)
       }
-      controller.game.mapObject.moveAngleUp()
+      controller.game.moveAngleUp()
       "have Angled Up" in {
         controller.moveAngleUp() should be (controller.moveAngleUp())
       }
@@ -45,7 +46,7 @@ class ControllerSpec extends WordSpec with Matchers {
       }
       controller.shoot()
       "have shot " in {
-        controller.game.mapObject.shoot(20) should be (controller.game.mapObject.shoot(20))
+        controller.game.shoot(20) should be (controller.game.shoot(20))
       }
       "have toString" in {
         controller.toString() should be (controller.toString())

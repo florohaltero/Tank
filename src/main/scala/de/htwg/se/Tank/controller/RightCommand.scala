@@ -4,14 +4,14 @@ import de.htwg.se.Tank.util.Command
 
 class RightCommand(controller: Controller) extends Command {
   override def doStep: Unit = {
-    controller.game.mapObject.activePlayer = controller.game.mapObject.moveRight()
+    controller.game.moveRight()
   }
 
   override def undoStep: Unit = {
-    controller.game.mapObject.activePlayer = controller.game.mapObject.undoMoveRight()
+    controller.game.undoMoveRight()
   }
 
   override def redoStep: Unit = {
-    controller.game.mapObject.activePlayer = controller.game.mapObject.moveRight()
+    controller.game.moveRight()
   }
 }

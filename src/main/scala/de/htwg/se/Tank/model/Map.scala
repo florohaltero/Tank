@@ -1,98 +1,26 @@
 package de.htwg.se.Tank.model
 import scala.collection.mutable.ListBuffer
 
-case class Map(beginOfMap : (Int,Int),
-               endOfMap : (Int,Int),
-               map: Int , name1 : String, name2 : String) {
-
+object Map {
   var fx: Double => Double = (x:Double) => 5 * math.sin(0.1 * x) + 10
-  var p1 : Player = null
-  var p2 : Player = null
-  setFX(Option(map))
   final val NUMBER_OF_MOVES : Int = 2
   var moves : Int = _
   var activePlayer : Player = _
+  var beginOfMap : (Int,Int) = (1,1)
+  var endOfMap : (Int,Int) = (1,1)
   //Player 1 fängt an
-  StateContext.setState(StateContext.P1State())
+  var p1 : Player = PlayerFactory.createPlayer1("")
+  var p2 : Player = PlayerFactory.createPlayer2("")
   var shotList: List[((Int),(Int))] = List.empty
   final val POSX_RANGE = 0.2
   final val NOPOS_RANGE = 0.1
-  final val ListFX = getFXList()
-  var beginOfMap : (Int,Int) = (0,0)
-  var endOfMap : (Int,Int) = (0,0)
+  var ListFX : List[(Int,Int)] = Nil
 
   private def checkActivePlayer(): Boolean = {
     if(moves == 0) {
       StateContext.state.changePlayer()
       true
     } else {false}
-  }
-
-  def moveLeft() : Player ={
-    if(moves > 0) {
-      val tmp : Position = activePlayer.pos
-      activePlayer.pos = Position(activePlayer.pos.x-1,fx(activePlayer.pos.x-1))
-      if(!posInMap(activePlayer.pos)){
-        activePlayer.pos = tmp
-      }
-      moves -= 1
-    }
-    //checkActivePlayer()
-    activePlayer
-  }
-
-  def undoMoveLeft() : Player ={
-    if(moves < NUMBER_OF_MOVES) {
-      val tmp : Position = activePlayer.pos
-      activePlayer.pos = Position(activePlayer.pos.x+1,fx(activePlayer.pos.x+1))
-      if(!posInMap(activePlayer.pos)){
-        activePlayer.pos = tmp
-      }
-      moves += 1
-    }
-    //checkActivePlayer()
-    activePlayer
-  }
-
-  def moveRight() : Player ={
-    if(moves > 0) {
-      val tmp : Position = activePlayer.pos
-      activePlayer.pos = Position(activePlayer.pos.x + 1,fx(activePlayer.pos.x + 1) )
-      if(!posInMap(activePlayer.pos)){
-        activePlayer.pos = tmp
-      }
-        moves -= 1
-    }
-    //checkActivePlayer()
-    activePlayer
-  }
-
-  def undoMoveRight() : Player ={
-    if(moves < NUMBER_OF_MOVES) {
-      val tmp : Position = activePlayer.pos
-      activePlayer.pos = Position(activePlayer.pos.x - 1,fx(activePlayer.pos.x - 1) )
-      if(!posInMap(activePlayer.pos)){
-        activePlayer.pos = tmp
-      }
-      moves += 1
-    }
-    //checkActivePlayer()
-    activePlayer
-  }
-
-  def moveAngleUp() : Player = {
-    activePlayer.tank = activePlayer.tank.canonUp()
-    activePlayer
-  }
-
-  def moveAngleDown() : Player = {
-    activePlayer.tank = activePlayer.tank.canonDown()
-    activePlayer
-  }
-
-  def shoot(power :Int) : Unit = {
-    //shotList = Calc.shootCalc(activePlayer.pos,activePlayer.tank.canonAngle,power,(beginOfMap._1,endOfMap._1))
-    println("Shoot")
   }
 
   def getFXList() : List[(Int,Int)] ={
@@ -127,7 +55,7 @@ case class Map(beginOfMap : (Int,Int),
       false
   }
 
-  def generatePos(id : Int, xPos: Int): Position = {
+  def generatePos(id : Int): Position = {
    var pos: Position = null
    var x : Double = 0;
    if(id == 1) {

@@ -19,7 +19,7 @@ object Tank {
     var input : String = ""
     val controller = new Controller(Game("Standard", 0, "Flo", "Sasch"))
     val tui = new TUI(controller)
-    controller.notifyObservers
+    //controller.notifyObservers
     do {
       input = scala.io.StdIn.readLine()
       tui.processInputLine(input)

@@ -17,12 +17,12 @@ object PlayerFactory {
    val LP: Int = 100
    val DEFAULT_A: Int = 30
 
-   def createPlayer1(name: String, pos: Position): Player = {
-      Player1(name, pos)
+   def createPlayer1(name: String): Player = {
+      Player1(name, Map.generatePos(1))
    }
 
-   def createPlayer2(name: String, pos: Position): Player = {
-      Player2(name, pos)
+   def createPlayer2(name: String): Player = {
+      Player2(name, Map.generatePos(2))
    }
 
 

@@ -12,7 +12,7 @@ class TUISpec extends WordSpec with Matchers{
   "A Tank Tui" should {
     val controller = new Controller(Game("Standard", 0, "Flo", "Sascha"))
     val tui = new TUI(controller)
-    val player1 = PlayerFactory.createPlayer1("FLo", Position(0,0))
+    val player1 = PlayerFactory.createPlayer1("FLo")
     "move Tank left on input 'a'" in {
       tui.processInputLine("a")
       //controller.game.mapObject.activePlayer.pos.x should be (controller.game.mapObject.activePlayer.pos.x)

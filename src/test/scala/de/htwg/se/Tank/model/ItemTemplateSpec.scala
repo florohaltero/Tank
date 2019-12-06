@@ -6,7 +6,7 @@ import org.scalatest.junit.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class ItemTemplateSpec extends WordSpec with Matchers {
   "An Item" when { "new" should {
-    val player = PlayerFactory.createPlayer1("Sasch", Position(1, 1))
+    val player = PlayerFactory.createPlayer1("Sasch")
     val health = ItemHealth()
     val moves = ItemMoreMoves()
     "have name health" in {
