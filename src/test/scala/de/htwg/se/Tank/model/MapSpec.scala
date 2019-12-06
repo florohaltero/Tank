@@ -42,7 +42,7 @@ class MapSpec extends WordSpec with Matchers {
         fx(2) should be (10)
       }
 
-    map.setFX(0)
+    map.setFX(Option(0))
     "have fx" in {
       map.map should be (0)
     }
@@ -79,7 +79,7 @@ class MapSpec extends WordSpec with Matchers {
     "StateComtext state" in {
       map.StateContext.state should be (map.StateContext.P1State())
     }
-    map.setFX(1)
+    map.setFX(Option(1))
     "have f1" in {
       map.map should be (0)
     }

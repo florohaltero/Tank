@@ -6,7 +6,7 @@ case class Map(beginOfMap : (Int,Int),
                map: Int , name1 : String, name2 : String) {
 
   var fx: Double => Double = (x:Double) => 5 * math.sin(0.1 * x) + 10
-  setFX(map)
+  setFX(Option(map))
   var p1 = PlayerFactory.createPlayer1(name1,this.generatePos(1,0))
   var p2 = PlayerFactory.createPlayer2(name2,this.generatePos(2,0))
   final val NUMBER_OF_MOVES : Int = 2
@@ -19,7 +19,7 @@ case class Map(beginOfMap : (Int,Int),
   final val NOPOS_RANGE = 0.1
   final val ListFX = getFXList()
 
-  private def checkActivePlayer(): Boolean ={
+  private def checkActivePlayer(): Boolean = {
     if(moves == 0) {
       StateContext.state.changePlayer()
       true
@@ -116,34 +116,36 @@ case class Map(beginOfMap : (Int,Int),
     0.0
   }
 */
-  def setFX(i: Int): Boolean = i match {
-    case 0 => fx = (x: Double) => 5*math.sin(0.1 * x) + 7
+  def setFX(i: Option[Int]): Boolean = i match {
+    case Some(0) => fx = (x: Double) => 5*math.sin(0.1 * x) + 7
       true
-    case 1 => fx = (x: Double) => 10
+    case Some(1) => fx = (x: Double) => 10
       true
+    case None =>
+      false
   }
 
-  def generatePos(id : Int, xPos: Int):Position={
-   var pos: Position = Position(0,0)
+  def generatePos(id : Int, xPos: Int): Position = {
+   var pos: Position = null
    var x : Double = 0;
    if(id == 1) {
      val begin = (beginOfMap._1 + NOPOS_RANGE * endOfMap._1).toInt
      val end = (begin + POSX_RANGE * endOfMap._1).toInt
-     if(xPos == 0){
+     //if(xPos == 0){
        x = (Math.random()*end + begin)
-     } else {
-       x = xPos
-     }
+     //} else {
+     //  x = xPos
+     //}
      val y = fx(x)
      pos = Position(x,y)
    } else if(id == 2){
      val begin = (endOfMap._1 - NOPOS_RANGE * endOfMap._1).toInt
      val end = (begin - POSX_RANGE * endOfMap._1).toInt
-     if(xPos == 0) {
+     //if(xPos == 0) {
        x = (Math.random()*(begin-end) + end)
-     } else {
-       x = xPos
-     }
+     //} else {
+     //  x = xPos
+     //}
      val y = fx(x)
      pos = Position(x,y)
    }
