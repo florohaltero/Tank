@@ -4,7 +4,7 @@ import de.htwg.se.Tank.controller.GameStatus._
 import de.htwg.se.Tank.model.{Game, Player}
 import de.htwg.se.Tank.util.{Observable, UndoManager}
 
-class Controller(var game: Game) extends Observable {
+class Controller(var game: GameInit) extends Observable {
   var gameStatus: GameStatus = IDLE
   private val undoManager = new UndoManager
 
