@@ -31,8 +31,8 @@ class PlayerSpec extends WordSpec with Matchers {
 
   "A Player" when { "new" should {
     val j = PlayerFactory
-    val player1 = j.createPlayer1("Flo", Position(0,0))
-    val player2 = j.createPlayer2("Sascha", Position(0,0))
+    val player1 = j.createPlayer1("Flo")
+    val player2 = j.createPlayer2("Sascha")
     "have player1" in {
       j.PLAYER1 should be (1)
       j.PLAYER2 should be (2)

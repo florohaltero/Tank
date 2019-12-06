@@ -11,7 +11,7 @@ class MapSpec extends WordSpec with Matchers {
   private val y1 = 10
   var fx: Double => Double = (x:Double) => 5*x
   "A Map" when { "new" should {
-      val map = Map((0,0),(x,y), 0, "Flo", "Sascha")
+      val map = Map
       map.StateContext.P2State().setPlayer()
       "set Player2" in {
         map.activePlayer should be (map.p2)
@@ -29,23 +29,11 @@ class MapSpec extends WordSpec with Matchers {
       "have endOfMap y" in {
         map.endOfMap._2 should be(100)
       }
-      "have map" in {
-        map.map should be (0)
-      }
-      "have Player1" in {
-        map.name1 should be ("Flo")
-      }
-      "have Player2" in {
-        map.name2 should be("Sascha")
-      }
       "have f(x)" in {
         fx(2) should be (10)
       }
 
     map.setFX(Option(0))
-    "have fx" in {
-      map.map should be (0)
-    }
     "have Pos in Map" in {
       map.posInMap(Position(50,50)) should be (true)
     }
@@ -58,8 +46,8 @@ class MapSpec extends WordSpec with Matchers {
     }
   }
   "A map2" when {"generated Position Player1" should {
-    val map = Map((0,0),(3,3), 0, "Flo", "Sascha")
-    map.p1.pos = map.generatePos(1,1)
+    val map = Map
+    map.p1.pos = map.generatePos(1)
     "changed Player" in {
       map.activePlayer should be (map.p1)
       map.StateContext.state.changePlayer()
@@ -80,21 +68,7 @@ class MapSpec extends WordSpec with Matchers {
       map.StateContext.state should be (map.StateContext.P1State())
     }
     map.setFX(Option(1))
-    "have f1" in {
-      map.map should be (0)
-    }
-    "have moveLeft" in {
-      map.moveLeft()
-      map.moves should be (1)
-    }
-    "have moveLeft in Map" in {
-      map.moveLeft()
-      map.p1.pos.x should be (1)
-    }
-    "have moveRight" in {
-      map.moveRight()
-      map.moves should be (0)
-    }
+
     "have POSX_RANGE" in {
       map.POSX_RANGE should be (0.2)
     }
@@ -105,14 +79,7 @@ class MapSpec extends WordSpec with Matchers {
     "have String" in {
       map.toString() should be(map.toString())
     }
-    map.moveAngleUp()
-    "Angled up" in {
-      map.activePlayer.tank.canonAngle should be (30)
-    }
-    map.moveAngleDown()
-    "Angled down" in {
-      map.activePlayer.tank.canonAngle should be (30)
-    }
+
   }
 
   }

@@ -1,6 +1,6 @@
 package de.htwg.se.Tank.aview
 
-import de.htwg.se.Tank.controller.{Controller, GameStatus}
+import de.htwg.se.Tank.controller.{Controller}
 import de.htwg.se.Tank.model.Game
 import de.htwg.se.Tank.util.Observer
 
@@ -13,6 +13,7 @@ class TUI(controller: Controller) extends Observer{
     Try(input match {
       case "m0" => controller.setGame("Standard", 0, controller.game.name1, controller.game.name2)
       case "m1" => controller.setGame("Standard", 1, controller.game.name1, controller.game.name2)
+      case "n" => controller.setGame("Standard", 0, "Flo", "Sasch")
       case "a" => controller.moveLeft()
       case "d" => controller.moveRight()
       case "w" => controller.moveAngleUp()
@@ -31,8 +32,6 @@ class TUI(controller: Controller) extends Observer{
 
   override def update: Boolean = {
     println(controller.gametoString);
-    println(GameStatus.message(controller.gameStatus))
-    controller.gameStatus = GameStatus.IDLE
     true
   }
 }

@@ -6,21 +6,21 @@ import de.htwg.se.Tank.util.Command
 class ChangePlayerCommand(controller: Controller) extends Command{
   var memento: (Integer) = _
   override def doStep: Unit = {
-    memento = controller.game.mapObject.moves
-    controller.game.mapObject.StateContext.state.changePlayer()
+    memento = Map.moves
+    controller.game.changePlayer()
   }
 
   override def undoStep: Unit = {
-    val new_memento = controller.game.mapObject.moves
-    controller.game.mapObject.StateContext.state.changePlayer()
-    controller.game.mapObject.moves = memento
+    val new_memento = Map.moves
+    controller.game.changePlayer()
+    Map.moves = memento
     memento = new_memento
   }
 
   override def redoStep: Unit = {
-    val new_memento = controller.game.mapObject.moves
-    controller.game.mapObject.StateContext.state.changePlayer()
-    controller.game.mapObject.moves = memento
+    val new_memento = Map.moves
+    controller.game.changePlayer()
+    Map.moves = memento
     memento = new_memento
   }
 }

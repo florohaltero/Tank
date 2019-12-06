@@ -4,15 +4,15 @@ import de.htwg.se.Tank.util.Command
 
 class LeftCommand(controller: Controller) extends Command {
   override def doStep: Unit = {
-    controller.game.mapObject.activePlayer = controller.game.mapObject.moveLeft()
+    controller.game.moveLeft()
   }
 
   override def undoStep: Unit = {
-    controller.game.mapObject.activePlayer = controller.game.mapObject.undoMoveLeft()
+    controller.game.undoMoveLeft()
   }
 
   override def redoStep: Unit = {
-    controller.game.mapObject.activePlayer = controller.game.mapObject.moveLeft()
+    controller.game.moveLeft()
   }
 
 }

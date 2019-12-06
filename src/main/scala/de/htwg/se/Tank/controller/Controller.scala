@@ -1,13 +1,10 @@
 package de.htwg.se.Tank.controller
 
-import de.htwg.se.Tank.controller.GameStatus._
 import de.htwg.se.Tank.model.{Game, Player}
 import de.htwg.se.Tank.util.{Observable, UndoManager}
 
-class Controller(var game: GameInit) extends Observable {
-  var gameStatus: GameStatus = IDLE
+class Controller(var game: Game) extends Observable {
   private val undoManager = new UndoManager
-
   def setGame(partyname: String, map: Int, name1: String, name2: String): Unit = {
     game = Game(partyname, map , name1, name2)
     notifyObservers
@@ -27,15 +24,15 @@ class Controller(var game: GameInit) extends Observable {
     notifyObservers
   }
   def moveAngleUp() : Unit ={
-    game.mapObject.moveAngleUp()
+    game.moveAngleUp()
     notifyObservers
   }
   def moveAngleDown() : Unit ={
-    game.mapObject.moveAngleDown()
+    game.moveAngleDown()
     notifyObservers
   }
   def shoot() : Unit ={
-    game.mapObject.shoot(20)
+    game.shoot(20)
     notifyObservers
   }
 
