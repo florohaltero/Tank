@@ -23,7 +23,7 @@ class TUI(controller: Controller) extends Observer{
       case "z" => controller.undo
       case "y" => controller.redo
       }
-    )  match {
+    ) match {
       case Success(e) =>
       case Failure(e) => println("falsche Eingabe")
     }
