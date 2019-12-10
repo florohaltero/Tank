@@ -11,7 +11,7 @@ class TankSpec extends WordSpec with Matchers {
   "A Tank" when { "new" should {
     var tank = Tank(pos, 100, angle)
     "have vars" in {
-      tank.step should be (step)
+      tank.STEP should be (step)
       tank.pos should be (pos)
     }
     "have Position X" in {
@@ -28,11 +28,11 @@ class TankSpec extends WordSpec with Matchers {
     }
     tank = tank.canonUp()
     "have canon moved up" in {
-      tank.canonAngle == (angle + tank.step)
+      tank.canonAngle == (angle + tank.STEP)
     }
     tank = tank.canonDown()
       "have canon moved down" in {
-        tank.canonAngle == (angle - tank.step)
+        tank.canonAngle == (angle - tank.STEP)
     }
     }}
 }
