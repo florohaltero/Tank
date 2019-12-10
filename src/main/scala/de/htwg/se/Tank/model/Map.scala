@@ -14,7 +14,9 @@ object Map {
   var shotList: List[((Int),(Int))] = List.empty
   final val POSX_RANGE = 0.2
   final val NOPOS_RANGE = 0.1
-  var ListFX : List[(Int,Int)] = Nil
+  var GUImode : Boolean = false
+  var ListFX : List[(Double,Double)] = Nil
+  val MAP_UNIT = 0.02
 
   private def checkActivePlayer(): Boolean = {
     if(moves == 0) {
@@ -23,11 +25,20 @@ object Map {
     } else {false}
   }
 
-  def getFXList() : List[(Int,Int)] ={
-    var listbuffer : ListBuffer[(Int,Int)] = ListBuffer.empty[(Int,Int)]
-    for(i <- beginOfMap._1 to endOfMap._1) {
-      listbuffer.append((i, fx(i).toInt))
+  def getFXList(GUImode : Boolean) : List[(Double,Double)] ={
+    var listbuffer : ListBuffer[(Double,Double)] = ListBuffer.empty[(Double,Double)]
+    if(GUImode){
+      for(i <- beginOfMap._1 to endOfMap._1) {
+        listbuffer.append((i, fx(i).toInt))
+      }
+    } else {
+      var i : Double = beginOfMap._1
+      while(i < endOfMap._1){
+        listbuffer.append((i, fx(i)))
+        i += MAP_UNIT
+      }
     }
+
     listbuffer.toList
   }
 
@@ -61,21 +72,13 @@ object Map {
    if(id == 1) {
      val begin = (beginOfMap._1 + NOPOS_RANGE * endOfMap._1).toInt
      val end = (begin + POSX_RANGE * endOfMap._1).toInt
-     //if(xPos == 0){
-       x = (Math.random()*end + begin)
-     //} else {
-     //  x = xPos
-     //}
+     x = (Math.random()*end + begin)
      val y = fx(x)
      pos = Position(x,y)
    } else if(id == 2){
      val begin = (endOfMap._1 - NOPOS_RANGE * endOfMap._1).toInt
      val end = (begin - POSX_RANGE * endOfMap._1).toInt
-     //if(xPos == 0) {
-       x = (Math.random()*(begin-end) + end)
-     //} else {
-     //  x = xPos
-     //}
+     x = (Math.random()*(begin-end) + end)
      val y = fx(x)
      pos = Position(x,y)
    } else {

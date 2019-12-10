@@ -2,17 +2,17 @@ package de.htwg.se.Tank.model
 import scala.collection.mutable.ListBuffer
 object Calc {
   final val G = 9.81
-  def shootCalc(startPos: Position, angle: Int, power: Int, begin_end : (Int,Int)): List[(Double, Double)] = {
+  def shootCalc : List[(Double, Double)] = {
     // Berechnungen
-    val h0 = startPos.y
-    val v0 = power
-    val alpha = angle*2*Math.PI/360
-    val sx = startPos.x
-    var x = startPos.x
+    val h0 = Map.activePlayer.pos.y
+    val v0 = Map.activePlayer.power
+    val alpha = Map.activePlayer.tank.canonAngle*2*Math.PI/360
+    val sx = Map.activePlayer.pos.x
+    var x = Map.activePlayer.pos.x
     var y : Double = 0
     val listbuffer: ListBuffer[(Double, Double)] = ListBuffer.empty[(Double, Double)]
     var t : Double= 0
-    while(y >= 0 && x < begin_end._2){
+    while(y >= 0 && x < Map.endOfMap._1){
       //Berechnung von x,y Koordinate
       x = v0 * Math.cos(alpha) * t
       y =  x*Math.tan(alpha) - G/(2*Math.pow(v0,2)*Math.pow(Math.cos(alpha),2)) * Math.pow(x,2) + h0
@@ -20,7 +20,7 @@ object Calc {
       listbuffer.append((x + sx,y))
 
       //Intervall von 0.2sek schiefer Wurf ausrechnen
-      t += 0.02
+      t += Map.MAP_UNIT
     }
     listbuffer.toList
   }

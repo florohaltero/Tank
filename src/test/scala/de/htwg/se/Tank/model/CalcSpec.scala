@@ -15,7 +15,7 @@ class CalcSpec extends WordSpec with Matchers {
         obj.G should be(9.81)
       }
       "shootCalc List" in {
-        val l = Calc.shootCalc(Position(0, 0), 30, 100, (0, 100))
+        val l = Calc.shootCalc
         l should not be(null)
       }
     }
