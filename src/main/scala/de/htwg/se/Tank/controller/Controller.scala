@@ -10,6 +10,11 @@ class Controller(var game: Game) extends Observable {
     notifyObservers
   }
 
+  def setDefaultGame(): Unit  = {
+    game = Game("Default", 0 , "Flo", "Sasch")
+    notifyObservers
+  }
+
   def changePlayer() : Unit = {
     undoManager.doStep(new ChangePlayerCommand(this))
     //undoManager.deleteCommands
