@@ -1,6 +1,7 @@
 package de.htwg.se.Tank
 
 import de.htwg.se.Tank.aview.TUI
+import de.htwg.se.Tank.aview.gui.GUI
 import de.htwg.se.Tank.controller.Controller
 import de.htwg.se.Tank.model.Game
 
@@ -19,6 +20,7 @@ object Tank {
     var input : String = ""
     val controller = new Controller(Game("Standard", 0, "Flo", "Sasch"))
     val tui = new TUI(controller)
+    //val gui = new GUI(controller)
     //controller.notifyObservers
     do {
       input = scala.io.StdIn.readLine()
