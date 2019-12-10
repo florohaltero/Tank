@@ -27,8 +27,7 @@ object Map {
 
   def getFxDouble(): List[Double] = {
     val list = getFXList(true)
-    var lbuffer : ListBuffer[Double] = ListBuffer.empty
-
+    val lbuffer: ListBuffer[Double] = ListBuffer.empty
     for (i <- list) {
       lbuffer.append(i._1)
       lbuffer.append(i._2)
@@ -38,7 +37,7 @@ object Map {
   }
 
   def getFXList(GUImode : Boolean) : List[(Double,Double)] ={
-    var listbuffer : ListBuffer[(Double,Double)] = ListBuffer.empty[(Double,Double)]
+    val listbuffer: ListBuffer[(Double,Double)] = ListBuffer.empty[(Double,Double)]
     if(!GUImode){
       for(i <- beginOfMap._1 to endOfMap._1) {
         listbuffer.append((i, fx(i).toInt))
