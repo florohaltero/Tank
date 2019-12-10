@@ -25,9 +25,21 @@ object Map {
     } else {false}
   }
 
+  def getFxDouble(): List[Double] = {
+    val list = getFXList(true)
+    var lbuffer : ListBuffer[Double] = ListBuffer.empty
+
+    for (i <- list) {
+      lbuffer.append(i._1)
+      lbuffer.append(i._2)
+
+    }
+    lbuffer.toList
+  }
+
   def getFXList(GUImode : Boolean) : List[(Double,Double)] ={
     var listbuffer : ListBuffer[(Double,Double)] = ListBuffer.empty[(Double,Double)]
-    if(GUImode){
+    if(!GUImode){
       for(i <- beginOfMap._1 to endOfMap._1) {
         listbuffer.append((i, fx(i).toInt))
       }
@@ -58,7 +70,7 @@ object Map {
   }
 */
   def setFX(i: Option[Int]): Boolean = i match {
-    case Some(0) => fx = (x: Double) => 5*math.sin(0.1 * x) + 7
+    case Some(0) => fx = (x: Double) => 5 * math.sin(0.1 * x) + 7
       true
     case Some(1) => fx = (x: Double) => 10
       true

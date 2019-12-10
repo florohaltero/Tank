@@ -4,9 +4,9 @@ import de.htwg.se.Tank.model.Map.StateContext
 
 object GameInit {
 
-  final val MAP_X2 = 30
+  final val MAP_X2 = 5000
   final val MAP_X1 = 0
-  final val MAP_Y2 = 15
+  final val MAP_Y2 = 3000
   final val MAP_Y1 = 0
 
   def setMapSettings(mapNum: Int, name1: String,name2: String) : Unit = {
