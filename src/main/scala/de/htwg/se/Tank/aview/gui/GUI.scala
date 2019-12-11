@@ -19,8 +19,21 @@ import scalafx.scene.shape.{Circle, Polyline, Rectangle}
 import de.htwg.se.Tank.controller.Controller
 import de.htwg.se.Tank.model.{Game, GameInit, Map}
 import scalafx.scene.control.Alert.AlertType
+
+import scala.collection.mutable.ListBuffer
 //noinspection ScalaStyle
 object GUI extends JFXApp {
+
+  final val WIDTH : Double = 700
+  final val HEIGHT : Double = 500
+  final val XScale: Double = WIDTH/GameInit.MAP_X2
+  final val YScale: Double = HEIGHT/GameInit.MAP_Y2
+
+  def getGUIScale(d : List[((Double),(Double))]) : List[Double] = {
+    var l: ListBuffer[Double] = ListBuffer.empty
+    d.foreach(d => l.append(d._1*XScale,d._2*YScale))
+    l.toList
+  }
 
   val border = new BorderPane{
     top = createMenuBar
@@ -30,7 +43,7 @@ object GUI extends JFXApp {
 
   stage = new PrimaryStage {
     title = "Tank Menu"
-    scene = new Scene(700, 500) {
+    scene = new Scene(WIDTH, HEIGHT) {
       root = border
     }
   }
@@ -60,8 +73,8 @@ object GUI extends JFXApp {
       })
     }
 
-  private def createButton : TilePane = new TilePane(){
-    prefTileWidth = 300
+  private def createButton : HBox = new HBox(){
+    //prefTileWidth = 300
 
     style = "-fx-background-color: green"
     prefHeight = 100
