@@ -1,7 +1,5 @@
 package de.htwg.se.Tank.aview.gui
 
-
-
 import de.htwg.se.Tank.aview.TUI
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
