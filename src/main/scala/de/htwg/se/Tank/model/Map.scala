@@ -154,9 +154,9 @@ object Map {
         if(shotList.contains(j,i)) {
           s += "*"
         }
-        if(ListFX.contains((j,i))) {
+        if(ListFX.contains(j,i)) {
           s += "+"
-        }  else if( i == beginOfMap._2 + 1){
+        } else if(i == beginOfMap._2 + 1){
           s += "="
         } else if(i == endOfMap._2){
           s += "="
@@ -166,7 +166,7 @@ object Map {
         if(i == p1.pos.y.toInt && j == p1.pos.x.toInt) {
           s += "T1"
         }
-        if((i == p2.pos.y.toInt && j == p2.pos.x.toInt)){
+        if(i == p2.pos.y.toInt && j == p2.pos.x.toInt){
           s += "T2"
         }
         if(j == endOfMap._1){
