@@ -6,7 +6,7 @@ import java.io.File
 import de.htwg.se.Tank.aview.TUI
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
-import scalafx.geometry.{Insets, Pos}
+import scalafx.geometry.{Insets, Orientation, Pos}
 import scalafx.scene.Scene
 import scalafx.scene.effect.DropShadow
 import scalafx.scene.layout.{Background, BorderPane, FlowPane, HBox, StackPane, TilePane, VBox}
@@ -14,17 +14,19 @@ import scalafx.scene.paint.Color._
 import scalafx.scene.paint.{Color, LinearGradient, Stops}
 import scalafx.scene.text.Text
 import scalafx.Includes._
-import scalafx.event.ActionEvent
+import scalafx.event._
 import scalafx.scene.control.{Alert, Button, CheckBox, Label, Menu, MenuBar, MenuItem, SplitPane, Tab, TabPane, TextArea, TextField}
 import scalafx.scene.shape.{Box, Circle, Polygon, Polyline, Rectangle}
 import de.htwg.se.Tank.controller.Controller
 import de.htwg.se.Tank.model.{Game, GameInit, Map, Position}
 import scalafx.scene.canvas.Canvas
 import scalafx.scene.control.Alert.AlertType
+import scalafx.scene.input.{KeyCode, KeyEvent}
 import scalafx.scene.media.{AudioClip, Media, MediaPlayer}
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
+import scala.swing.BoxPanel
 //noinspection ScalaStyle
 object MapGUI extends JFXApp {
 
@@ -40,6 +42,10 @@ object MapGUI extends JFXApp {
   val mainPane = new BorderPane
   val bottomBox = new HBox
 
+  val path = "masterofpuppets.mp3"
+  val res = getClass.getResource(path)
+  val clip = new AudioClip(res.toString)
+  clip.play()
   createMap
 
 
@@ -66,6 +72,8 @@ object MapGUI extends JFXApp {
         //rootPane.setStyle("-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #dc143c, #661a33)")
         rootPane.setStyle("-fx-background-color: lightblue")
         root = rootPane
+
+
       }
     }
   }
@@ -99,31 +107,42 @@ object MapGUI extends JFXApp {
     line.layoutY = 0
     val t1 = new Rectangle {
       val p1 = getPosinGUIScale(Map.p1.pos)
-      layoutX = p1._1
-      layoutY = p1._2
       height = 10
       width = 20
+      x = p1._1 - 0.5*width()
+      y = p1._2 - 0.5*height()
       fill = Blue
+
+
     }
     val t2 = new Rectangle {
       val p2 = getPosinGUIScale(Map.p2.pos)
-      layoutX = p2._1
-      layoutY = p2._2
       height = 10
       width = 20
+      x = p2._1 - 0.5*width()
+      y = p2._2 - 0.5*height()
       fill = Red
     }
     mainPane.prefWidth = WIDTH
     mainPane.prefHeight = HEIGHT
     mainPane.children.addAll(line,t1,t2)
+
   }
 
   def createMapButtons ={
+
     val moveLeft = new Button("Move Left"){
       onAction = (e:ActionEvent) => {
         controller.moveLeft()
       }
+      onKeyPressed = (ke: KeyEvent) => {
+        ke.code match {
+          case KeyCode.A => controller.moveLeft()
+          case _ =>
+        }
+      }
     }
+
     val moveRight = new Button("Move Right"){
       onAction = (e:ActionEvent) => {
         controller.moveRight()
@@ -144,6 +163,12 @@ object MapGUI extends JFXApp {
     val fire = new Button("Fire!"){
       onAction = (e:ActionEvent) => {
         controller.shoot()
+      }
+      onKeyTyped = (ke: KeyEvent) => {
+        ke.code match {
+          case KeyCode.Space => controller.shoot()
+          case _ =>
+        }
       }
     }
     bottomBox.children.addAll(moveLeft,moveRight,angleUp,angelDown,power,fire)

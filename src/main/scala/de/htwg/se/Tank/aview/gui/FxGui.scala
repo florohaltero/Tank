@@ -1,4 +1,5 @@
 import de.htwg.se.Tank.aview.TUI
+import de.htwg.se.Tank.aview.gui.MapGUI
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.geometry.{Insets, Pos}
@@ -59,7 +60,7 @@ object FxGui extends JFXApp {
       end.layoutX = 350
       end.layoutY = 400
       start.onAction = (e:ActionEvent) => {
-        createMapGUI()
+        createMapGUI
       }
       end.onAction = (e:ActionEvent) => {
         val alert = new Alert(AlertType.Confirmation)
