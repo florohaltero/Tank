@@ -1,9 +1,11 @@
 package de.htwg.se.Tank
 
 import de.htwg.se.Tank.aview.TUI
-import de.htwg.se.Tank.aview.gui.GUI
 import de.htwg.se.Tank.controller.Controller
 import de.htwg.se.Tank.model.Game
+import scalafx.scene.media.AudioClip
+
+
 
 
 object Tank {
@@ -20,6 +22,10 @@ object Tank {
     var input : String = ""
     val controller = new Controller(Game("Standard", 0, "Flo", "Sasch"))
     val tui = new TUI(controller)
+    //val path = "C:\\Users\\heims.DESKTOP-C6OFMGU\\OneDrive\\Studium\\3.Semester\\SE\\Tank\\masterofpuppets.mp3"
+    //val res = getClass.getResource(path)
+    //val clip = new AudioClip(res.toString)
+    //clip.play()
     //val gui = new GUI(controller)
     //controller.notifyObservers
     do {
