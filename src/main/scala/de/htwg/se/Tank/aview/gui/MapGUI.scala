@@ -9,22 +9,22 @@ import scalafx.application.JFXApp.PrimaryStage
 import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.Scene
 import scalafx.scene.effect.DropShadow
-import scalafx.scene.layout.{BorderPane, FlowPane, HBox, StackPane, TilePane}
+import scalafx.scene.layout.{Background, BorderPane, FlowPane, HBox, StackPane, TilePane, VBox}
 import scalafx.scene.paint.Color._
-import scalafx.scene.paint.{LinearGradient, Stops}
+import scalafx.scene.paint.{Color, LinearGradient, Stops}
 import scalafx.scene.text.Text
 import scalafx.Includes._
 import scalafx.event.ActionEvent
-import scalafx.scene.control.{Alert, Button, CheckBox, Label, Menu, MenuBar, MenuItem, SplitPane, Tab, TabPane}
-import scalafx.scene.shape.{Circle, Polyline, Rectangle}
+import scalafx.scene.control.{Alert, Button, CheckBox, Label, Menu, MenuBar, MenuItem, SplitPane, Tab, TabPane, TextArea, TextField}
+import scalafx.scene.shape.{Box, Circle, Polygon, Polyline, Rectangle}
 import de.htwg.se.Tank.controller.Controller
 import de.htwg.se.Tank.model.{Game, GameInit, Map, Position}
 import scalafx.scene.canvas.Canvas
 import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.media.{AudioClip, Media, MediaPlayer}
 
+import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
-import scala.swing.BorderPanel
 //noinspection ScalaStyle
 object MapGUI extends JFXApp {
 
@@ -32,6 +32,16 @@ object MapGUI extends JFXApp {
   final val HEIGHT : Double = 600
   final val XScale: Double = WIDTH/GameInit.MAP_X2
   final val YScale: Double = HEIGHT/GameInit.MAP_Y2
+
+  val rootPane = new BorderPane
+  val controller = new Controller(Game("Standard", 0, "Flo", "Sasch"))
+  GameInit.setMapSettings(0, "Sascha", "Flo")
+  val map = Map
+  val mainPane = new BorderPane
+  val bottomBox = new HBox
+
+  createMap
+
 
   def getGUIScale(d : List[((Double),(Double))]) : List[Double] = {
     var l: ListBuffer[Double] = ListBuffer.empty
@@ -43,35 +53,124 @@ object MapGUI extends JFXApp {
     (value.x*XScale,(GameInit.MAP_Y2 - value.y)*YScale)
   }
 
-  val MainPane = new BorderPane
-  val controller = new Controller(Game("Standard", 0, "Flo", "Sasch"))
-  createMap
-
-    private def createMenuBar : MenuBar = new MenuBar {
-      val menuBar = new MenuBar
-      val fileMenu = new Menu("New")
-      val newGame = new MenuItem("New")
-      val options = new Menu("Options")
-      val exitGame = new MenuItem("Exit")
-      val undo = new MenuItem("Undo")
-      val redo = new MenuItem("Redo")
-      options.items = List(undo, redo)
-      fileMenu.items = List(newGame, exitGame)
-      menuBar.menus = List(fileMenu, options)
-      menuBar
+  def createMap() {
+    stage = new PrimaryStage{
+      title = "Map"
+      scene = new Scene {
+        createMenuBar
+        createMapShapes
+        createMapButtons
+        createTitle
+        rootPane.center =  mainPane
+        rootPane.bottom = bottomBox
+        //rootPane.setStyle("-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #dc143c, #661a33)")
+        rootPane.setStyle("-fx-background-color: lightblue")
+        root = rootPane
+      }
     }
+  }
 
-  private def createTitle : StackPane = new StackPane(){
-    layoutY = 50
-    style = "-fx-background-color: green"
-    children = Seq(
-      new Text() {
-        text = "Tank"
-        style = "-fx-font-size: 60pt; "
-        alignmentInParent = Pos.TopCenter
-        fill = Black
-      })
+  private def createMenuBar = {
+    val menuBar = new MenuBar
+    val fileMenu = new Menu("New")
+    val newGame = new MenuItem("New")
+    val options = new Menu("Options")
+    val exitGame = new MenuItem("Exit")
+    val undo = new MenuItem("Undo")
+    val redo = new MenuItem("Redo")
+    options.items = List(undo, redo)
+    fileMenu.items = List(newGame, exitGame)
+    menuBar.menus = List(fileMenu, options)
+    rootPane.top= menuBar
+  }
+
+
+
+  def createMapShapes = {
+    var lb : mutable.Buffer[Double] = getGUIScale(Map.getFXList(true)).toBuffer
+    lb.append(WIDTH)
+    lb.append(HEIGHT)
+    lb.append(0)
+    lb.append(HEIGHT)
+    val guiscale = lb.toList
+    val line = Polygon(guiscale: _*)
+    line.fill = Green
+    line.layoutX = 0
+    line.layoutY = 0
+    val t1 = new Rectangle {
+      val p1 = getPosinGUIScale(Map.p1.pos)
+      layoutX = p1._1
+      layoutY = p1._2
+      height = 10
+      width = 20
+      fill = Blue
     }
+    val t2 = new Rectangle {
+      val p2 = getPosinGUIScale(Map.p2.pos)
+      layoutX = p2._1
+      layoutY = p2._2
+      height = 10
+      width = 20
+      fill = Red
+    }
+    mainPane.prefWidth = WIDTH
+    mainPane.prefHeight = HEIGHT
+    mainPane.children.addAll(line,t1,t2)
+  }
+
+  def createMapButtons ={
+    val moveLeft = new Button("Move Left"){
+      onAction = (e:ActionEvent) => {
+        controller.moveLeft()
+      }
+    }
+    val moveRight = new Button("Move Right"){
+      onAction = (e:ActionEvent) => {
+        controller.moveRight()
+      }
+    }
+    val angleUp = new Button("Cannon +"){
+      onAction = (e:ActionEvent) => {
+        controller.moveAngleUp()
+      }
+    }
+    val angelDown = new Button("Cannon -"){
+      onAction = (e:ActionEvent) => {
+        controller.moveAngleDown()
+      }
+    }
+    val power = new TextField
+
+    val fire = new Button("Fire!"){
+      onAction = (e:ActionEvent) => {
+        controller.shoot()
+      }
+    }
+    bottomBox.children.addAll(moveLeft,moveRight,angleUp,angelDown,power,fire)
+  }
+
+  private def createTitle : VBox = new VBox{
+    val name = new Text() {
+      text = "Tank"
+      style = "-fx-font-size: 60pt; "
+      alignmentInParent = Pos.TopCenter
+      fill = Black
+    }
+    val infoPlayer1 = new Text(){
+      text = Map.p1.toString
+    }
+    val infoPlayer2 = new Text(){
+      text = Map.p2.toString
+    }
+    val vbox = new VBox{
+      children.addAll(name,infoPlayer1,infoPlayer2)
+    }
+    mainPane.children.add(vbox)
+  }
+
+  def showFire ={
+
+  }
 
   private def createButton : TilePane = new TilePane(){
     //prefTileWidth = 300
@@ -79,127 +178,19 @@ object MapGUI extends JFXApp {
     style = "-fx-background-color: green"
     prefHeight = 100
     children = List(
-        new Button("New Game") {
-          scaleX = 2
-          scaleY = 2
-          alignmentInParent = Pos.CenterRight
-          onAction = (e: ActionEvent) => createMap()
-        },
-        new Button("Exit Game") {
-          scaleX = 2
-          scaleY = 2
-          alignmentInParent = Pos.CenterLeft
-          onAction = (e: ActionEvent) => System.exit(0)
-        })
+      new Button("New Game") {
+        scaleX = 2
+        scaleY = 2
+        alignmentInParent = Pos.CenterRight
+        onAction = (e: ActionEvent) => createMap()
+      },
+      new Button("Exit Game") {
+        scaleX = 2
+        scaleY = 2
+        alignmentInParent = Pos.CenterLeft
+        onAction = (e: ActionEvent) => System.exit(0)
+      })
 
   }
-
-  def createMap() {
-    stage = new PrimaryStage{
-      title = "Map"
-      scene = new Scene(WIDTH,HEIGHT) {
-        val menuBar = new MenuBar
-        val fileMenu = new Menu("New")
-        val newGame = new MenuItem("New")
-        val options = new Menu("Options")
-        val exitGame = new MenuItem("Exit")
-        val undo = new MenuItem("Undo")
-        val redo = new MenuItem("Redo")
-        options.items = List(undo, redo)
-        fileMenu.items = List(newGame, exitGame)
-        menuBar.menus = List(fileMenu, options)
-
-        MainPane.top = menuBar
-        val TabPane = new TabPane
-        TabPane += create()
-
-        MainPane.center = TabPane
-        //border.bottom = createButton
-        root = MainPane
-
-      }
-
-    }
-  }
-
-  def create() : Tab ={
-
-
-      GameInit.setMapSettings(0, "Sascha", "Flo")
-      val map = Map
-      val guiscale = getGUIScale(Map.getFXList(true))
-      val line: Polyline = Polyline(guiscale: _*)
-      line.layoutX = 0
-      line.layoutY = 0
-      val t1 = new Rectangle {
-        val p1 = getPosinGUIScale(Map.p1.pos)
-        layoutX = p1._1
-        layoutY = p1._2
-        height = 10
-        width = 20
-      }
-      val t2 = new Rectangle {
-        val p2 = getPosinGUIScale(Map.p2.pos)
-        layoutX = p2._1
-        layoutY = p2._2
-        height = 10
-        width = 20
-      }
-      //content = List(line, t1, t2)
-
-    val split = new SplitPane
-    val MapPane = new BorderPane
-    val canvtest = new Canvas
-    MapPane.center = List(line,t1,t2)
-
-    split.items ++=  List(MapPane)
-    val tab = new Tab
-    tab.text = "hallo"
-    tab.content = split
-    tab
-  }
-
-
-      /*
-      val border = new BorderPane{
-        top = menuBar
-        bottom = showText()
-      }*/
-
-      //content = List(rootPane,h)
-      /*content = new HBox {
-        padding = Insets(20)
-        children = new Text(){
-          text = "Tank"
-          style = "-fx-font-size: 80pt; -fx-alignment: CENTER;"
-          fill = Black
-          TextAlignment.CENTER
-
-
-        }
-        children = Seq(
-          new Text {
-            text = "Hello "
-            style = "-fx-font-size: 48pt"
-            fill = new LinearGradient(
-              endX = 0,
-              stops = Stops(PaleGreen, SeaGreen))
-          },
-          new Text {
-            text = "World!!!"
-            style = "-fx-font-size: 48pt"
-            fill = new LinearGradient(
-              endX = 0,
-              stops = Stops(Cyan, DodgerBlue)
-            )
-            effect = new DropShadow {
-              color = DodgerBlue
-              radius = 25
-              spread = 0.25
-            }
-          }
-        )
-      }*/
-
 
 }
