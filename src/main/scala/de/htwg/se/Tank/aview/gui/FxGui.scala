@@ -79,17 +79,13 @@ object FxGui extends JFXApp {
   def createMapGUI() = {
     stage = new PrimaryStage {
       title = "Map"
-      width = WIDTH
-      height = HEIGHT
       scene = new Scene (WIDTH, HEIGHT) {
-        val map = Map
-        val gameinit = GameInit
-        val seq : Seq[Double] = map.getFxDouble()
-        val guiscale = getGUIScale(map.getFXList(true))
+        GameInit.setMapSettings(0, "Sascha", "Flo")
+        val guiscale = getGUIScale(Map.getFXList(true))
         val line : Polyline = Polyline(guiscale:_*)
         line.layoutX = 0
         line.layoutY = 0
-        gameinit.setMapSettings(0, "Sascha", "Flo")
+
         content = line
       }
     }
