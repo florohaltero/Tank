@@ -19,7 +19,7 @@ class ControllerSpec extends WordSpec with Matchers {
         def isUpdated: Boolean = updated
         override def update: Boolean = {updated = true; updated}
       }
-      controller.add(observer)
+
       "notify its Observer after creation" in {
         controller.setGame("Standard", 0, "Flo", "Sasch")
         observer.updated should be(true)

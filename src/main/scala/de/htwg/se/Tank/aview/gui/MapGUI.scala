@@ -3,7 +3,6 @@ package de.htwg.se.Tank.aview.gui
 
 import java.io.File
 
-
 import de.htwg.se.Tank.aview.TUI
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
@@ -18,7 +17,7 @@ import scalafx.Includes._
 import scalafx.event._
 import scalafx.scene.control.{Alert, Button, ButtonType, CheckBox, Label, Menu, MenuBar, MenuItem, SplitPane, Tab, TabPane, TextArea, TextField}
 import scalafx.scene.shape.{Box, Circle, Polygon, Polyline, Rectangle}
-import de.htwg.se.Tank.controller.Controller
+import de.htwg.se.Tank.controller.{Controller, NewGame, UpdateMap}
 import de.htwg.se.Tank.model.{Game, GameInit, Map, Position}
 import scalafx.scene.canvas.Canvas
 import scalafx.scene.control.Alert.AlertType
@@ -27,26 +26,35 @@ import scalafx.scene.media.{AudioClip, Media, MediaPlayer}
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
-import scala.swing.BoxPanel
+import scala.swing.{BoxPanel, Frame, Reactor}
 //noinspection ScalaStyle
-object MapGUI extends JFXApp {
+class MapGUI(controller: Controller) extends JFXApp with Reactor {
+
+  listenTo(controller)
+  reactions += {
+    case event: NewGame => createOverlay()
+    case event: UpdateMap => createMap()
+  }
+
   final val WIDTH : Double = 1000
   final val HEIGHT : Double = 600
   final val XScale: Double = WIDTH/GameInit.MAP_X2
   final val YScale: Double = HEIGHT/GameInit.MAP_Y2
 
-  val rootPane = new BorderPane
-  val controller = new Controller(Game("Standard", 0, "Flo", "Sasch"))
-  GameInit.setMapSettings(0, "Sascha", "Flo")
-  val map = Map
-  val mainPane = new BorderPane
-  val bottomBox = new HBox
+  var rootPane = new BorderPane
+  //val controller = new Controller(Game("Standard", 0, "Flo", "Sasch"))
+  //GameInit.setMapSettings(0, "Sascha", "Flo")
+  var map = Map
+  var mainPane = new BorderPane
+  var bottomBox = new HBox
 
   val path = "masterofpuppets.mp3"
   val res = getClass.getResource(path)
   val clip = new AudioClip(res.toString)
   clip.play()
   createOverlay()
+
+
 
   def createOverlay() = {
     stage = new PrimaryStage {
@@ -103,7 +111,6 @@ object MapGUI extends JFXApp {
         end.layoutY = 480
         start.onAction = (e: ActionEvent) => {
           controller.setGame("Standard", 0, player1textField.text(), player2textField.text())
-          createMap
         }
         end.onAction = (e: ActionEvent) => {
           val alert = new Alert(AlertType.Confirmation)
@@ -132,8 +139,16 @@ object MapGUI extends JFXApp {
     (value.x * XScale, (GameInit.MAP_Y2 - value.y) * YScale)
   }
 
+  def removeContent: Unit ={
+
+
+  }
+
   def createMap() {
     stage = new PrimaryStage{
+      rootPane = new BorderPane
+      mainPane = new BorderPane()
+      bottomBox = new HBox()
       title = "Map"
       scene = new Scene {
         createMenuBar
@@ -163,8 +178,6 @@ object MapGUI extends JFXApp {
     rootPane.top= menuBar
   }
 
-
-
   def createMapShapes = {
     var lb : mutable.Buffer[Double] = getGUIScale(Map.getFXList(true)).toBuffer
     lb.append(WIDTH)
@@ -183,8 +196,6 @@ object MapGUI extends JFXApp {
       x = p1._1 - 0.5 * width()
       y = p1._2 - 0.5 * height()
       fill = Blue
-
-
     }
     val t2 = new Rectangle {
       val p2 = getPosinGUIScale(Map.p2.pos)
@@ -212,7 +223,6 @@ object MapGUI extends JFXApp {
         }
       }
     }
-
     val moveRight = new Button("Move Right"){
       onAction = (e:ActionEvent) => {
         controller.moveRight()
@@ -241,7 +251,12 @@ object MapGUI extends JFXApp {
         }
       }
     }
-    bottomBox.children.addAll(moveLeft,moveRight,angleUp,angelDown,power,fire)
+    val changePlayer = new Button("Change Player"){
+      onAction = (e:ActionEvent) => {
+        controller.changePlayer()
+      }
+    }
+    bottomBox.children.addAll(moveLeft,moveRight,angleUp,angelDown,power,fire,changePlayer)
   }
 
   private def createTitle : VBox = new VBox{

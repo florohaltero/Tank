@@ -3,7 +3,7 @@ import scala.collection.mutable.ListBuffer
 
 object Map {
   var fx: Double => Double = (x:Double) => 5 * math.sin(0.1 * x) + 10
-  final val NUMBER_OF_MOVES : Int = 2
+  final val NUMBER_OF_MOVES : Int = 10
   var moves : Int = _
   var activePlayer : Player = _
   var beginOfMap : (Int,Int) = (1,1)

@@ -1,14 +1,14 @@
 package de.htwg.se.Tank.aview
 
-import de.htwg.se.Tank.controller.{Controller}
+import de.htwg.se.Tank.controller.{Controller, NewGame, UpdateMap}
 import de.htwg.se.Tank.model.Game
 import de.htwg.se.Tank.util.Observer
 
+import scala.swing.Reactor
 import scala.util.{Failure, Success, Try}
 
-class TUI(controller: Controller) extends Observer{
-  controller.add(this)
-
+class TUI(controller: Controller) extends Reactor{
+  listenTo(controller)
   def processInputLine(input: String): Unit ={
     Try(input match {
       case "m0" => controller.setGame("Standard", 0, controller.game.name1, controller.game.name2)
@@ -30,8 +30,13 @@ class TUI(controller: Controller) extends Observer{
     }
 
 
-  override def update: Boolean = {
-    println(controller.gametoString);
-    true
+  reactions += {
+    case event: NewGame => printTui
+    case event: UpdateMap => printTui
   }
+
+  def printTui: Unit = {
+    println(controller.gametoString)
+  }
+
 }
