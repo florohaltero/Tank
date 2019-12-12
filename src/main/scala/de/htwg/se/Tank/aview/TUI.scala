@@ -1,6 +1,6 @@
 package de.htwg.se.Tank.aview
 
-import de.htwg.se.Tank.controller.{Controller, NewGame, UpdateMap}
+import de.htwg.se.Tank.controller.{Controller, Fire, NewGame, UpdateMap}
 import de.htwg.se.Tank.model.Game
 import de.htwg.se.Tank.util.Observer
 
@@ -19,7 +19,7 @@ class TUI(controller: Controller) extends Reactor{
       case "w" => controller.moveAngleUp()
       case "s" => controller.moveAngleDown()
       case "p" => controller.changePlayer()
-      case "f" => controller.shoot()
+      case "f" => controller.shoot(20)
       case "z" => controller.undo
       case "y" => controller.redo
       }
@@ -33,6 +33,7 @@ class TUI(controller: Controller) extends Reactor{
   reactions += {
     case event: NewGame => printTui
     case event: UpdateMap => printTui
+    case event: Fire => printTui
   }
 
   def printTui: Unit = {

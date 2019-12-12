@@ -17,8 +17,8 @@ import scalafx.Includes._
 import scalafx.event._
 import scalafx.scene.control.{Alert, Button, ButtonType, CheckBox, Label, Menu, MenuBar, MenuItem, SplitPane, Tab, TabPane, TextArea, TextField}
 import scalafx.scene.shape.{Box, Circle, Polygon, Polyline, Rectangle}
-import de.htwg.se.Tank.controller.{Controller, NewGame, UpdateMap}
-import de.htwg.se.Tank.model.{Game, GameInit, Map, Position}
+import de.htwg.se.Tank.controller.{Controller, Fire, NewGame, UpdateMap}
+import de.htwg.se.Tank.model.{Calc, Game, GameInit, Map, Position}
 import scalafx.scene.canvas.Canvas
 import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.input.{KeyCode, KeyEvent}
@@ -34,6 +34,7 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
   reactions += {
     case event: NewGame => createOverlay()
     case event: UpdateMap => createMap()
+    case event: Fire => showFire
   }
 
   final val WIDTH : Double = 1000
@@ -139,11 +140,6 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
     (value.x * XScale, (GameInit.MAP_Y2 - value.y) * YScale)
   }
 
-  def removeContent: Unit ={
-
-
-  }
-
   def createMap() {
     stage = new PrimaryStage{
       rootPane = new BorderPane
@@ -227,6 +223,12 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
       onAction = (e:ActionEvent) => {
         controller.moveRight()
       }
+      onKeyPressed = (ke: KeyEvent) => {
+        ke.code match {
+          case KeyCode.D => controller.moveLeft()
+          case _ =>
+        }
+      }
     }
     val angleUp = new Button("Cannon +"){
       onAction = (e:ActionEvent) => {
@@ -242,11 +244,11 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
 
     val fire = new Button("Fire!"){
       onAction = (e:ActionEvent) => {
-        controller.shoot()
+        controller.shoot(power.text().toInt)
       }
       onKeyTyped = (ke: KeyEvent) => {
         ke.code match {
-          case KeyCode.Space => controller.shoot()
+          case KeyCode.Space => controller.shoot(power.text().toInt)
           case _ =>
         }
       }
@@ -280,7 +282,8 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
   }
 
   def showFire ={
-
+      val shootLine = Polyline(getGUIScale(Calc.shootCalc):_*)
+    mainPane.children.add(shootLine)
   }
 
   private def createButton : TilePane = new TilePane(){
@@ -301,7 +304,6 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
         alignmentInParent = Pos.CenterLeft
         onAction = (e: ActionEvent) => System.exit(0)
       })
-
   }
 
 }

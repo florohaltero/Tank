@@ -44,7 +44,7 @@ class ControllerSpec extends WordSpec with Matchers {
       "have Angled down" in {
         controller.moveAngleDown() should be (controller.moveAngleDown())
       }
-      controller.shoot()
+      controller.shoot(20)
       "have shot " in {
         controller.game.shoot(20) should be (controller.game.shoot(20))
       }

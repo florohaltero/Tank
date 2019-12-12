@@ -82,6 +82,8 @@ case class Game(partyname: String, mapNum: Int, name1: String, name2: String){
 
   def shoot(power :Int) : Unit = {
     //shotList = Calc.shootCalc(activePlayer.pos,activePlayer.tank.canonAngle,power,(beginOfMap._1,endOfMap._1))
+    activePlayer.power = power
+
     println("Shoot")
   }
 

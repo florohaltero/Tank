@@ -20,7 +20,7 @@ class TUISpec extends WordSpec with Matchers{
     }
     "shoot on in input 'f'" in {
       tui.processInputLine("f")
-      controller.shoot() should be (controller.shoot())
+      controller.shoot(1) should be (controller.shoot(1))
     }
     "move Tank right on input 'd'" in {
       tui.processInputLine("d")

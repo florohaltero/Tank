@@ -40,8 +40,9 @@ class Controller(var game: Game) extends Publisher {
     game.moveAngleDown()
     publish(new UpdateMap)
   }
-  def shoot() : Unit ={
-    game.shoot(20)
+  def shoot(pow : Int) : Unit ={
+    game.shoot(pow)
+    publish(new Fire)
 
   }
 

@@ -21,12 +21,6 @@ object Tank {
     val gui = new MapGUI(controller)
     gui.main(Array())
     controller.publish(new NewGame)
-    //val path = "C:\\Users\\heims.DESKTOP-C6OFMGU\\OneDrive\\Studium\\3.Semester\\SE\\Tank\\masterofpuppets.mp3"
-    //val res = getClass.getResource(path)
-    //val clip = new AudioClip(res.toString)
-    //clip.play()
-    //val gui = new GUI(controller)
-    //controller.notifyObservers
     do {
       input = scala.io.StdIn.readLine()
       tui.processInputLine(input)
