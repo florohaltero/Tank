@@ -59,6 +59,8 @@ object Map {
     }
     false
   }
+
+
 /*
   def getYFromMapFct(x: Double): Double = {
     val y = fx(x)
