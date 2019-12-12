@@ -17,8 +17,8 @@ import scalafx.Includes._
 import scalafx.event._
 import scalafx.scene.control.{Alert, Button, ButtonType, CheckBox, Label, Menu, MenuBar, MenuItem, SplitPane, Tab, TabPane, TextArea, TextField}
 import scalafx.scene.shape.{Box, Circle, Polygon, Polyline, Rectangle}
-import de.htwg.se.Tank.controller.{Controller, NewGame, UpdateMap}
-import de.htwg.se.Tank.model.{Game, GameInit, Map, Position}
+import de.htwg.se.Tank.controller.{Controller, Fire, NewGame, UpdateMap}
+import de.htwg.se.Tank.model.{Calc, Game, GameInit, Map, Position}
 import scalafx.scene.canvas.Canvas
 import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.input.{KeyCode, KeyEvent}
@@ -34,6 +34,7 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
   reactions += {
     case event: NewGame => createOverlay()
     case event: UpdateMap => createMap()
+    case event: Fire => showFire
   }
 
   final val WIDTH : Double = 1000
@@ -244,13 +245,14 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
       onAction = (e: ActionEvent) => {
         controller.moveAngleUp()
       }
-    }
-    onKeyPressed = (ke: KeyEvent) => {
-      ke.code match {
-        case KeyCode.W => controller.moveAngleUp()
-        case _ =>
+      onKeyPressed = (ke: KeyEvent) => {
+        ke.code match {
+          case KeyCode.W => controller.moveAngleUp()
+          case _ =>
+        }
       }
     }
+
     val angelDown = new Button("Cannon -") {
       onAction = (e: ActionEvent) => {
         controller.moveAngleDown()
@@ -310,7 +312,8 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
   }
 
   def showFire ={
-
+      val shootLine = Polyline(getGUIScale(Calc.shootCalc):_*)
+    mainPane.children.add(shootLine)
   }
 
   private def createButton : TilePane = new TilePane(){
