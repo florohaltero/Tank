@@ -3,6 +3,7 @@ package de.htwg.se.Tank.aview.gui
 
 import java.io.File
 
+
 import de.htwg.se.Tank.aview.TUI
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
@@ -15,7 +16,7 @@ import scalafx.scene.paint.{Color, LinearGradient, Stops}
 import scalafx.scene.text.Text
 import scalafx.Includes._
 import scalafx.event._
-import scalafx.scene.control.{Alert, Button, CheckBox, Label, Menu, MenuBar, MenuItem, SplitPane, Tab, TabPane, TextArea, TextField}
+import scalafx.scene.control.{Alert, Button, ButtonType, CheckBox, Label, Menu, MenuBar, MenuItem, SplitPane, Tab, TabPane, TextArea, TextField}
 import scalafx.scene.shape.{Box, Circle, Polygon, Polyline, Rectangle}
 import de.htwg.se.Tank.controller.Controller
 import de.htwg.se.Tank.model.{Game, GameInit, Map, Position}
@@ -29,7 +30,6 @@ import scala.collection.mutable.ListBuffer
 import scala.swing.BoxPanel
 //noinspection ScalaStyle
 object MapGUI extends JFXApp {
-
   final val WIDTH : Double = 1000
   final val HEIGHT : Double = 600
   final val XScale: Double = WIDTH/GameInit.MAP_X2
@@ -46,7 +46,80 @@ object MapGUI extends JFXApp {
   val res = getClass.getResource(path)
   val clip = new AudioClip(res.toString)
   clip.play()
-  createMap
+  createOverlay()
+
+  def createOverlay() = {
+    stage = new PrimaryStage {
+      scene = new Scene {
+        fill = LightBlue
+        val text = new Text {
+          text = "Tank"
+          style = "-fx-font-size: 100pt"
+          fill = new LinearGradient(
+            stops = Stops(Black, SaddleBrown)
+          )
+          effect = new DropShadow {
+            color = SaddleBrown
+            radius = 50
+            spread = 0.35
+          }
+        }
+        text.layoutX = 350
+        text.layoutY = 200
+
+        val player1textField = new TextField() {
+        }
+        val player2textField = new TextField
+        player1textField.layoutX = 425
+        player1textField.layoutY = 275
+        player2textField.layoutX = 425
+        player2textField.layoutY = 325
+
+        val player1 = new Text {
+          text = "Player 1: "
+        }
+        val player2 = new Text {
+          text = "Player 2: "
+        }
+
+        player1.layoutX = 360
+        player1.layoutY = 290
+        player2.layoutX = 360
+        player2.layoutY = 340
+        player1.setScaleX(1.35)
+        player1.setScaleY(1.35)
+        player2.setScaleX(1.35)
+        player2.setScaleY(1.35)
+
+        val start = new Button("New Game")
+        start.scaleX = 1.65
+        start.scaleY = 1.65
+        start.layoutX = 460
+        start.layoutY = 400
+        val end = new Button("Leave Game")
+        end.scaleX = 1.5
+        end.scaleY = 1.5
+        end.layoutX = 460
+        end.layoutY = 480
+        start.onAction = (e: ActionEvent) => {
+          controller.setGame("Standard", 0, player1textField.text(), player2textField.text())
+          createMap
+        }
+        end.onAction = (e: ActionEvent) => {
+          val alert = new Alert(AlertType.Confirmation)
+          alert.setTitle("")
+          alert.setHeaderText("Wirklich Verlassen?")
+          val result = alert.showAndWait()
+          result match {
+            case Some(ButtonType.OK) => stage.close()
+            case _ =>
+          }
+
+        }
+        content = List(start, end, text, player1textField, player2textField, player1, player2)
+      }
+    }
+  }
 
 
   def getGUIScale(d : List[((Double),(Double))]) : List[Double] = {
@@ -56,7 +129,7 @@ object MapGUI extends JFXApp {
   }
 
   def getPosinGUIScale(value : Position) : ((Double),(Double)) = {
-    (value.x*XScale,(GameInit.MAP_Y2 - value.y)*YScale)
+    (value.x * XScale, (GameInit.MAP_Y2 - value.y) * YScale)
   }
 
   def createMap() {
@@ -72,8 +145,6 @@ object MapGUI extends JFXApp {
         //rootPane.setStyle("-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #dc143c, #661a33)")
         rootPane.setStyle("-fx-background-color: lightblue")
         root = rootPane
-
-
       }
     }
   }
@@ -109,8 +180,8 @@ object MapGUI extends JFXApp {
       val p1 = getPosinGUIScale(Map.p1.pos)
       height = 10
       width = 20
-      x = p1._1 - 0.5*width()
-      y = p1._2 - 0.5*height()
+      x = p1._1 - 0.5 * width()
+      y = p1._2 - 0.5 * height()
       fill = Blue
 
 
@@ -119,18 +190,17 @@ object MapGUI extends JFXApp {
       val p2 = getPosinGUIScale(Map.p2.pos)
       height = 10
       width = 20
-      x = p2._1 - 0.5*width()
-      y = p2._2 - 0.5*height()
+      x = p2._1 - 0.5 * width()
+      y = p2._2 - 0.5 * height()
       fill = Red
     }
     mainPane.prefWidth = WIDTH
     mainPane.prefHeight = HEIGHT
-    mainPane.children.addAll(line,t1,t2)
+    mainPane.children.addAll(line, t1, t2)
 
   }
 
   def createMapButtons ={
-
     val moveLeft = new Button("Move Left"){
       onAction = (e:ActionEvent) => {
         controller.moveLeft()
@@ -175,12 +245,13 @@ object MapGUI extends JFXApp {
   }
 
   private def createTitle : VBox = new VBox{
-    val name = new Text() {
-      text = "Tank"
-      style = "-fx-font-size: 60pt; "
-      alignmentInParent = Pos.TopCenter
-      fill = Black
-    }
+//    val name = new Text() {
+//      text = "Tank"
+//      style = "-fx-font-size: 60pt; "
+//      alignmentInParent = Pos.TopCenter
+//      fill = Black
+//    }
+
     val infoPlayer1 = new Text(){
       text = Map.p1.toString
     }
@@ -188,7 +259,7 @@ object MapGUI extends JFXApp {
       text = Map.p2.toString
     }
     val vbox = new VBox{
-      children.addAll(name,infoPlayer1,infoPlayer2)
+      children.addAll(infoPlayer1,infoPlayer2)
     }
     mainPane.children.add(vbox)
   }
