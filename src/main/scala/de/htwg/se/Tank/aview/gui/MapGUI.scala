@@ -3,6 +3,7 @@ package de.htwg.se.Tank.aview.gui
 
 import java.io.File
 
+
 import de.htwg.se.Tank.aview.TUI
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
@@ -54,8 +55,6 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
   clip.play()
   createOverlay()
 
-
-
   def createOverlay() = {
     stage = new PrimaryStage {
       scene = new Scene {
@@ -72,16 +71,15 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
             spread = 0.35
           }
         }
-        text.layoutX = 350
-        text.layoutY = 200
+        text.layoutX = 70
+        text.layoutY = 130
 
-        val player1textField = new TextField() {
-        }
+        val player1textField = new TextField()
         val player2textField = new TextField
-        player1textField.layoutX = 425
-        player1textField.layoutY = 275
-        player2textField.layoutX = 425
-        player2textField.layoutY = 325
+        player1textField.layoutX = 140
+        player1textField.layoutY = 190
+        player2textField.layoutX = 140
+        player2textField.layoutY = 245
 
         val player1 = new Text {
           text = "Player 1: "
@@ -90,10 +88,10 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
           text = "Player 2: "
         }
 
-        player1.layoutX = 360
-        player1.layoutY = 290
-        player2.layoutX = 360
-        player2.layoutY = 340
+        player1.layoutX = 75
+        player1.layoutY = 205
+        player2.layoutX = 75
+        player2.layoutY = 255
         player1.setScaleX(1.35)
         player1.setScaleY(1.35)
         player2.setScaleX(1.35)
@@ -102,15 +100,16 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
         val start = new Button("New Game")
         start.scaleX = 1.65
         start.scaleY = 1.65
-        start.layoutX = 460
-        start.layoutY = 400
+        start.layoutX = 175
+        start.layoutY = 300
         val end = new Button("Leave Game")
         end.scaleX = 1.5
         end.scaleY = 1.5
-        end.layoutX = 460
-        end.layoutY = 480
+        end.layoutX = 175
+        end.layoutY = 350
         start.onAction = (e: ActionEvent) => {
           controller.setGame("Standard", 0, player1textField.text(), player2textField.text())
+          createMap
         }
         end.onAction = (e: ActionEvent) => {
           val alert = new Alert(AlertType.Confirmation)
@@ -139,11 +138,6 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
     (value.x * XScale, (GameInit.MAP_Y2 - value.y) * YScale)
   }
 
-  def removeContent: Unit ={
-
-
-  }
-
   def createMap() {
     stage = new PrimaryStage{
       rootPane = new BorderPane
@@ -167,16 +161,26 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
   private def createMenuBar = {
     val menuBar = new MenuBar
     val fileMenu = new Menu("New")
-    val newGame = new MenuItem("New")
+    val newGame = new MenuItem("New") {
+      onAction = (e:ActionEvent) => createOverlay()
+    }
     val options = new Menu("Options")
-    val exitGame = new MenuItem("Exit")
-    val undo = new MenuItem("Undo")
-    val redo = new MenuItem("Redo")
+    val exitGame = new MenuItem("Exit") {
+      onAction = (e:ActionEvent) => stage.close()
+    }
+    val undo = new MenuItem("Undo") {
+      onAction = (e:ActionEvent) => controller.undo
+    }
+    val redo = new MenuItem("Redo") {
+      onAction = (e:ActionEvent) => controller.redo
+    }
     options.items = List(undo, redo)
     fileMenu.items = List(newGame, exitGame)
     menuBar.menus = List(fileMenu, options)
     rootPane.top= menuBar
   }
+
+
 
   def createMapShapes = {
     var lb : mutable.Buffer[Double] = getGUIScale(Map.getFXList(true)).toBuffer
@@ -196,6 +200,8 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
       x = p1._1 - 0.5 * width()
       y = p1._2 - 0.5 * height()
       fill = Blue
+
+
     }
     val t2 = new Rectangle {
       val p2 = getPosinGUIScale(Map.p2.pos)
@@ -211,9 +217,9 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
 
   }
 
-  def createMapButtons ={
-    val moveLeft = new Button("Move Left"){
-      onAction = (e:ActionEvent) => {
+  def createMapButtons = {
+    val moveLeft = new Button("Move Left") {
+      onAction = (e: ActionEvent) => {
         controller.moveLeft()
       }
       onKeyPressed = (ke: KeyEvent) => {
@@ -223,21 +229,41 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
         }
       }
     }
-    val moveRight = new Button("Move Right"){
-      onAction = (e:ActionEvent) => {
+
+    val moveRight = new Button("Move Right") {
+      onAction = (e: ActionEvent) => {
         controller.moveRight()
       }
-    }
-    val angleUp = new Button("Cannon +"){
-      onAction = (e:ActionEvent) => {
-        controller.moveAngleUp()
+      onKeyPressed = (k: KeyEvent) => {
+        k.code match {
+          case KeyCode.D => controller.moveRight()
+          case _ =>
+        }
       }
     }
-    val angelDown = new Button("Cannon -"){
-      onAction = (e:ActionEvent) => {
+    val angleUp = new Button("Cannon +") {
+      onAction = (e: ActionEvent) => {
+        controller.moveAngleUp()
+        onKeyPressed = (ke: KeyEvent) => {
+          ke.code match {
+            case KeyCode.W => controller.moveAngleUp()
+            case _ =>
+          }
+        }
+      }
+    }
+    val angelDown = new Button("Cannon -") {
+      onAction = (e: ActionEvent) => {
         controller.moveAngleDown()
       }
+      onKeyPressed = (ke: KeyEvent) => {
+        ke.code match {
+          case KeyCode.S => controller.moveAngleDown()
+          case _ =>
+        }
+      }
     }
+
     val power = new TextField
 
     val fire = new Button("Fire!"){
@@ -254,6 +280,12 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
     val changePlayer = new Button("Change Player"){
       onAction = (e:ActionEvent) => {
         controller.changePlayer()
+      }
+      onKeyPressed = (ke: KeyEvent) => {
+        ke.code match {
+          case KeyCode.P => controller.changePlayer()
+          case _ =>
+        }
       }
     }
     bottomBox.children.addAll(moveLeft,moveRight,angleUp,angelDown,power,fire,changePlayer)
