@@ -3,7 +3,7 @@ package de.htwg.se.Tank.model
 import de.htwg.se.Tank.model.GameInit
 import de.htwg.se.Tank.model.Map.{activePlayer, fx, moves, posInMap, NUMBER_OF_MOVES}
 
-case class Game(partyname: String, mapNum: Int, name1: String,name2: String){
+case class Game(partyname: String, mapNum: Int, name1: String, name2: String){
   var map : Map.type = Map
   override def toString: String = {
     var name = "\n" + "partyname: " + partyname + "\n"
