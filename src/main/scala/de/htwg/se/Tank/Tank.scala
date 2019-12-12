@@ -9,8 +9,6 @@ import scalafx.application.JFXApp
 import scalafx.scene.media.AudioClip
 
 
-
-
 object Tank {
   def main(args: Array[String]): Unit = {
     val lines = scala.io.Source.fromFile("Tank_label.txt").mkString
