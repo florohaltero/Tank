@@ -43,19 +43,17 @@ class Controller(var game: Game) extends Publisher {
   def shoot(pow : Int) : Unit ={
     game.shoot(pow)
     publish(new Fire)
-
   }
 
   def gametoString: String = game.toString
 
-
   def undo: Unit = {
     undoManager.undoStep
-
+    publish(new UpdateMap)
   }
 
   def redo: Unit = {
     undoManager.redoStep
-
+    publish(new UpdateMap)
   }
 }
