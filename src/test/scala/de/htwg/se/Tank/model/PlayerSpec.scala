@@ -37,7 +37,7 @@ class PlayerSpec extends WordSpec with Matchers {
       j.PLAYER1 should be (1)
       j.PLAYER2 should be (2)
       j.LP should be (100)
-      j.DEFAULT_A should be (30)
+      j.P1DEFAULT_A should be (30)
     }
     "have player2" in {
       player2.id should be (2)

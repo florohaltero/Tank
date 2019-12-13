@@ -15,10 +15,11 @@ import scalafx.scene.paint.{Color, LinearGradient, Stops}
 import scalafx.scene.text.Text
 import scalafx.Includes._
 import scalafx.event._
-import scalafx.scene.control.{Alert, Button, ButtonType, CheckBox, Label, Menu, MenuBar, MenuItem, SplitPane, Tab, TabPane, TextArea, TextField}
+import scalafx.scene.control.{Alert, Button, ButtonType, CheckBox, ChoiceBox, Label, Menu, MenuBar, MenuItem, SplitPane, Tab, TabPane, TextArea, TextField}
 import scalafx.scene.shape.{Box, Circle, Polygon, Polyline, Rectangle}
 import de.htwg.se.Tank.controller.{Controller, Fire, NewGame, UpdateMap}
 import de.htwg.se.Tank.model.{Calc, Game, GameInit, Map, Position}
+import javafx.collections.FXCollections
 import scalafx.scene.canvas.Canvas
 import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.input.{KeyCode, KeyEvent}
@@ -59,6 +60,10 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
     stage = new PrimaryStage {
       scene = new Scene {
         fill = LightBlue
+        rootPane = new BorderPane
+        val vbox = new VBox()
+        val playerbox1 = new HBox()
+        val playerbox2 = new HBox()
         val text = new Text {
           text = "Tank"
           style = "-fx-font-size: 100pt"
@@ -71,15 +76,9 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
             spread = 0.35
           }
         }
-        text.layoutX = 70
-        text.layoutY = 130
 
         val player1textField = new TextField()
         val player2textField = new TextField
-        player1textField.layoutX = 140
-        player1textField.layoutY = 190
-        player2textField.layoutX = 140
-        player2textField.layoutY = 245
 
         val player1 = new Text {
           text = "Player 1: "
@@ -88,6 +87,18 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
           text = "Player 2: "
         }
 
+        val mapNum = new ChoiceBox(FXCollections.observableArrayList(0, 1)){
+          accessibleHelp = "Test"
+        }
+
+        val start = new Button("New Game")
+        /*
+        text.layoutX = 70
+        text.layoutY = 130
+        player1textField.layoutX = 140
+        player1textField.layoutY = 190
+        player2textField.layoutX = 140
+        player2textField.layoutY = 245
         player1.layoutX = 75
         player1.layoutY = 205
         player2.layoutX = 75
@@ -96,19 +107,20 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
         player1.setScaleY(1.35)
         player2.setScaleX(1.35)
         player2.setScaleY(1.35)
-
-        val start = new Button("New Game")
         start.scaleX = 1.65
         start.scaleY = 1.65
         start.layoutX = 175
         start.layoutY = 300
-        val end = new Button("Leave Game")
         end.scaleX = 1.5
         end.scaleY = 1.5
         end.layoutX = 175
         end.layoutY = 350
+
+         */
+        val end = new Button("Leave Game")
+
         start.onAction = (e: ActionEvent) => {
-          controller.setGame("Standard", 0, player1textField.text(), player2textField.text())
+          controller.setGame("Standard", mapNum.getSelectionModel.getSelectedItem, player1textField.text(), player2textField.text())
         }
         end.onAction = (e: ActionEvent) => {
           val alert = new Alert(AlertType.Confirmation)
@@ -119,9 +131,22 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
             case Some(ButtonType.OK) => stage.close()
             case _ =>
           }
-
         }
-        content = List(start, end, text, player1textField, player2textField, player1, player2)
+
+        rootPane.prefHeight = 350
+        rootPane.setStyle("-fx-background-color: green")
+        rootPane.center = vbox
+        playerbox1.children.addAll(player1,player1textField)
+        playerbox2.children.addAll(player2,player2textField)
+        val hbuttons = new HBox()
+        hbuttons.alignment = Pos.Center
+        hbuttons.children.addAll(start,end)
+        vbox.children.addAll(text,playerbox1,playerbox2,mapNum,hbuttons)
+        playerbox1.alignment = Pos.TopCenter
+        playerbox2.alignment = Pos.TopCenter
+        vbox.alignment = Pos.TopCenter
+        //content = List(start, end, text, player1textField, player2textField, player1, player2)
+        root = rootPane
       }
     }
   }
@@ -166,11 +191,11 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
     val menuBar = new MenuBar
     val fileMenu = new Menu("New")
     val newGame = new MenuItem("New") {
-      onAction = (e:ActionEvent) => createOverlay()
+     //onAction = (e:ActionEvent) => createOverlay
     }
     val options = new Menu("Options")
     val exitGame = new MenuItem("Exit") {
-      onAction = (e:ActionEvent) => stage.close()
+      onAction = (e:ActionEvent) => System.exit(0)
     }
     val undo = new MenuItem("Undo") {
       onAction = (e:ActionEvent) => controller.undo
@@ -264,7 +289,9 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
         }
       }
     }
-    val power = new TextField
+    val power = new TextField{
+      text = "30"
+    }
 
     val fire = new Button("Fire!"){
       onAction = (e:ActionEvent) => {

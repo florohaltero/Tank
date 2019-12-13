@@ -16,7 +16,8 @@ object PlayerFactory {
    val PLAYER1: Int = 1
    val PLAYER2: Int = 2
    val LP: Int = 100
-   val DEFAULT_A: Int = 30
+   val P1DEFAULT_A: Int = 30
+   val P2DEFAULT_A: Int = 150
    val DEFAULT_POWER : Int = 20
 
    def createPlayer1(name: String): Player = {
@@ -34,7 +35,7 @@ object PlayerFactory {
          val s = "Player: " + name + "\n" + tank.toString
          s
       }
-      var tank = Tank(pos, LP, DEFAULT_A)
+      var tank = Tank(pos, LP, P1DEFAULT_A)
       override var lp: Int = LP
       override var power: Int = DEFAULT_POWER
    }
@@ -45,7 +46,7 @@ object PlayerFactory {
          val s = "Player: " + name + "\n" + tank.toString
          s
       }
-      var tank = Tank(pos, LP, DEFAULT_A)
+      var tank = Tank(pos, LP, P2DEFAULT_A)
       override var lp: Int = LP
       override var power: Int = DEFAULT_POWER
    }
