@@ -17,6 +17,7 @@ object Map {
   var GUImode : Boolean = false
   var ListFX : List[(Double,Double)] = Nil
   val MAP_UNIT = 0.02
+  var winner : Player = _
 
   private def checkActivePlayer(): Boolean = {
     if(moves == 0) {
@@ -178,6 +179,7 @@ object Map {
       s += "\n"
     }
     s+= "Aktiver Spieler: " + activePlayer.name + " restliche Anzahl Züge: " + moves
+    if(winner != null){s += "Gewinner: " + winner.name}
     s
   }
 }

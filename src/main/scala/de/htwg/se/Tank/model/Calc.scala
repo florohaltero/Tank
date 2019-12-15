@@ -1,5 +1,7 @@
 package de.htwg.se.Tank.model
 import scala.collection.mutable.ListBuffer
+import util.control.Breaks._
+
 object Calc {
   final val G = 9.81
   def shootCalc : List[(Double, Double)] = {
@@ -12,17 +14,47 @@ object Calc {
     var y : Double = 0
     val listbuffer: ListBuffer[(Double, Double)] = ListBuffer.empty[(Double, Double)]
     var t : Double= 0
-    while(y >= 0 && x < Map.endOfMap._1){
-      //Berechnung von x,y Koordinate
-      x = v0 * Math.cos(alpha) * t
-      y =  x*Math.tan(alpha) - G/(2*Math.pow(v0,2)*Math.pow(Math.cos(alpha),2)) * Math.pow(x,2) + h0
-      //Start X wird auf den Schiefen Wurf addiert um diesen später richtig anzuzeigen
-      listbuffer.append((x + sx,y))
-
-      //Intervall von 0.2sek schiefer Wurf ausrechnen
-      t += Map.MAP_UNIT
-    }
+    breakable{
+      while(y >= 0 && x < Map.endOfMap._1){
+        //Berechnung von x,y Koordinate
+        x = v0 * Math.cos(alpha) * t
+        y =  x*Math.tan(alpha) - G/(2*Math.pow(v0,2)*Math.pow(Math.cos(alpha),2)) * Math.pow(x,2) + h0
+        //Start X wird auf den Schiefen Wurf addiert um diesen später richtig anzuzeigen
+        listbuffer.append((x + sx,y))
+        if(hit(x + sx,y)){
+          break
+        }
+        //Intervall von 0.2sek schiefer Wurf ausrechnen
+        t += Map.MAP_UNIT
+      }}
     listbuffer.toList
+  }
+
+  def hit(pos : ((Double), (Double))) : Boolean = {
+    if(Map.activePlayer != Map.p1){
+      if(Map.p2.tank.hitbox.posInHitbox(Position(pos._1,pos._2))) {
+        Map.p2.lp -= Map.activePlayer.tank.damage
+        if(Map.p2.lp <= 0){
+          win(Map.activePlayer)
+          true
+        }
+      }
+    } else {
+      if(Map.p1.tank.hitbox.posInHitbox(new Position(pos._1,pos._2))) {
+        Map.p1.lp -= Map.activePlayer.tank.damage
+        if(Map.p1.lp <= 0){
+          win(Map.activePlayer)
+          true
+        }
+      }
+    }
+    false
+
+  }
+
+  def win(player: Player): Boolean = {
+    Map.winner = player
+    true
   }
 
 //  def hit(game: Game): Tuple2[Boolean, Game] = {

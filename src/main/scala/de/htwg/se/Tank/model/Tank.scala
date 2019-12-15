@@ -6,7 +6,8 @@ case class Tank(pos: Position, lp: Int, canonAngle: Int) {
     var s = "Pos(x,y): (" + pos.x + "," + pos.y + ") Life: " + lp + " CannonAngle: " + canonAngle
     s
   }
-  // val hitbox = Hitbox(5, 10, pos)
+  val hitbox = Hitbox(5, 10, pos)
+  var damage = 30
   def canonUp(): Tank = {
     copy(pos, lp, canonAngle + STEP)
   }
