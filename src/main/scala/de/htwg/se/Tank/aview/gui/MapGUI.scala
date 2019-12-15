@@ -20,10 +20,12 @@ import scalafx.scene.shape.{Box, Circle, Polygon, Polyline, Rectangle}
 import de.htwg.se.Tank.controller.{Controller, Fire, NewGame, UpdateMap}
 import de.htwg.se.Tank.model.{Calc, Game, GameInit, Map, Position}
 import javafx.collections.FXCollections
+import scalafx.animation.PathTransition
 import scalafx.scene.canvas.Canvas
 import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.input.{KeyCode, KeyEvent}
 import scalafx.scene.media.{AudioClip, Media, MediaPlayer}
+import scalafx.util.Duration
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
@@ -338,9 +340,19 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
     mainPane.children.add(vbox)
   }
 
-  def showFire ={
-      val shootLine = Polyline(getGUIScale(Calc.shootCalc):_*)
-    mainPane.children.add(shootLine)
+  def showFire = {
+    val shootLine = Polyline(getGUIScale(Calc.shootCalc):_*)
+    val mun = Circle(5,Black)
+    val fire = new PathTransition(new Duration(3000),shootLine)
+    //fire.node = mun
+    fire.setNode(mun)
+    //fire.setRate(10)
+    fire.setPath(shootLine)
+
+    fire.playFromStart()
+
+    mainPane.children.addAll(mun)
+
   }
 
   private def createButton : TilePane = new TilePane(){
