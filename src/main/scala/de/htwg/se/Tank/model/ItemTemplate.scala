@@ -1,5 +1,7 @@
 package de.htwg.se.Tank.model
 
+import de.htwg.se.Tank.model.playerComponent.playerBase.Player
+
 trait ItemTemplate {
   val name :  String
   def activateItem(player: Player): Unit = {

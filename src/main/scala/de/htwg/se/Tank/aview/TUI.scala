@@ -1,7 +1,7 @@
 package de.htwg.se.Tank.aview
 
 import de.htwg.se.Tank.controller.{Controller, Fire, NewGame, UpdateMap}
-import de.htwg.se.Tank.model.Game
+import de.htwg.se.Tank.model.gameComponent.gameBase.Game
 import de.htwg.se.Tank.util.Observer
 
 import scala.swing.Reactor

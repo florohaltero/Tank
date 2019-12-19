@@ -1,6 +1,6 @@
 package de.htwg.se.Tank.model
 
-
+import de.htwg.se.Tank.model.gameComponent.gameBase.Calc
 import org.scalatest._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner

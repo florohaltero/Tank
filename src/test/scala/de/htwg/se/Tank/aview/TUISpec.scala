@@ -1,7 +1,7 @@
 package de.htwg.se.Tank.aview
 import de.htwg.se.Tank.controller.Controller
-import de.htwg.se.Tank.model.PlayerFactory.Player1
-import de.htwg.se.Tank.model.{Game, PlayerFactory, Position}
+import de.htwg.se.Tank.model.gameComponent.gameBase.Game
+import de.htwg.se.Tank.model.playerComponent.playerBase.PlayerFactory
 import org.scalatest._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner

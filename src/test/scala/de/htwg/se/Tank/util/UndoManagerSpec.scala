@@ -1,7 +1,7 @@
 package de.htwg.se.Tank.controller
 
 import de.htwg.se.Tank.controller.Controller
-import de.htwg.se.Tank.model.Game
+import de.htwg.se.Tank.model.gameComponent.gameBase.Game
 import de.htwg.se.Tank.util.{Command, Observer, UndoManager}
 import org.scalatest.{Matchers, WordSpec}
 

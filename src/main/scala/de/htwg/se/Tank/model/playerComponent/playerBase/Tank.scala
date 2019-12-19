@@ -1,4 +1,6 @@
-package de.htwg.se.Tank.model
+package de.htwg.se.Tank.model.playerComponent.playerBase
+
+import de.htwg.se.Tank.model.gameComponent.gameBase.Hitbox
 
 case class Tank(pos: Position, lp: Int, canonAngle: Int) {
   final val STEP = 5
@@ -25,4 +27,3 @@ case class Tank(pos: Position, lp: Int, canonAngle: Int) {
 
      */
 }
-

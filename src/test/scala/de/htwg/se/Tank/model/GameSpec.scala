@@ -1,4 +1,6 @@
 package de.htwg.se.Tank.model
+import de.htwg.se.Tank.model.gameComponent.gameBase
+import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, Map}
 import org.scalatest._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
@@ -11,10 +13,10 @@ class GameSpec extends WordSpec with Matchers{
       game_0.partyname should be("Standard")
     }
     "have Map_x" in {
-      Map.endOfMap._1 should be(30)
+      gameBase.Map.endOfMap._1 should be(30)
     }
     "have Map_y" in {
-      Map.endOfMap._2 should be(15)
+      gameBase.Map.endOfMap._2 should be(15)
     }
     "have map" in {
       game_0.mapNum should be (0)
@@ -26,30 +28,30 @@ class GameSpec extends WordSpec with Matchers{
       game_0.name2 should be ("Sascha")
     }
     "have Player1 map" in {
-      Map.p1.name should be ("Flo")
+      gameBase.Map.p1.name should be ("Flo")
     }
     "have a nice String Presentatiopn" in {
       game_0.toString should be(game_0.toString)
     }
     "have moveLeft" in {
       game_0.moveLeft()
-      Map.moves should be (1)
+      gameBase.Map.moves should be (1)
     }
     "have moveLeft in Map" in {
       game_0.moveLeft()
-      Map.p1.pos.x should be (1)
+      gameBase.Map.p1.pos.x should be (1)
     }
     "have moveRight" in {
       game_0.moveRight()
-      Map.moves should be (0)
+      gameBase.Map.moves should be (0)
     }
     game_0.moveAngleUp()
     "Angled up" in {
-      Map.activePlayer.tank.canonAngle should be (30)
+      gameBase.Map.activePlayer.tank.canonAngle should be (30)
     }
     game_0.moveAngleDown()
     "Angled down" in {
-      Map.activePlayer.tank.canonAngle should be (30)
+      gameBase.Map.activePlayer.tank.canonAngle should be (30)
     }
   }
   }

@@ -1,4 +1,9 @@
-package de.htwg.se.Tank.model
+package de.htwg.se.Tank.model.gameComponent.gameBase
+
+import de.htwg.se.Tank.model.gameComponent.gameInterface
+import de.htwg.se.Tank.model.playerComponent.playerBase.{Player, PlayerFactory, Position}
+import de.htwg.se.Tank.model.playerComponent.playerInterface
+
 import scala.collection.mutable.ListBuffer
 
 object Map {
@@ -183,5 +188,3 @@ object Map {
     s
   }
 }
-
-

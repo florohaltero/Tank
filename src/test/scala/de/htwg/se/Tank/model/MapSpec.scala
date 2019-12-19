@@ -1,4 +1,6 @@
 package de.htwg.se.Tank.model
+import de.htwg.se.Tank.model.gameComponent.gameBase
+import de.htwg.se.Tank.model.playerComponent.playerBase.Position
 import org.scalatest._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
@@ -11,7 +13,7 @@ class MapSpec extends WordSpec with Matchers {
   private val y1 = 10
   var fx: Double => Double = (x:Double) => 5*x
   "A Map" when { "new" should {
-      val map = Map
+      val map = gameBase.Map
       map.StateContext.P2State().setPlayer()
       "set Player2" in {
         map.activePlayer should be (map.p2)
@@ -46,7 +48,7 @@ class MapSpec extends WordSpec with Matchers {
     }
   }
   "A map2" when {"generated Position Player1" should {
-    val map = Map
+    val map = gameBase.Map
     map.p1.pos = map.generatePos(1)
     "changed Player" in {
       map.activePlayer should be (map.p1)

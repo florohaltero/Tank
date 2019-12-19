@@ -1,35 +1,33 @@
 package de.htwg.se.Tank.aview.gui
 
 
-import java.io.File
-
-import de.htwg.se.Tank.aview.TUI
+import de.htwg.se.Tank.controller.{Controller, Fire, NewGame, UpdateMap}
+import de.htwg.se.Tank.model.gameComponent.gameBase
+import de.htwg.se.Tank.model.gameComponent.gameBase.{Calc, GameInit}
+import de.htwg.se.Tank.model.playerComponent.playerBase.Position
+import javafx.collections.FXCollections
+import scalafx.Includes._
+import scalafx.animation.PathTransition
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
-import scalafx.geometry.{Insets, Orientation, Pos}
-import scalafx.scene.Scene
-import scalafx.scene.effect.DropShadow
-import scalafx.scene.layout.{Background, BorderPane, FlowPane, HBox, StackPane, TilePane, VBox}
-import scalafx.scene.paint.Color._
-import scalafx.scene.paint.{Color, LinearGradient, Stops}
-import scalafx.scene.text.Text
-import scalafx.Includes._
 import scalafx.event._
-import scalafx.scene.control.{Alert, Button, ButtonType, CheckBox, ChoiceBox, Label, Menu, MenuBar, MenuItem, SplitPane, Tab, TabPane, TextArea, TextField}
-import scalafx.scene.shape.{Box, Circle, Polygon, Polyline, Rectangle}
-import de.htwg.se.Tank.controller.{Controller, Fire, NewGame, UpdateMap}
-import de.htwg.se.Tank.model.{Calc, Game, GameInit, Map, Position}
-import javafx.collections.FXCollections
-import scalafx.animation.PathTransition
-import scalafx.scene.canvas.Canvas
+import scalafx.geometry.Pos
+import scalafx.scene.Scene
 import scalafx.scene.control.Alert.AlertType
+import scalafx.scene.control._
+import scalafx.scene.effect.DropShadow
 import scalafx.scene.input.{KeyCode, KeyEvent}
-import scalafx.scene.media.{AudioClip, Media, MediaPlayer}
+import scalafx.scene.layout.{BorderPane, HBox, TilePane, VBox}
+import scalafx.scene.media.AudioClip
+import scalafx.scene.paint.Color._
+import scalafx.scene.paint.{LinearGradient, Stops}
+import scalafx.scene.shape.{Circle, Polygon, Polyline, Rectangle}
+import scalafx.scene.text.Text
 import scalafx.util.Duration
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
-import scala.swing.{BoxPanel, Frame, Reactor}
+import scala.swing.Reactor
 //noinspection ScalaStyle
 class MapGUI(controller: Controller) extends JFXApp with Reactor {
 
@@ -48,7 +46,7 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
   var rootPane = new BorderPane
   //val controller = new Controller(Game("Standard", 0, "Flo", "Sasch"))
   //GameInit.setMapSettings(0, "Sascha", "Flo")
-  var map = Map
+  var map = gameBase.Map
   var mainPane = new BorderPane
   var bottomBox = new HBox
 
@@ -212,7 +210,7 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
   }
 
   def createMapShapes = {
-    var lb : mutable.Buffer[Double] = getGUIScale(Map.getFXList(true)).toBuffer
+    var lb : mutable.Buffer[Double] = getGUIScale(gameBase.Map.getFXList(true)).toBuffer
     lb.append(WIDTH)
     lb.append(HEIGHT)
     lb.append(0)
@@ -223,7 +221,7 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
     line.layoutX = 0
     line.layoutY = 0
     val t1 = new Rectangle {
-      val p1 = getPosinGUIScale(Map.p1.pos)
+      val p1 = getPosinGUIScale(gameBase.Map.p1.pos)
       height = 10
       width = 20
       x = p1._1 - 0.5 * width()
@@ -231,7 +229,7 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
       fill = Blue
     }
     val t2 = new Rectangle {
-      val p2 = getPosinGUIScale(Map.p2.pos)
+      val p2 = getPosinGUIScale(gameBase.Map.p2.pos)
       height = 10
       width = 20
       x = p2._1 - 0.5 * width()
@@ -329,10 +327,10 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
 //    }
 
     val infoPlayer1 = new Text(){
-      text = Map.p1.toString
+      text = gameBase.Map.p1.toString
     }
     val infoPlayer2 = new Text(){
-      text = Map.p2.toString
+      text = gameBase.Map.p2.toString
     }
     val vbox = new VBox{
       children.addAll(infoPlayer1,infoPlayer2)

@@ -1,6 +1,10 @@
-package de.htwg.se.Tank.model
+package de.htwg.se.Tank.model.gameComponent.gameBase
+
+
+import de.htwg.se.Tank.model.playerComponent.playerBase.{Player, Position}
+
 import scala.collection.mutable.ListBuffer
-import util.control.Breaks._
+import scala.util.control.Breaks.{break, breakable}
 
 object Calc {
   final val G = 9.81
@@ -68,4 +72,3 @@ object Calc {
 //    res
 //  }
 }
-
