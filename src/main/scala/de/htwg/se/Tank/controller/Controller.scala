@@ -1,6 +1,6 @@
 package de.htwg.se.Tank.controller
 
-import de.htwg.se.Tank.model.{Game, Player}
+import de.htwg.se.Tank.model.gameComponent.gameBase.Game
 import de.htwg.se.Tank.util.{Observable, UndoManager}
 
 import scala.swing.Publisher

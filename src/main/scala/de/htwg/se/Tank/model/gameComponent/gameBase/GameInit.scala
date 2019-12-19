@@ -1,6 +1,7 @@
-package de.htwg.se.Tank.model
-import de.htwg.se.Tank.model.Map
-import de.htwg.se.Tank.model.Map.StateContext
+package de.htwg.se.Tank.model.gameComponent.gameBase
+
+import de.htwg.se.Tank.model.gameComponent.gameBase.Map.StateContext
+import de.htwg.se.Tank.model.playerComponent.playerBase.PlayerFactory
 
 object GameInit {
 

@@ -1,8 +1,12 @@
-package de.htwg.se.Tank.model
+package de.htwg.se.Tank.model.playerComponent.playerBase
+
+import de.htwg.se.Tank.model.ItemTemplate
+import de.htwg.se.Tank.model.gameComponent.gameBase
+import de.htwg.se.Tank.model.playerComponent.playerInterface
 
 import scala.collection.mutable.ListBuffer
 
-trait Player{
+trait Player {
    val id : Integer
    var tank : Tank
    val name : String
@@ -21,11 +25,11 @@ object PlayerFactory {
    val DEFAULT_POWER : Int = 20
 
    def createPlayer1(name: String): Player = {
-      Player1(name, Map.generatePos(1))
+      Player1(name, gameBase.Map.generatePos(1))
    }
 
    def createPlayer2(name: String): Player = {
-      Player2(name, Map.generatePos(2))
+      Player2(name, gameBase.Map.generatePos(2))
    }
 
 

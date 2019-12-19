@@ -1,6 +1,6 @@
 package de.htwg.se.Tank.controller
 
-import de.htwg.se.Tank.model.Map
+import de.htwg.se.Tank.model.gameComponent.gameBase.Map
 import de.htwg.se.Tank.util.Command
 
 class ChangePlayerCommand(controller: Controller) extends Command{

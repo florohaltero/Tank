@@ -3,7 +3,7 @@ package de.htwg.se.Tank
 import de.htwg.se.Tank.aview.TUI
 import de.htwg.se.Tank.aview.gui.MapGUI
 import de.htwg.se.Tank.controller.{Controller, NewGame, UpdateMap}
-import de.htwg.se.Tank.model.Game
+import de.htwg.se.Tank.model.gameComponent.gameBase.Game
 import javafx.application.Application
 import scalafx.application.JFXApp
 import scalafx.scene.media.AudioClip

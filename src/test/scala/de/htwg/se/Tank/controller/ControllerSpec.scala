@@ -1,8 +1,9 @@
 package de.htwg.se.Tank.controller
 
 import de.htwg.se.Tank.controller.Controller
-import de.htwg.se.Tank.model.Map
-import de.htwg.se.Tank.model.Game
+import de.htwg.se.Tank.model.gameComponent.gameBase
+import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, Map}
+import de.htwg.se.Tank.model.gameComponent
 import de.htwg.se.Tank.util.{Observer, UndoManager}
 import org.scalatest.{Matchers, WordSpec}
 
@@ -23,8 +24,8 @@ class ControllerSpec extends WordSpec with Matchers {
       "notify its Observer after creation" in {
         controller.setGame("Standard", 0, "Flo", "Sasch")
         observer.updated should be(true)
-        Map.p1.name should be ("Flo")
-        Map.p2.name should be ("Sasch")
+        gameBase.Map.p1.name should be ("Flo")
+        gameBase.Map.p2.name should be ("Sasch")
       }
       controller.moveLeft()
       "notify its Observer after move left" in {

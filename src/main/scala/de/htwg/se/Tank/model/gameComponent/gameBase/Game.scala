@@ -1,9 +1,11 @@
-package de.htwg.se.Tank.model
+package de.htwg.se.Tank.model.gameComponent.gameBase
 
-import de.htwg.se.Tank.model.GameInit
-import de.htwg.se.Tank.model.Map.{activePlayer, fx, moves, posInMap, NUMBER_OF_MOVES}
+import de.htwg.se.Tank.model.playerComponent.playerInterface
+import de.htwg.se.Tank.model.gameComponent.gameBase.Map._
+import de.htwg.se.Tank.model.gameComponent.gameInterface
+import de.htwg.se.Tank.model.playerComponent.playerBase.{Player, Position}
 
-case class Game(partyname: String, mapNum: Int, name1: String, name2: String){
+case class Game(partyname: String, mapNum: Int, name1: String, name2: String) extends gameInterface {
   var map : Map.type = Map
   override def toString: String = {
     var name = "\n" + "partyname: " + partyname + "\n"

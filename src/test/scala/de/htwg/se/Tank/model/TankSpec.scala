@@ -1,4 +1,6 @@
 package de.htwg.se.Tank.model
+import de.htwg.se.Tank.model.playerComponent.playerBase
+import de.htwg.se.Tank.model.playerComponent.playerBase.Position
 import org.scalatest._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
@@ -9,7 +11,7 @@ class TankSpec extends WordSpec with Matchers {
   val angle = 10
   val step = 5
   "A Tank" when { "new" should {
-    var tank = Tank(pos, 100, angle)
+    var tank = playerBase.Tank(pos, 100, angle)
     "have vars" in {
       tank.STEP should be (step)
       tank.pos should be (pos)

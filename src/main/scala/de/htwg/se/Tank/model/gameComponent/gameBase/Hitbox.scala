@@ -1,4 +1,6 @@
-package de.htwg.se.Tank.model
+package de.htwg.se.Tank.model.gameComponent.gameBase
+
+import de.htwg.se.Tank.model.playerComponent.playerBase.Position
 
 case class Hitbox(height: Int, width: Int, pos: Position) {
   var xRange : ((Double),(Double)) = ((pos.x - 0.5*width),(pos.x + 0.5*width))
@@ -10,5 +12,3 @@ case class Hitbox(height: Int, width: Int, pos: Position) {
     false
   }
 }
-
-
