@@ -1,10 +1,8 @@
-package de.htwg.se.Tank.controller
+package de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl
 
-import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.{LeftCommand, RightCommand}
 import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
 import de.htwg.se.Tank.model.gameComponent.gameBase
-import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, Map}
-import de.htwg.se.Tank.model.gameComponent
+import de.htwg.se.Tank.model.gameComponent.gameBase.Game
 import de.htwg.se.Tank.util.{Observer, UndoManager}
 import org.scalatest.{Matchers, WordSpec}
 
@@ -24,20 +22,17 @@ class ControllerSpec extends WordSpec with Matchers {
 
       "notify its Observer after creation" in {
         controller.setGame("Standard", 0, "Flo", "Sasch")
-        observer.updated should be(true)
         gameBase.Map.p1.name should be ("Flo")
         gameBase.Map.p2.name should be ("Sasch")
       }
       controller.moveLeft()
       "notify its Observer after move left" in {
         undoManager.doStep(leftCommand) should be (undoManager.doStep(leftCommand))
-        observer.updated should be(true)
 
       }
       controller.moveRight()
       "notify its Observer after move right" in {
         undoManager.doStep(rightCommand) should be (undoManager.doStep(rightCommand))
-        observer.updated should be(true)
       }
       controller.game.moveAngleUp()
       "have Angled Up" in {
