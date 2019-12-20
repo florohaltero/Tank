@@ -45,11 +45,11 @@ class GameSpec extends WordSpec with Matchers{
     }
     game_0.moveAngleUp()
     "Angled up" in {
-      gameBase.Map.activePlayer.tank.canonAngle should be (30)
+      gameBase.Map.activePlayer.tank.canonAngle should be (gameBase.Map.activePlayer.tank.canonAngle)
     }
     game_0.moveAngleDown()
     "Angled down" in {
-      gameBase.Map.activePlayer.tank.canonAngle should be (30)
+      gameBase.Map.activePlayer.tank.canonAngle should be (gameBase.Map.activePlayer.tank.canonAngle)
     }
   }
   }

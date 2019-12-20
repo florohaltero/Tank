@@ -21,10 +21,10 @@ class MapSpec extends WordSpec with Matchers {
         map.StateContext.state should be (map.StateContext.P1State())
       }
       "have beginOfMap x" in {
-        map.beginOfMap._1 should be(0)
+        map.beginOfMap._1 should be(GameInit.MAP_X1)
       }
       "have beginOfMap y" in {
-        map.beginOfMap._2 should be(0)
+        map.beginOfMap._2 should be(GameInit.MAP_Y1)
       }
       "have endOfMap x" in {
         map.endOfMap._1 should be(100)
@@ -35,11 +35,7 @@ class MapSpec extends WordSpec with Matchers {
       "have f(x)" in {
         fx(2) should be (10)
       }
-
     map.setFX(Option(0))
-    "have Pos in Map" in {
-      map.posInMap(Position(50,50)) should be (true)
-    }
     "have no Pos in Map" in {
       map.posInMap(Position(-1,0)) should be (false)
     }
@@ -51,6 +47,10 @@ class MapSpec extends WordSpec with Matchers {
   "A map2" when {"generated Position Player1" should {
     val map = gameBase.Map
     map.p1.pos = map.generatePos(1)
+    map.toString()
+    "have String" in {
+      map.toString() should be(map.toString())
+    }
     "changed Player" in {
       map.activePlayer should be (map.p1)
       map.StateContext.state.changePlayer()
@@ -78,11 +78,6 @@ class MapSpec extends WordSpec with Matchers {
     "have NOPOS_RANGE" in {
       map.NOPOS_RANGE should be (0.1)
     }
-    map.toString()
-    "have String" in {
-      map.toString() should be(map.toString())
-    }
-
   }
 
   }
