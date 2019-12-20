@@ -1,8 +1,9 @@
-package de.htwg.se.Tank.model
+package de.htwg.se.Tank.model.playerComponentSpec
+
 import de.htwg.se.Tank.model.playerComponent.playerBase
 import de.htwg.se.Tank.model.playerComponent.playerBase.Position
-import org.scalatest._
 import org.junit.runner.RunWith
+import org.scalatest._
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])

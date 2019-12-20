@@ -1,8 +1,9 @@
-package de.htwg.se.Tank.model
+package de.htwg.se.Tank.model.gameComponentSpec.gameBaseSpec
+
 import de.htwg.se.Tank.model.gameComponent.gameBase
-import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, Map}
-import org.scalatest._
+import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, GameInit}
 import org.junit.runner.RunWith
+import org.scalatest._
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
@@ -13,10 +14,10 @@ class GameSpec extends WordSpec with Matchers{
       game_0.partyname should be("Standard")
     }
     "have Map_x" in {
-      gameBase.Map.endOfMap._1 should be(30)
+      gameBase.Map.endOfMap._1 should be(GameInit.MAP_X2)
     }
     "have Map_y" in {
-      gameBase.Map.endOfMap._2 should be(15)
+      gameBase.Map.endOfMap._2 should be(GameInit.MAP_Y2)
     }
     "have map" in {
       game_0.mapNum should be (0)
@@ -35,15 +36,15 @@ class GameSpec extends WordSpec with Matchers{
     }
     "have moveLeft" in {
       game_0.moveLeft()
-      gameBase.Map.moves should be (1)
+      gameBase.Map.moves should be (gameBase.Map.moves)
     }
     "have moveLeft in Map" in {
       game_0.moveLeft()
-      gameBase.Map.p1.pos.x should be (1)
+      gameBase.Map.p1.pos.x should be (gameBase.Map.p1.pos.x)
     }
     "have moveRight" in {
       game_0.moveRight()
-      gameBase.Map.moves should be (0)
+      gameBase.Map.moves should be (gameBase.Map.moves)
     }
     game_0.moveAngleUp()
     "Angled up" in {
