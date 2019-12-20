@@ -2,7 +2,6 @@ package de.htwg.se.Tank.model.gameComponent.gameBase
 
 import de.htwg.se.Tank.model.gameComponent.gameInterface
 import de.htwg.se.Tank.model.playerComponent.playerBase.{Player, PlayerFactory, Position}
-import de.htwg.se.Tank.model.playerComponent.playerInterface
 
 import scala.collection.mutable.ListBuffer
 
@@ -42,7 +41,7 @@ object Map {
     lbuffer.toList
   }
 
-  def getFXList(GUImode : Boolean) : List[(Double,Double)] ={
+  def getFXList(GUImode : Boolean) : List[(Double,Double)] = {
     val listbuffer: ListBuffer[(Double,Double)] = ListBuffer.empty[(Double,Double)]
     if(!GUImode){
       for(i <- beginOfMap._1 to endOfMap._1) {
@@ -66,16 +65,6 @@ object Map {
     false
   }
 
-
-/*
-  def getYFromMapFct(x: Double): Double = {
-    val y = fx(x)
-    if (posInMap(Position(x, y))) {
-      return y
-    }
-    0.0
-  }
-*/
   def setFX(i: Option[Int]): Boolean = i match {
     case Some(0) => fx = (x: Double) => 5 * math.sin(0.1 * x) + 7
       true

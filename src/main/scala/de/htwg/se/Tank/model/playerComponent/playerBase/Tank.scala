@@ -1,8 +1,9 @@
 package de.htwg.se.Tank.model.playerComponent.playerBase
 
 import de.htwg.se.Tank.model.gameComponent.gameBase.Hitbox
+import de.htwg.se.Tank.model.playerComponent.TankInterface
 
-case class Tank(pos: Position, lp: Int, canonAngle: Int) {
+case class Tank(pos: Position, lp: Int, canonAngle: Int) extends TankInterface{
   final val STEP = 5
   override def toString: String = {
     var s = "Pos(x,y): (" + pos.x + "," + pos.y + ") Life: " + lp + " CannonAngle: " + canonAngle
@@ -10,10 +11,10 @@ case class Tank(pos: Position, lp: Int, canonAngle: Int) {
   }
   val hitbox = Hitbox(5, 10, pos)
   var damage = 30
-  def canonUp(): Tank = {
+  override def canonUp(): Tank = {
     copy(pos, lp, canonAngle + STEP)
   }
-  def canonDown(): Tank = {
+  override def canonDown(): Tank = {
     copy(pos, lp, canonAngle - STEP)
   }
   /*
