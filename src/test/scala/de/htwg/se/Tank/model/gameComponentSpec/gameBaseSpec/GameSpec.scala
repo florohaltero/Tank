@@ -34,13 +34,10 @@ class GameSpec extends WordSpec with Matchers{
     "have a nice String Presentatiopn" in {
       game_0.toString should be(game_0.toString)
     }
+    game_0.moveLeft()
     "have moveLeft" in {
-      game_0.moveLeft()
-      gameBase.Map.moves should be (gameBase.Map.moves)
-    }
-    "have moveLeft in Map" in {
-      game_0.moveLeft()
       gameBase.Map.p1.pos.x should be (gameBase.Map.p1.pos.x)
+      gameBase.Map.moves should be (gameBase.Map.moves)
     }
     "have moveRight" in {
       game_0.moveRight()
