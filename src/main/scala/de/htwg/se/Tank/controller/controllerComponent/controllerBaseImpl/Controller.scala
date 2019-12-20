@@ -4,10 +4,10 @@ import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.{Change
 import de.htwg.se.Tank.controller.controllerComponent.{ControllerInterface, Fire, NewGame, UpdateMap}
 import de.htwg.se.Tank.model.gameComponent.gameBase.Game
 import de.htwg.se.Tank.util.{Observable, UndoManager}
+import de.htwg.se.Tank.model.gameComponent.gameInterface
 
-import scala.swing.Publisher
 
-class Controller(var game: Game) extends ControllerInterface with Publisher {
+class Controller(var game: gameInterface) extends ControllerInterface {
   private val undoManager = new UndoManager
   override def setGame(partyname: String, map: Int, name1: String, name2: String): Unit = {
     game = Game(partyname, map , name1, name2)
@@ -15,7 +15,7 @@ class Controller(var game: Game) extends ControllerInterface with Publisher {
     publish(new UpdateMap)
   }
 
-  def getGame() : Game = {
+  def getGame() : gameInterface = {
     game
   }
 
@@ -62,4 +62,5 @@ class Controller(var game: Game) extends ControllerInterface with Publisher {
     undoManager.redoStep
     publish(new UpdateMap)
   }
+
 }

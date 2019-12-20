@@ -1,6 +1,6 @@
 package de.htwg.se.Tank.aview
 
-import de.htwg.se.Tank.controller.controllerComponent.{Fire, NewGame, UpdateMap}
+import de.htwg.se.Tank.controller.controllerComponent.{ControllerInterface, Fire, NewGame, UpdateMap}
 import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
 import de.htwg.se.Tank.model.gameComponent.gameBase.Game
 import de.htwg.se.Tank.util.Observer
@@ -8,13 +8,11 @@ import de.htwg.se.Tank.util.Observer
 import scala.swing.Reactor
 import scala.util.{Failure, Success, Try}
 
-class TUI(controller: Controller) extends Reactor{
+class TUI(controller: ControllerInterface) extends Reactor{
   listenTo(controller)
   def processInputLine(input: String): Unit ={
     Try(input match {
-      case "m0" => controller.setGame("Standard", 0, controller.game.name1, controller.game.name2)
-      case "m1" => controller.setGame("Standard", 1, controller.game.name1, controller.game.name2)
-      case "n" => controller.setGame("Standard", 0, "Flo", "Sasch")
+      case "n" => controller.setGame("Standard", 0, scala.io.StdIn.readLine(), scala.io.StdIn.readLine())
       case "a" => controller.moveLeft()
       case "d" => controller.moveRight()
       case "w" => controller.moveAngleUp()

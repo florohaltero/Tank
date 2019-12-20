@@ -1,7 +1,7 @@
 package de.htwg.se.Tank.aview.gui
 
 
-import de.htwg.se.Tank.controller.controllerComponent.{Fire, NewGame, UpdateMap}
+import de.htwg.se.Tank.controller.controllerComponent.{ControllerInterface, Fire, NewGame, UpdateMap}
 import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
 import de.htwg.se.Tank.model.gameComponent.gameBase
 import de.htwg.se.Tank.model.gameComponent.gameBase.{Calc, GameInit}
@@ -30,7 +30,7 @@ import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 import scala.swing.Reactor
 //noinspection ScalaStyle
-class MapGUI(controller: Controller) extends JFXApp with Reactor {
+class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
 
   listenTo(controller)
   reactions += {

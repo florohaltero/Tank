@@ -1,11 +1,11 @@
 package de.htwg.se.Tank.model.gameComponent.gameBase
 
-import de.htwg.se.Tank.model.gameComponent.gameInterface
+import de.htwg.se.Tank.model.gameComponent.{gameInterface, mapInterface}
 import de.htwg.se.Tank.model.playerComponent.playerBase.{Player, PlayerFactory, Position}
 
 import scala.collection.mutable.ListBuffer
 
-object Map {
+object Map extends mapInterface {
   var fx: Double => Double = (x:Double) => 5 * math.sin(0.1 * x) + 10
   final val NUMBER_OF_MOVES : Int = 10
   var moves : Int = _
@@ -23,12 +23,6 @@ object Map {
   val MAP_UNIT = 0.02
   var winner : Player = _
 
-  private def checkActivePlayer(): Boolean = {
-    if(moves == 0) {
-      StateContext.state.changePlayer()
-      true
-    } else {false}
-  }
 
   def getFxDouble(): List[Double] = {
     val list = getFXList(true)
@@ -94,6 +88,7 @@ object Map {
    }
    pos
  }
+  override def getActivePlayer: Player = activePlayer
 
   object StateContext {
     var state : State = _
@@ -176,4 +171,6 @@ object Map {
     if(winner != null){s += "Gewinner: " + winner.name}
     s
   }
+
+
 }
