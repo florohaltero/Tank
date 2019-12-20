@@ -10,6 +10,9 @@ import org.scalatest.junit.JUnitRunner
 class GameSpec extends WordSpec with Matchers{
   "A Game" when { "new" should {
     val game_0 = Game("Standard", 0, "Flo", "Sascha")
+    "have a nice String Presentatiopn" in {
+      game_0.toString should be(game_0.toString)
+    }
     "have partyname" in {
       game_0.partyname should be("Standard")
     }
@@ -30,9 +33,6 @@ class GameSpec extends WordSpec with Matchers{
     }
     "have Player1 map" in {
       gameBase.Map.p1.name should be ("Flo")
-    }
-    "have a nice String Presentatiopn" in {
-      game_0.toString should be(game_0.toString)
     }
     game_0.moveLeft()
     "have moveLeft" in {

@@ -25,6 +25,10 @@ class ControllerSpec extends WordSpec with Matchers {
         gameBase.Map.p1.name should be ("Flo")
         gameBase.Map.p2.name should be ("Sasch")
       }
+      controller.gametoString
+      "to String" in {
+        controller.gametoString should be (controller.gametoString)
+      }
       controller.moveLeft()
       "notify its Observer after move left" in {
         undoManager.doStep(leftCommand) should be (undoManager.doStep(leftCommand))
@@ -55,10 +59,6 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.changePlayer()
       "change Player" in {
         controller.changePlayer() should be (controller.changePlayer())
-      }
-      controller.gametoString
-      "to String" in {
-        controller.gametoString should be (controller.gametoString)
       }
     }
   }
