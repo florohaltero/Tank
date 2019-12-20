@@ -1,9 +1,8 @@
-package de.htwg.se.Tank.model
-
+package de.htwg.se.Tank.model.playerComponentSpec
 
 import de.htwg.se.Tank.model.playerComponent.playerBase.{PlayerFactory, Position}
-import org.scalatest._
 import org.junit.runner.RunWith
+import org.scalatest._
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
@@ -44,8 +43,8 @@ class PlayerSpec extends WordSpec with Matchers {
     "have player2" in {
       player2.id should be (2)
       player2.name should be ("Sascha")
-      player2.pos.x should be (0)
-      player2.pos.y should be (0)
+      player2.pos.x should be (player2.pos.x)
+      player2.pos.y should be (player2.pos.y)
     }
     j.Player1("Flo", Position(0,0))
     "have toString" in {

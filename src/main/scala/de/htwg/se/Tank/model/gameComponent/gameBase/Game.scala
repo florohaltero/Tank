@@ -1,6 +1,5 @@
 package de.htwg.se.Tank.model.gameComponent.gameBase
 
-import de.htwg.se.Tank.model.playerComponent.playerInterface
 import de.htwg.se.Tank.model.gameComponent.gameBase.Map._
 import de.htwg.se.Tank.model.gameComponent.gameInterface
 import de.htwg.se.Tank.model.playerComponent.playerBase.{Player, Position}

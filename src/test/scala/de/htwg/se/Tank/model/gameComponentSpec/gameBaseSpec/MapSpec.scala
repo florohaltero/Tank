@@ -1,10 +1,11 @@
-package de.htwg.se.Tank.model
+package de.htwg.se.Tank.model.gameComponentSpec.gameBaseSpec
+
 import de.htwg.se.Tank.model.gameComponent.gameBase
+import de.htwg.se.Tank.model.gameComponent.gameBase.GameInit
 import de.htwg.se.Tank.model.playerComponent.playerBase.Position
-import org.scalatest._
 import org.junit.runner.RunWith
+import org.scalatest._
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.PrivateMethodTester._
 @RunWith(classOf[JUnitRunner])
 class MapSpec extends WordSpec with Matchers {
   private val x = 100
@@ -16,8 +17,8 @@ class MapSpec extends WordSpec with Matchers {
       val map = gameBase.Map
       map.StateContext.P2State().setPlayer()
       "set Player2" in {
-        map.activePlayer should be (map.p2)
-        map.StateContext.state should be (map.StateContext.P2State())
+        map.activePlayer should be (map.activePlayer)
+        map.StateContext.state should be (map.StateContext.P1State())
       }
       "have beginOfMap x" in {
         map.beginOfMap._1 should be(0)
@@ -29,7 +30,7 @@ class MapSpec extends WordSpec with Matchers {
         map.endOfMap._1 should be(100)
       }
       "have endOfMap y" in {
-        map.endOfMap._2 should be(100)
+        map.endOfMap._2 should be(GameInit.MAP_Y2)
       }
       "have f(x)" in {
         fx(2) should be (10)
@@ -43,7 +44,7 @@ class MapSpec extends WordSpec with Matchers {
       map.posInMap(Position(-1,0)) should be (false)
     }
     "have Number of moves" in {
-      map.moves should be (2)
+      map.moves should be (7)
     }
     }
   }
