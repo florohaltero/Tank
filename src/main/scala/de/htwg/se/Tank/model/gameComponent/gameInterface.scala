@@ -15,4 +15,7 @@ trait gameInterface {
   def changePlayer() : Unit
 }
 
+trait mapInterface {
+
+}
 

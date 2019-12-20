@@ -1,7 +1,8 @@
 package de.htwg.se.Tank.aview.gui
 
 
-import de.htwg.se.Tank.controller.{Controller, Fire, NewGame, UpdateMap}
+import de.htwg.se.Tank.controller.controllerComponent.{Fire, NewGame, UpdateMap}
+import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
 import de.htwg.se.Tank.model.gameComponent.gameBase
 import de.htwg.se.Tank.model.gameComponent.gameBase.{Calc, GameInit}
 import de.htwg.se.Tank.model.playerComponent.playerBase.Position
@@ -346,11 +347,8 @@ class MapGUI(controller: Controller) extends JFXApp with Reactor {
     fire.setNode(mun)
     //fire.setRate(10)
     fire.setPath(shootLine)
-
     fire.playFromStart()
-
     mainPane.children.addAll(mun)
-
   }
 
   private def createButton : TilePane = new TilePane(){

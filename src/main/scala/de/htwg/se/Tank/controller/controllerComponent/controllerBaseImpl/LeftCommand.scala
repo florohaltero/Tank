@@ -1,5 +1,7 @@
-package de.htwg.se.Tank.controller
+package de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl
 
+
+import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
 import de.htwg.se.Tank.util.Command
 
 class LeftCommand(controller: Controller) extends Command {

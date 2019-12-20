@@ -1,6 +1,7 @@
 package de.htwg.se.Tank.controller
 
-import de.htwg.se.Tank.controller.Controller
+import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.RightCommand
+import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
 import de.htwg.se.Tank.model.gameComponent.gameBase
 import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, Map}
 import de.htwg.se.Tank.model.gameComponent

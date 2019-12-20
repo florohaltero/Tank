@@ -17,7 +17,7 @@ object Calc {
     var x = Map.activePlayer.pos.x
     var y : Double = 0
     val listbuffer: ListBuffer[(Double, Double)] = ListBuffer.empty[(Double, Double)]
-    var t : Double= 0
+    var t : Double = 0
     breakable{
       while(y >= 0 && x < Map.endOfMap._1){
         //Berechnung von x,y Koordinate
