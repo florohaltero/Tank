@@ -1,7 +1,11 @@
 package de.htwg.se.Tank.controller.controllerComponent
+import de.htwg.se.Tank.model.gameComponent.gameBase.Game
+import de.htwg.se.Tank.model.gameComponent.gameInterface
 
-trait ControllerInterface {
-  def setGame(partyname: String, map: Int, name1: String, name2: String): Unit = {}
+import scala.swing.Publisher
+
+trait ControllerInterface extends Publisher {
+  def setGame(partyname: String, map: Int, name1: String, name2: String): Unit
   def setDefaultGame(): Unit
   def changePlayer() : Unit
   def moveLeft() : Unit
@@ -12,6 +16,7 @@ trait ControllerInterface {
   def gametoString: String
   def undo: Unit
   def redo: Unit
+  def getGame : gameInterface
 }
 
 import scala.swing.event.Event

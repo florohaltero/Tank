@@ -11,6 +11,6 @@ trait PlayerFactoryInterface {
 }
 
 trait TankInterface {
-  def canonUp(): Tank
-  def canonDown(): Tank
+  def canonUp(): TankInterface
+  def canonDown(): TankInterface
 }
