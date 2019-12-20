@@ -15,6 +15,10 @@ class Controller(var game: Game) extends ControllerInterface with Publisher {
     publish(new UpdateMap)
   }
 
+  def getGame() : Game = {
+    game
+  }
+
   override def setDefaultGame(): Unit  = {
     game = Game("Default", 0 , "Flo", "Sasch")
     publish(new NewGame)

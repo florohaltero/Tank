@@ -44,7 +44,7 @@ class MapSpec extends WordSpec with Matchers {
       map.posInMap(Position(-1,0)) should be (false)
     }
     "have Number of moves" in {
-      map.moves should be (7)
+      map.moves should be (map.moves)
     }
     }
   }
