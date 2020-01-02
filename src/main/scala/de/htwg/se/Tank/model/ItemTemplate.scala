@@ -31,7 +31,7 @@ trait ItemTemplate {
 case class ItemHealth() extends ItemTemplate {
   override val name: String = "Health"
   override def useItem(player: Player): Unit = {
-    player.lp + value
+    player.tank.lp + value
   }
   override val value: Integer = 25
   override def msgItem(): String = {
