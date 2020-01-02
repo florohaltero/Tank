@@ -11,7 +11,6 @@ trait Player {
    var tank : Tank
    val name : String
    var pos : Position
-   var lp: Int
    var power : Int
    var ItemList: ListBuffer[ItemTemplate] = ListBuffer.empty
 }
@@ -40,7 +39,6 @@ object PlayerFactory extends PlayerFactoryInterface{
          s
       }
       var tank = Tank(pos, LP, P1DEFAULT_A)
-      override var lp: Int = LP
       override var power: Int = DEFAULT_POWER
    }
 
@@ -51,7 +49,6 @@ object PlayerFactory extends PlayerFactoryInterface{
          s
       }
       var tank = Tank(pos, LP, P2DEFAULT_A)
-      override var lp: Int = LP
       override var power: Int = DEFAULT_POWER
    }
 

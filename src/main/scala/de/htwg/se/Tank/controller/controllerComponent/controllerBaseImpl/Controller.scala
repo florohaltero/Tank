@@ -1,10 +1,10 @@
 package de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller
 
 import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.{ChangePlayerCommand, LeftCommand, RightCommand}
-import de.htwg.se.Tank.controller.controllerComponent.{ControllerInterface, Fire, NewGame, UpdateMap}
-import de.htwg.se.Tank.model.gameComponent.gameBase.Game
+import de.htwg.se.Tank.controller.controllerComponent.{ControllerInterface, Fire, Hit, NewGame, UpdateMap}
+import de.htwg.se.Tank.model.gameComponent.gameBase.{Game,Map}
 import de.htwg.se.Tank.util.{Observable, UndoManager}
-import de.htwg.se.Tank.model.gameComponent.gameInterface
+import de.htwg.se.Tank.model.gameComponent.{gameInterface, mapInterface}
 
 
 class Controller(var game: gameInterface) extends ControllerInterface {
@@ -46,9 +46,21 @@ class Controller(var game: gameInterface) extends ControllerInterface {
     game.moveAngleDown()
     publish(new UpdateMap)
   }
+  override def powerUp() : Unit = {
+    Map.getActivePlayer.power += 1
+    publish(new UpdateMap)
+  }
+
+  override def powerDown() : Unit = {
+    Map.getActivePlayer.power -= 1
+    publish(new UpdateMap)
+  }
+
   override def shoot(pow : Int) : Unit ={
     game.shoot(pow)
+    Map.getActivePlayer.power = pow
     publish(new Fire)
+    publish(new Hit)
   }
 
   def gametoString: String = game.toString

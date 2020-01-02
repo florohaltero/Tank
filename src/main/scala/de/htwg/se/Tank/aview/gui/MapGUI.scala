@@ -1,12 +1,13 @@
 package de.htwg.se.Tank.aview.gui
 
 
-import de.htwg.se.Tank.controller.controllerComponent.{ControllerInterface, Fire, NewGame, UpdateMap}
+import de.htwg.se.Tank.controller.controllerComponent.{ControllerInterface, Fire, Hit, NewGame, UpdateMap}
 import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
 import de.htwg.se.Tank.model.gameComponent.gameBase
-import de.htwg.se.Tank.model.gameComponent.gameBase.{Calc, GameInit}
+import de.htwg.se.Tank.model.gameComponent.gameBase.{Calc, GameInit,Map}
 import de.htwg.se.Tank.model.playerComponent.playerBase.Position
 import javafx.collections.FXCollections
+import javafx.event.EventHandler
 import scalafx.Includes._
 import scalafx.animation.PathTransition
 import scalafx.application.JFXApp
@@ -37,6 +38,7 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     case event: NewGame => createOverlay()
     case event: UpdateMap => createMap()
     case event: Fire => showFire
+    case event: Hit => updateText
   }
 
   final val WIDTH : Double = 1000
@@ -163,11 +165,6 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     (value.x * XScale, (GameInit.MAP_Y2 - value.y) * YScale)
   }
 
-  def removeContent: Unit ={
-
-
-  }
-
   def createMap() {
     stage = new PrimaryStage{
       rootPane = new BorderPane
@@ -192,7 +189,7 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     val menuBar = new MenuBar
     val fileMenu = new Menu("New")
     val newGame = new MenuItem("New") {
-     //onAction = (e:ActionEvent) => createOverlay
+     onAction = (e:ActionEvent) => createOverlay
     }
     val options = new Menu("Options")
     val exitGame = new MenuItem("Exit") {
@@ -211,6 +208,7 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
   }
 
   def createMapShapes = {
+    mainPane = new BorderPane()
     var lb : mutable.Buffer[Double] = getGUIScale(gameBase.Map.getFXList(true)).toBuffer
     lb.append(WIDTH)
     lb.append(HEIGHT)
@@ -240,19 +238,13 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     mainPane.prefWidth = WIDTH
     mainPane.prefHeight = HEIGHT
     mainPane.children.addAll(line, t1, t2)
-
   }
 
   def createMapButtons = {
+
     val moveLeft = new Button("Move Left") {
       onAction = (e: ActionEvent) => {
         controller.moveLeft()
-      }
-      onKeyPressed = (ke: KeyEvent) => {
-        ke.code match {
-          case KeyCode.A => controller.moveLeft()
-          case _ =>
-        }
       }
     }
 
@@ -260,22 +252,10 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
       onAction = (e: ActionEvent) => {
         controller.moveRight()
       }
-      onKeyPressed = (k: KeyEvent) => {
-        k.code match {
-          case KeyCode.D => controller.moveRight()
-          case _ =>
-        }
-      }
     }
     val angleUp = new Button("Cannon +") {
       onAction = (e: ActionEvent) => {
         controller.moveAngleUp()
-      }
-      onKeyPressed = (ke: KeyEvent) => {
-        ke.code match {
-          case KeyCode.W => controller.moveAngleUp()
-          case _ =>
-        }
       }
     }
 
@@ -283,15 +263,9 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
       onAction = (e: ActionEvent) => {
         controller.moveAngleDown()
       }
-      onKeyPressed = (ke: KeyEvent) => {
-        ke.code match {
-          case KeyCode.S => controller.moveAngleDown()
-          case _ =>
-        }
-      }
     }
     val power = new TextField{
-      text = "30"
+      text = Map.getActivePlayer.power.toString
     }
 
     val fire = new Button("Fire!"){
@@ -300,33 +274,36 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
       }
       onKeyTyped = (ke: KeyEvent) => {
         ke.code match {
-          case KeyCode.Space => controller.shoot(power.text().toInt)
+          case KeyCode.Space => {
+            controller.shoot(power.text().toInt)
+          }
           case _ =>
         }
       }
     }
+    fire.isFocused
     val changePlayer = new Button("Change Player"){
       onAction = (e:ActionEvent) => {
         controller.changePlayer()
       }
-      onKeyPressed = (ke: KeyEvent) => {
-        ke.code match {
-          case KeyCode.P => controller.changePlayer()
-          case _ =>
-        }
+    }
+    bottomBox.onKeyPressed = (ke: KeyEvent) => {
+      ke.code match {
+        case KeyCode.F => controller.shoot(power.text().toInt)
+        case KeyCode.A => controller.moveLeft()
+        case KeyCode.D => controller.moveRight()
+        case KeyCode.W => controller.moveAngleUp()
+        case KeyCode.S => controller.moveAngleDown()
+        case KeyCode.P => controller.changePlayer()
+        case KeyCode.Plus => controller.powerUp()
+        case KeyCode.Minus => controller.powerDown()
+        case _ =>
       }
     }
     bottomBox.children.addAll(moveLeft,moveRight,angleUp,angelDown,power,fire,changePlayer)
   }
 
   private def createTitle : VBox = new VBox{
-//    val name = new Text() {
-//      text = "Tank"
-//      style = "-fx-font-size: 60pt; "
-//      alignmentInParent = Pos.TopCenter
-//      fill = Black
-//    }
-
     val infoPlayer1 = new Text(){
       text = gameBase.Map.p1.toString
     }
@@ -348,28 +325,23 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     //fire.setRate(10)
     fire.setPath(shootLine)
     fire.playFromStart()
+    if(Map.winner != null)
+      winnerdialog
     mainPane.children.addAll(mun)
   }
 
-  private def createButton : TilePane = new TilePane(){
-    //prefTileWidth = 300
+  def updateText = {
+    createMapShapes
+    createTitle
+  }
 
-    style = "-fx-background-color: green"
-    prefHeight = 100
-    children = List(
-      new Button("New Game") {
-        scaleX = 2
-        scaleY = 2
-        alignmentInParent = Pos.CenterRight
-        onAction = (e: ActionEvent) => createMap()
-      },
-      new Button("Exit Game") {
-        scaleX = 2
-        scaleY = 2
-        alignmentInParent = Pos.CenterLeft
-        onAction = (e: ActionEvent) => System.exit(0)
-      })
-
+  def winnerdialog = {
+    new Alert(AlertType.Information){
+      initOwner(stage)
+      title = "Winner"
+      headerText = "Press OK for a New Game!"
+      contentText = "Winner:" + Map.winner.name
+    }.showAndWait()
   }
 
 }

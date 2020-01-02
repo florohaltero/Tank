@@ -20,5 +20,6 @@ object GameInit {
     Map.endOfMap = (MAP_X2,MAP_Y2)
     Map.StateContext.setState(StateContext.P1State())
     Map.moves = Map.NUMBER_OF_MOVES
+    Map.winner = null
   }
 }

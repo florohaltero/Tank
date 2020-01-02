@@ -35,24 +35,27 @@ object Calc {
   }
 
   def hit(pos : ((Double), (Double))) : Boolean = {
-    if(Map.activePlayer != Map.p1){
+    if(Map.activePlayer.equals(Map.p1)){
       if(Map.p2.tank.hitbox.posInHitbox(Position(pos._1,pos._2))) {
-        Map.p2.lp -= Map.activePlayer.tank.damage
-        if(Map.p2.lp <= 0){
+        Map.p2.tank.getDamage(20)
+        if(Map.p2.tank.lp <= 0){
           win(Map.activePlayer)
           true
         }
+        return true
       }
+      false
     } else {
       if(Map.p1.tank.hitbox.posInHitbox(new Position(pos._1,pos._2))) {
-        Map.p1.lp -= Map.activePlayer.tank.damage
-        if(Map.p1.lp <= 0){
+        Map.p1.tank.getDamage(20)
+        if(Map.p1.tank.lp <= 0){
           win(Map.activePlayer)
           true
         }
+        return true
       }
+      false
     }
-    false
 
   }
 
@@ -61,14 +64,4 @@ object Calc {
     true
   }
 
-//  def hit(game: Game): Tuple2[Boolean, Game] = {
-//    val hit = Calc.shootCalc(game.mapObject.p1.pos, game.mapObject.p1.tank.canonAngle, 50, game.mapObject.beginOfMap)
-//    var res: Tuple2[Boolean, Game] = (false, game)
-//    for (game.mapObject.getFXList() <- hit) {
-//      if (game.mapObject.getFXList() == hit) {
-//        res = (true, game)
-//      }
-//    }
-//    res
-//  }
 }

@@ -24,7 +24,7 @@ class ItemTemplateSpec extends WordSpec with Matchers {
     }
     health.useItem(player)
     "used item health" in {
-      player.lp should be (100)
+      player.tank.lp should be (100)
     }
     health.msgItem()
     "health item msg" in {

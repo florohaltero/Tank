@@ -12,6 +12,8 @@ trait ControllerInterface extends Publisher {
   def moveRight() : Unit
   def moveAngleUp() : Unit
   def moveAngleDown() : Unit
+  def powerUp() : Unit
+  def powerDown(): Unit
   def shoot(pow : Int) : Unit
   def gametoString: String
   def undo: Unit
@@ -24,3 +26,4 @@ import scala.swing.event.Event
 class NewGame extends Event
 class UpdateMap extends Event
 class Fire extends Event
+class Hit extends Event
