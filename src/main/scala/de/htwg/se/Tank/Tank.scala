@@ -1,5 +1,6 @@
 package de.htwg.se.Tank
 
+import com.google.inject.Guice
 import de.htwg.se.Tank.aview.TUI
 import de.htwg.se.Tank.aview.gui.MapGUI
 import de.htwg.se.Tank.controller.controllerComponent.NewGame
@@ -12,6 +13,7 @@ import scalafx.scene.media.AudioClip
 
 object Tank {
   def main(args: Array[String]): Unit = {
+    val injector = Guice.createInjector(new TankModule)
     val lines = scala.io.Source.fromFile("Tank_label.txt").mkString
     print(lines)
     var input : String = ""
