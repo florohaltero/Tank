@@ -9,6 +9,8 @@ libraryDependencies += "junit" % "junit" % "4.8" % "test"
 libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "2.1.1"
 libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12"
 libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "2.1.1"
+libraryDependencies += "com.google.inject" % "guice" % "4.1.0"
+libraryDependencies += "net.codingwell" %% "scala-guice" % "4.1.0"
 
 lazy val osName = System.getProperty("os.name") match {
   case n if n.startsWith("Linux") => "linux"
