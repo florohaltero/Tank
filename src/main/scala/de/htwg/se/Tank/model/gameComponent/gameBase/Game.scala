@@ -1,10 +1,12 @@
 package de.htwg.se.Tank.model.gameComponent.gameBase
 
+import com.google.inject.Inject
+import com.google.inject.name.Named
 import de.htwg.se.Tank.model.gameComponent.gameBase.Map._
 import de.htwg.se.Tank.model.gameComponent.gameInterface
 import de.htwg.se.Tank.model.playerComponent.playerBase.{Player, Position}
 
-case class Game(partyname: String, mapNum: Int, name1: String, name2: String) extends gameInterface {
+case class Game @Inject()(partyname: String, @Named("DefaultMap") mapNum: Int, name1: String, name2: String) extends gameInterface {
   var map : Map.type = Map
   override def toString: String = {
     var name = "\n" + "partyname: " + partyname + "\n"
