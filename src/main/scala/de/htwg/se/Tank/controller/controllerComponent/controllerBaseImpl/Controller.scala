@@ -1,14 +1,21 @@
 package de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller
 
+import com.google.inject.name.Names
+import com.google.inject.{Guice, Inject}
+import de.htwg.se.Tank.TankModule
+import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.{ChangePlayerCommand, LeftCommand, RightCommand}
 import de.htwg.se.Tank.controller.controllerComponent.{ControllerInterface, Fire, Hit, NewGame, UpdateMap}
-import de.htwg.se.Tank.model.gameComponent.gameBase.{Game,Map}
+import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, Map}
 import de.htwg.se.Tank.util.{Observable, UndoManager}
 import de.htwg.se.Tank.model.gameComponent.{gameInterface, mapInterface}
 
 
-class Controller(var game: gameInterface) extends ControllerInterface {
+class Controller @Inject() (var game: gameInterface) extends ControllerInterface {
+
   private val undoManager = new UndoManager
+  val injector = Guice.createInjector(new TankModule)
+
   override def setGame(partyname: String, map: Int, name1: String, name2: String): Unit = {
     game = Game(partyname, map , name1, name2)
     publish(new NewGame)
