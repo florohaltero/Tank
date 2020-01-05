@@ -21,15 +21,4 @@ case class Tank(pos: Position,var lp: Int, canonAngle: Int) extends TankInterfac
     //copy(pos,lp -damage, canonAngle)
     lp = lp - damage
   }
-
-  /*
-  def shoot(power: Int): Boolean = {
-
-    if (hitbox.posInHitbox(Calc.shootCalc(pos, canonAngle, power)).equals(true)) {
-      return true
-    }
-    false
-  }
-
-     */
 }

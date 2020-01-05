@@ -21,3 +21,8 @@ trait mapInterface {
   def posInMap(pos: Position): Boolean
 }
 
+trait MapSize {
+  val MAP_X : Int
+  val MAP_Y : Int
+}
+

@@ -8,7 +8,7 @@ import org.scalatest.{Matchers, WordSpec}
 
 class LeftCommandSpec extends WordSpec with Matchers {
   "A Command left" when { "new" should {
-    val game = Game("Standard", 0, "Flo", "Sasch")
+    val game = Game("Standard", 0,"small", "Flo", "Sasch")
     val controller = new Controller(game)
     val leftCommand = new LeftCommand(controller)
     leftCommand.doStep

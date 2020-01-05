@@ -5,7 +5,7 @@ import de.htwg.se.Tank.model.gameComponent.gameInterface
 import scala.swing.Publisher
 
 trait ControllerInterface extends Publisher {
-  def setGame(partyname: String, map: Int, name1: String, name2: String): Unit
+  def setGame(partyname: String, map: Int, mapSize:String, name1: String, name2: String): Unit
   def setDefaultGame(): Unit
   def changePlayer() : Unit
   def moveLeft() : Unit

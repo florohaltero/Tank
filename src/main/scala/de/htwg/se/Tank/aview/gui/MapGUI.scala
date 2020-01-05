@@ -43,8 +43,8 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
 
   final val WIDTH : Double = 1000
   final val HEIGHT : Double = 600
-  final val XScale: Double = WIDTH/GameInit.MAP_X2
-  final val YScale: Double = HEIGHT/GameInit.MAP_Y2
+  final val XScale: Double = WIDTH/Map.endOfMap._1
+  final val YScale: Double = HEIGHT/Map.endOfMap._2
 
   var rootPane = new BorderPane
   //val controller = new Controller(Game("Standard", 0, "Flo", "Sasch"))
@@ -123,7 +123,7 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
         val end = new Button("Leave Game")
 
         start.onAction = (e: ActionEvent) => {
-          controller.setGame("Standard", mapNum.getSelectionModel.getSelectedItem, player1textField.text(), player2textField.text())
+          controller.setGame("Standard", mapNum.getSelectionModel.getSelectedItem,"small", player1textField.text(), player2textField.text())
         }
         end.onAction = (e: ActionEvent) => {
           val alert = new Alert(AlertType.Confirmation)
@@ -157,12 +157,12 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
 
   def getGUIScale(d : List[((Double),(Double))]) : List[Double] = {
     var l: ListBuffer[Double] = ListBuffer.empty
-    d.foreach(d => l.append(d._1 * XScale, (GameInit.MAP_Y2 - d._2) * YScale))
+    d.foreach(d => l.append(d._1 * XScale, (Map.endOfMap._2 - d._2) * YScale))
     l.toList
   }
 
   def getPosinGUIScale(value : Position) : ((Double),(Double)) = {
-    (value.x * XScale, (GameInit.MAP_Y2 - value.y) * YScale)
+    (value.x * XScale, (Map.endOfMap._2 - value.y) * YScale)
   }
 
   def createMap() {

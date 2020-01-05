@@ -16,8 +16,8 @@ class Controller @Inject() (var game: gameInterface) extends ControllerInterface
   private val undoManager = new UndoManager
   val injector = Guice.createInjector(new TankModule)
 
-  override def setGame(partyname: String, map: Int, name1: String, name2: String): Unit = {
-    game = Game(partyname, map , name1, name2)
+  override def setGame(partyname: String, map: Int, size:String, name1: String, name2: String): Unit = {
+    game = Game(partyname, map ,size, name1, name2)
     publish(new NewGame)
     publish(new UpdateMap)
   }
@@ -27,7 +27,7 @@ class Controller @Inject() (var game: gameInterface) extends ControllerInterface
   }
 
   override def setDefaultGame(): Unit  = {
-    game = Game("Default", 0 , "Flo", "Sasch")
+    game = Game("Default", 0 ,"small", "Flo", "Sasch")
     publish(new NewGame)
   }
 
