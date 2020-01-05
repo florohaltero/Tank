@@ -1,25 +1,29 @@
 package de.htwg.se.Tank.model.gameComponent.gameBase
 
-import com.google.inject.Inject
-import com.google.inject.name.Named
+import com.google.inject.{Guice, Inject}
+import com.google.inject.name.{Named, Names}
+import net.codingwell.scalaguice.InjectorExtensions._
+import de.htwg.se.Tank.TankModule
 import de.htwg.se.Tank.model.gameComponent.gameBase.Map._
-import de.htwg.se.Tank.model.gameComponent.gameInterface
+import de.htwg.se.Tank.model.gameComponent.{MapSize, gameInterface}
 import de.htwg.se.Tank.model.playerComponent.playerBase.{Player, Position}
 
-case class Game @Inject()(partyname: String, @Named("DefaultMap") mapNum: Int, name1: String, name2: String) extends gameInterface {
+case class Game @Inject()(partyname: String, @Named("DefaultMap") mapNum: Int
+                          ,@Named("DefaultSize") size:String, name1: String, name2: String) extends gameInterface {
   var map : Map.type = Map
+  val injector = Guice.createInjector(new TankModule)
+  var mapSize : MapSize =
+  size match {
+    case "small" => injector.instance[MapSize](Names.named("small"))
+    case "big" => injector.instance[MapSize](Names.named("big"))
+  }
+  GameInit.setMapSettings(mapSize, mapNum, name1, name2)
+
   override def toString: String = {
     var name = "\n" + "partyname: " + partyname + "\n"
     name += map.toString
     name
   }
-  final val MAP_X2 = 30
-  final val MAP_X1 = 0
-  final val MAP_Y2 = 15
-  final val MAP_Y1 = 0
-
- GameInit.setMapSettings(mapNum, name1, name2)
-
 
   def moveLeft() : Player = {
     if(moves > 0) {

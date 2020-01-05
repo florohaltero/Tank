@@ -7,7 +7,7 @@ import org.scalatest.{Matchers, WordSpec}
 
 class RightCommandSpec extends WordSpec with Matchers {
   "A Command right" when { "new" should {
-    val game = Game("Standard", 0, "Flo", "Sasch")
+    val game = Game("Standard", 0,"small", "Flo", "Sasch")
     val controller = new Controller(game)
     val rightCommand = new RightCommand(controller)
     rightCommand.doStep

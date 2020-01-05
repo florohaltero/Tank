@@ -1,7 +1,7 @@
 package de.htwg.se.Tank.model.gameComponentSpec.gameBaseSpec
 
 import de.htwg.se.Tank.model.gameComponent.gameBase
-import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, GameInit}
+import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, GameInit, SmallMap}
 import org.junit.runner.RunWith
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner
@@ -9,7 +9,7 @@ import org.scalatest.junit.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class GameSpec extends WordSpec with Matchers{
   "A Game" when { "new" should {
-    val game_0 = Game("Standard", 0, "Flo", "Sascha")
+    val game_0 = Game("Standard", 0,"small", "Flo", "Sascha")
     "have a nice String Presentatiopn" in {
       game_0.toString should be(game_0.toString)
     }
@@ -17,10 +17,10 @@ class GameSpec extends WordSpec with Matchers{
       game_0.partyname should be("Standard")
     }
     "have Map_x" in {
-      gameBase.Map.endOfMap._1 should be(GameInit.MAP_X2)
+      gameBase.Map.endOfMap._1 should be(new(SmallMap).MAP_X)
     }
     "have Map_y" in {
-      gameBase.Map.endOfMap._2 should be(GameInit.MAP_Y2)
+      gameBase.Map.endOfMap._2 should be(new(SmallMap).MAP_Y)
     }
     "have map" in {
       game_0.mapNum should be (0)

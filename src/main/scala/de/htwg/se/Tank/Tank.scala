@@ -12,12 +12,12 @@ import scalafx.scene.media.AudioClip
 
 
 object Tank {
+  val injector = Guice.createInjector(new TankModule)
+  val controller = injector.getInstance(classOf[ControllerInterface])
   def main(args: Array[String]): Unit = {
-    val injector = Guice.createInjector(new TankModule)
     val lines = scala.io.Source.fromFile("Tank_label.txt").mkString
     print(lines)
     var input : String = ""
-    val controller = injector.getInstance(classOf[ControllerInterface])
     val tui = new TUI(controller)
     val gui = new MapGUI(controller)
     gui.main(Array())

@@ -12,7 +12,7 @@ class TUI(controller: ControllerInterface) extends Reactor{
   listenTo(controller)
   def processInputLine(input: String): Unit ={
     Try(input match {
-      case "n" => controller.setGame("Standard", 0, scala.io.StdIn.readLine(), scala.io.StdIn.readLine())
+      case "n" => controller.setGame("Standard", 0, scala.io.StdIn.readLine(), scala.io.StdIn.readLine(),scala.io.StdIn.readLine())
       case "a" => controller.moveLeft()
       case "d" => controller.moveRight()
       case "w" => controller.moveAngleUp()
