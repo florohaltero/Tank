@@ -6,6 +6,7 @@ import de.htwg.se.Tank.model.playerComponent.playerBase.Position
 import org.junit.runner.RunWith
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner
+/*
 @RunWith(classOf[JUnitRunner])
 class MapSpec extends WordSpec with Matchers {
   private val x = 100
@@ -82,3 +83,6 @@ class MapSpec extends WordSpec with Matchers {
 
   }
 }
+
+ */
+

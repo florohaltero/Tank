@@ -1,15 +1,17 @@
 package de.htwg.se.Tank.aview
 import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
 import de.htwg.se.Tank.model.gameComponent.gameBase.Game
+import de.htwg.se.Tank.model.gameComponent.mapInterface
 import de.htwg.se.Tank.model.playerComponent.playerBase.PlayerFactory
 import org.scalatest._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-
+/*
 @RunWith(classOf[JUnitRunner])
 class TUISpec extends WordSpec with Matchers{
 
   "A Tank Tui" should {
+    val map: mapInterface
     val controller = new Controller(Game("Standard", 0,"small", "Flo", "Sascha"))
     val tui = new TUI(controller)
     val player1 = PlayerFactory.createPlayer1("FLo")
@@ -41,3 +43,6 @@ class TUISpec extends WordSpec with Matchers{
 
 
 }
+
+
+ */

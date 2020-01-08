@@ -6,6 +6,7 @@ import de.htwg.se.Tank.TankModule
 import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.{ChangePlayerCommand, LeftCommand, RightCommand}
 import de.htwg.se.Tank.controller.controllerComponent.{ControllerInterface, Fire, Hit, NewGame, UpdateMap}
+import de.htwg.se.Tank.model.fileIoComponent.FileIOInterface
 import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, Map}
 import de.htwg.se.Tank.util.{Observable, UndoManager}
 import de.htwg.se.Tank.model.gameComponent.{gameInterface, mapInterface}
@@ -15,6 +16,7 @@ class Controller @Inject() (var game: gameInterface) extends ControllerInterface
 
   private val undoManager = new UndoManager
   val injector = Guice.createInjector(new TankModule)
+  val fileIo = injector.instance[FileIOInterface]
 
   override def setGame(partyname: String, map: Int, size:String, name1: String, name2: String): Unit = {
     game = Game(partyname, map ,size, name1, name2)
@@ -80,6 +82,14 @@ class Controller @Inject() (var game: gameInterface) extends ControllerInterface
   def redo: Unit = {
     undoManager.redoStep
     publish(new UpdateMap)
+  }
+
+  def save: Unit = {
+    fileIo.save(Map.activePlayer)
+  }
+
+  override def load: Unit = {
+    fileIo.load
   }
 
 }
