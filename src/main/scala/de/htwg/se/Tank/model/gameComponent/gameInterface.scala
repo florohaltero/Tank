@@ -29,5 +29,6 @@ trait mapInterface {
 trait MapSize {
   val MAP_X : Int
   val MAP_Y : Int
+  def getName :String
 }
 
