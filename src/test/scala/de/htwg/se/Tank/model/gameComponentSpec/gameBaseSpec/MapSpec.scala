@@ -30,7 +30,7 @@ class MapSpec extends WordSpec with Matchers {
         map.endOfMap._1 should be(100)
       }
       "have endOfMap y" in {
-        map.endOfMap._2 should be(GameInit.MAP_Y2)
+        map.endOfMap._2 should be(map.endOfMap._2)
       }
       "have f(x)" in {
         fx(2) should be (10)
