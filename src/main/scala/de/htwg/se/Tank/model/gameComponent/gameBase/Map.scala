@@ -172,5 +172,7 @@ object Map extends mapInterface {
     s
   }
 
+  override def getPlayer1: Player = p2
 
+  override def getPlayer2: Player = p1
 }
