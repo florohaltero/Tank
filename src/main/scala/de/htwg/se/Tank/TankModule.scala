@@ -6,6 +6,9 @@ import de.htwg.se.Tank.controller.controllerComponent.ControllerInterface
 import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
 import de.htwg.se.Tank.model.gameComponent.gameBase.{BigMap, Game, SmallMap}
 import de.htwg.se.Tank.model.gameComponent.{MapSize, gameInterface}
+import de.htwg.se.Tank.model.playerComponent.PlayerFactoryInterface
+import de.htwg.se.Tank.model.playerComponent.playerBase.{Player, PlayerFactory}
+import de.htwg.se.Tank.model.playerComponent.playerBase.PlayerFactory.{Player1, Player2}
 import net.codingwell.scalaguice.ScalaModule
 
 class TankModule extends AbstractModule with ScalaModule {
@@ -20,6 +23,8 @@ class TankModule extends AbstractModule with ScalaModule {
     bind[gameInterface].to[Game]
     bind[MapSize].annotatedWithName("small").toInstance(new SmallMap)
     bind[MapSize].annotatedWithName("big").toInstance(new BigMap)
+    bind[Player].annotatedWithName("1").to[Player1]
+    bind[Player].annotatedWithName("2").to[Player2]
 
   }
 }
