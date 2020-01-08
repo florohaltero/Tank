@@ -20,3 +20,4 @@ class RightCommandSpec extends WordSpec with Matchers {
   }}
 
 }
+

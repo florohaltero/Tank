@@ -19,6 +19,8 @@ trait ControllerInterface extends Publisher {
   def undo: Unit
   def redo: Unit
   def getGame : gameInterface
+  def save: Unit
+  def load: Unit
 }
 
 import scala.swing.event.Event
