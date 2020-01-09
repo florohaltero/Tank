@@ -46,7 +46,7 @@ object Calc {
       }
       false
     } else {
-      if(Map.p1.tank.hitbox.posInHitbox(new Position(pos._1,pos._2))) {
+      if(Map.p1.tank.hitbox.posInHitbox(Position(pos._1,pos._2))) {
         Map.p1.tank.getDamage(20)
         if(Map.p1.tank.lp <= 0){
           win(Map.activePlayer)
