@@ -2,7 +2,7 @@ package de.htwg.se.Tank.model.playerComponent.playerBase
 
 import de.htwg.se.Tank.model.ItemTemplate
 import de.htwg.se.Tank.model.gameComponent.gameBase
-import de.htwg.se.Tank.model.playerComponent.{PlayerFactoryInterface}
+import de.htwg.se.Tank.model.playerComponent.PlayerFactoryInterface
 
 import scala.collection.mutable.ListBuffer
 
@@ -52,4 +52,10 @@ object PlayerFactory extends PlayerFactoryInterface{
       override var power: Int = DEFAULT_POWER
    }
 
+}
+
+object Player {
+   import play.api.libs.json._
+   implicit val playerWrites = Json.writes[Player]
+   implicit val playerReads = Json.reads[Player]
 }

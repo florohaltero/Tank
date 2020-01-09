@@ -98,8 +98,10 @@ case class Game @Inject()(partyname: String, @Named("DefaultMap") mapNum: Int
     Map.StateContext.state.changePlayer()
   }
 
+}
 
-
-
-
+object Game {
+  import play.api.libs.json._
+  implicit val gameWrites = Json.writes[gameInterface]
+  implicit val gameReads = Json.reads[gameInterface]
 }

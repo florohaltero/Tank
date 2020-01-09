@@ -4,6 +4,8 @@ import com.google.inject.AbstractModule
 import com.google.inject.name.Names
 import de.htwg.se.Tank.controller.controllerComponent.ControllerInterface
 import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
+import de.htwg.se.Tank.model.fileIoComponent.FileIOInterface
+import de.htwg.se.Tank.model.fileIoComponent.fileIoJsonImpl.FileIO
 import de.htwg.se.Tank.model.gameComponent.gameBase.{BigMap, Game, SmallMap}
 import de.htwg.se.Tank.model.gameComponent.{MapSize, gameInterface}
 import de.htwg.se.Tank.model.playerComponent.PlayerFactoryInterface
@@ -25,6 +27,6 @@ class TankModule extends AbstractModule with ScalaModule {
     bind[MapSize].annotatedWithName("big").toInstance(new BigMap)
     bind[Player].annotatedWithName("1").to[Player1]
     bind[Player].annotatedWithName("2").to[Player2]
-
+    bind[FileIOInterface].to[FileIO]
   }
 }

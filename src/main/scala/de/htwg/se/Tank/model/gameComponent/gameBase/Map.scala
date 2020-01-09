@@ -175,4 +175,11 @@ object Map extends mapInterface {
   override def getPlayer1: Player = p2
 
   override def getPlayer2: Player = p1
+
+
+  import play.api.libs.json._
+  implicit val mapWrites = Json.writes[mapInterface]
+  implicit val mapReads = Json.reads[mapInterface]
 }
+
+
