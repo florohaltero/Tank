@@ -21,6 +21,7 @@ class TUI(controller: ControllerInterface) extends Reactor{
       case "f" => controller.shoot(20)
       case "z" => controller.undo
       case "y" => controller.redo
+      case "save" => controller.save
       }
     ) match {
       case Success(e) =>

@@ -199,13 +199,16 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     val exitGame = new MenuItem("Exit") {
       onAction = (e:ActionEvent) => System.exit(0)
     }
+    val save = new MenuItem("Save") {
+      onAction = (e:ActionEvent) => controller.save
+    }
     val undo = new MenuItem("Undo") {
       onAction = (e:ActionEvent) => controller.undo
     }
     val redo = new MenuItem("Redo") {
       onAction = (e:ActionEvent) => controller.redo
     }
-    options.items = List(undo, redo)
+    options.items = List(undo, redo, save)
     fileMenu.items = List(newGame, exitGame)
     menuBar.menus = List(fileMenu, options)
     rootPane.top= menuBar
