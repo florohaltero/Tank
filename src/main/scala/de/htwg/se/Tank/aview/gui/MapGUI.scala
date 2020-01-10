@@ -139,7 +139,7 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
         }
 
         rootPane.prefHeight = 350
-        rootPane.setStyle("-fx-background-image: url(de/htwg/se/Tank/aview/gui/Game-Tank-Background-Free-Picture.jpg); -fx-background-size: cover;")
+        rootPane.setStyle("-fx-background-image: url(de/htwg/se/Tank/aview/gui/Game-Tank-Background-Free-Picture.jpg); -fx-background-size: auto 100%;")
         //rootPane.setBackground(new Background(new BackgroundImage(new Image("D:\\Wichtig\\OneDrive\\Studium\\3.Semester\\SE\\Tank\\src\\main\\scala\\de\\htwg\\se\\Tank\\aview\\gui\\Game-Tank-Background-Free-Picture.jpg",32,32,false,true),
         //  BackgroundRepeat.Repeat, BackgroundRepeat.NoRepeat, BackgroundPosition.Default, BackgroundSize.Default)))
         rootPane.center = vbox
