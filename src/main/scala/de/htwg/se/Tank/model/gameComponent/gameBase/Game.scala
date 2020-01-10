@@ -29,8 +29,11 @@ case class Game @Inject()(partyname: String, @Named("DefaultMap") mapNum: Int
     if(moves > 0) {
       val tmp : Position = activePlayer.pos
       activePlayer.pos = Position(activePlayer.pos.x-1,fx(activePlayer.pos.x-1))
+      val tmpH : Hitbox = activePlayer.tank.hitbox
+      activePlayer.tank.hitbox = new Hitbox(1,2,activePlayer.pos)
       if(!posInMap(activePlayer.pos)){
         activePlayer.pos = tmp
+        activePlayer.tank.hitbox = tmpH
       }
       moves -= 1
     }
@@ -42,8 +45,11 @@ case class Game @Inject()(partyname: String, @Named("DefaultMap") mapNum: Int
     if(moves < NUMBER_OF_MOVES) {
       val tmp : Position = activePlayer.pos
       activePlayer.pos = Position(activePlayer.pos.x+1,fx(activePlayer.pos.x+1))
+      val tmpH : Hitbox = activePlayer.tank.hitbox
+      activePlayer.tank.hitbox = new Hitbox(1,2,activePlayer.pos)
       if(!posInMap(activePlayer.pos)){
         activePlayer.pos = tmp
+        activePlayer.tank.hitbox = tmpH
       }
       moves += 1
     }
@@ -55,8 +61,11 @@ case class Game @Inject()(partyname: String, @Named("DefaultMap") mapNum: Int
     if(moves > 0) {
       val tmp : Position = activePlayer.pos
       activePlayer.pos = Position(activePlayer.pos.x + 1,fx(activePlayer.pos.x + 1) )
+      val tmpH : Hitbox = activePlayer.tank.hitbox
+      activePlayer.tank.hitbox = new Hitbox(1,2,activePlayer.pos)
       if(!posInMap(activePlayer.pos)){
         activePlayer.pos = tmp
+        activePlayer.tank.hitbox = tmpH
       }
       moves -= 1
     }
@@ -68,8 +77,11 @@ case class Game @Inject()(partyname: String, @Named("DefaultMap") mapNum: Int
     if(moves < NUMBER_OF_MOVES) {
       val tmp : Position = activePlayer.pos
       activePlayer.pos = Position(activePlayer.pos.x - 1,fx(activePlayer.pos.x - 1) )
+      val tmpH : Hitbox = activePlayer.tank.hitbox
+      activePlayer.tank.hitbox = new Hitbox(1,2,activePlayer.pos)
       if(!posInMap(activePlayer.pos)){
         activePlayer.pos = tmp
+        activePlayer.tank.hitbox = tmpH
       }
       moves += 1
     }

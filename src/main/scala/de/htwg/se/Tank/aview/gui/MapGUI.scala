@@ -4,10 +4,11 @@ package de.htwg.se.Tank.aview.gui
 import de.htwg.se.Tank.controller.controllerComponent.{ControllerInterface, Fire, Hit, NewGame, UpdateMap}
 import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
 import de.htwg.se.Tank.model.gameComponent.gameBase
-import de.htwg.se.Tank.model.gameComponent.gameBase.{Calc, GameInit,Map}
+import de.htwg.se.Tank.model.gameComponent.gameBase.{Calc, GameInit, Map}
 import de.htwg.se.Tank.model.playerComponent.playerBase.Position
 import javafx.collections.FXCollections
 import javafx.event.EventHandler
+import javafx.scene.layout.Background
 import scalafx.Includes._
 import scalafx.animation.PathTransition
 import scalafx.application.JFXApp
@@ -18,8 +19,9 @@ import scalafx.scene.Scene
 import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.control._
 import scalafx.scene.effect.DropShadow
+import scalafx.scene.image.Image
 import scalafx.scene.input.{KeyCode, KeyEvent}
-import scalafx.scene.layout.{BorderPane, HBox, TilePane, VBox}
+import scalafx.scene.layout.{BackgroundImage, BackgroundPosition, BackgroundRepeat, BackgroundSize, BorderPane, HBox, TilePane, VBox}
 import scalafx.scene.media.AudioClip
 import scalafx.scene.paint.Color._
 import scalafx.scene.paint.{LinearGradient, Stops}
@@ -137,7 +139,9 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
         }
 
         rootPane.prefHeight = 350
-        rootPane.setStyle("-fx-background-color: green")
+        rootPane.setStyle("-fx-background-image: url(de/htwg/se/Tank/aview/gui/Game-Tank-Background-Free-Picture.jpg); -fx-background-size: cover;")
+        //rootPane.setBackground(new Background(new BackgroundImage(new Image("D:\\Wichtig\\OneDrive\\Studium\\3.Semester\\SE\\Tank\\src\\main\\scala\\de\\htwg\\se\\Tank\\aview\\gui\\Game-Tank-Background-Free-Picture.jpg",32,32,false,true),
+        //  BackgroundRepeat.Repeat, BackgroundRepeat.NoRepeat, BackgroundPosition.Default, BackgroundSize.Default)))
         rootPane.center = vbox
         playerbox1.children.addAll(player1,player1textField)
         playerbox2.children.addAll(player2,player2textField)
@@ -176,6 +180,7 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
         createMapShapes
         createMapButtons
         createTitle
+        showFireLine
         rootPane.center =  mainPane
         rootPane.bottom = bottomBox
         //rootPane.setStyle("-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #dc143c, #661a33)")
@@ -328,6 +333,12 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     if(Map.winner != null)
       winnerdialog
     mainPane.children.addAll(mun)
+  }
+
+  def showFireLine ={
+    val shootLine = Polyline(getGUIScale(Calc.shootCalc.slice(0,50)):_*)
+
+    mainPane.children.add(shootLine)
   }
 
   def updateText = {
