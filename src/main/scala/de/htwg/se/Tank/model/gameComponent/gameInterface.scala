@@ -22,8 +22,7 @@ trait mapInterface {
   def getFXList(GUImode : Boolean) : List[(Double,Double)]
   def getFxDouble(): List[Double]
   def posInMap(pos: Position): Boolean
-  def getPlayer1 : Player
-  def getPlayer2 : Player
+  def getPlayer(id: Int): Player
 }
 
 trait MapSize {

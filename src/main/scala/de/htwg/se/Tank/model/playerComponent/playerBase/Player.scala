@@ -7,9 +7,9 @@ import de.htwg.se.Tank.model.playerComponent.PlayerFactoryInterface
 import scala.collection.mutable.ListBuffer
 
 trait Player {
-   val id : Integer
+   var id : Integer
    var tank : Tank
-   val name : String
+   var name : String
    var pos : Position
    var power : Int
    var ItemList: ListBuffer[ItemTemplate] = ListBuffer.empty

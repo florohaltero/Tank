@@ -172,9 +172,13 @@ object Map extends mapInterface {
     s
   }
 
-  override def getPlayer1: Player = p2
-
-  override def getPlayer2: Player = p1
+  override def getPlayer(id: Int): Player = {
+    id match {
+      case 1 => p1
+      case 2 => p2
+      case _ => throw new IllegalArgumentException
+    }
+  }
 
 
   import play.api.libs.json._
