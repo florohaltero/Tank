@@ -324,7 +324,7 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
   }
 
   def showFire = {
-    val shootLine = Polyline(getGUIScale(Calc.shootCalc):_*)
+    val shootLine = Polyline(getGUIScale(Calc.shootCalc(true)):_*)
     val mun = Circle(5,Black)
     val fire = new PathTransition(new Duration(3000),shootLine)
     //fire.node = mun
