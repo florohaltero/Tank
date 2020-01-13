@@ -8,7 +8,7 @@ import scala.util.control.Breaks.{break, breakable}
 
 object Calc {
   final val G = 9.81
-  def shootCalc : List[(Double, Double)] = {
+  def shootCalc(fire: Boolean) : List[(Double, Double)] = {
     // Berechnungen
     val h0 = Map.activePlayer.pos.y
     val v0 = Map.activePlayer.power
@@ -25,7 +25,7 @@ object Calc {
         y =  x*Math.tan(alpha) - G/(2*Math.pow(v0,2)*Math.pow(Math.cos(alpha),2)) * Math.pow(x,2) + h0
         //Start X wird auf den Schiefen Wurf addiert um diesen später richtig anzuzeigen
         listbuffer.append((x + sx,y))
-        if(hit(x + sx,y)){
+        if(fire && hit(x + sx,y)){
           break
         }
         //Intervall von 0.2sek schiefer Wurf ausrechnen
