@@ -6,39 +6,44 @@ import de.htwg.se.Tank.TankModule
 import de.htwg.se.Tank.model.fileIoComponent.FileIOInterface
 import de.htwg.se.Tank.model.gameComponent.gameBase.Game
 import de.htwg.se.Tank.model.gameComponent.{MapSize, gameInterface, mapInterface}
-import de.htwg.se.Tank.model.playerComponent.PlayerFactoryInterface
-import de.htwg.se.Tank.model.playerComponent.playerBase.Player
+import de.htwg.se.Tank.model.playerComponent.{PlayerFactoryInterface, playerBase}
+import de.htwg.se.Tank.model.playerComponent.playerBase.{Player, PlayerFactory, Position}
 import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.Tank.model.gameComponent.gameBase.Map
+import de.htwg.se.Tank.model.gameComponent.gameBase.Map.StateContext
 
 import scala.xml.{Elem, PrettyPrinter}
 
 class FileIO extends FileIOInterface {
   override def load: gameInterface = {
     val file = scala.xml.XML.loadFile("game.xml")
-    val partyAttr = (file \ "game" \ "party")
+    val partyAttr = (file \\ "game" \ "party")
     val partyT = partyAttr.text
-    val mapNoAttr = (file \ "game" \ "mapNo")
+    val mapNoAttr = (file \\ "game" \ "mapNo")
     val mapNoT = mapNoAttr.text.toInt
-    val mapSizeAttr = (file \ "game" \ "size")
-    val mapSizeT = mapNoAttr.text
-    val activePlayerT = (file \ "game" \ "map" \ "activePlayer").text.toInt
-    val movesT = (file \ "game" \ "map" \ "moves").text.toInt
+    val mapSizeAttr = (file \\ "game" \ "size")
+    val mapSizeT = mapSizeAttr.text
+    val activePlayerT = (file \\ "game" \ "map" \ "activePlayer").text.toInt
+    val movesT = (file \\ "game" \ "map" \ "moves").text.toInt
     val players = (file \\ "player")
+    var game : gameInterface = Game(partyT,mapNoT,mapSizeT,"","")
+    Map.moves = movesT
+    Map.StateContext.setState(StateContext.P1State())
+    Map.activePlayer = Map.getPlayer(activePlayerT)
     for(player<- players){
       val name = (player \ "name").text
       val id = (player \ "id").text.toInt
       val posx = (player \ "posx").text.toDouble
       val posy = (player \ "posy").text.toDouble
-      val lp = (player \ "tank" \ "life")
-      val angle = (player \ "tank" \ "angle")
+      val lp = (player \ "tank" \ "life").text.toInt
+      val angle = (player \ "tank" \ "angle").text.toInt
+      Map.getPlayer(id).name = name
+      Map.getPlayer(id).pos = Position(posx,posy)
+      Map.getPlayer(id).tank = playerBase.Tank(Position(posx,posy),lp,angle)
     }
 
     val injector = Guice.createInjector(new TankModule)
-    val player1 : Player =  injector.instance[Player](Names.named("1"))
-    val player2 : Player = injector.instance[Player](Names.named("2"))
-    var game : gameInterface = new Game(partyT,mapNoT,mapSizeT,"","")
-
+    game
     //var game = new Gam
   }
 
