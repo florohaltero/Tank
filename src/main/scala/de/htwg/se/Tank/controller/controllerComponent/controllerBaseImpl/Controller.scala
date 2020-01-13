@@ -85,7 +85,7 @@ class Controller @Inject() (var game: gameInterface) extends ControllerInterface
   }
 
   def save: Unit = {
-    fileIo.save(Map.activePlayer)
+    fileIo.save(game)
   }
 
   override def load: Unit = {
