@@ -89,8 +89,7 @@ class Controller @Inject() (var game: gameInterface) extends ControllerInterface
   }
 
   override def load: Unit = {
-    val player = fileIo.load
-    Map.activePlayer = player
+    game = fileIo.load
   }
 
 }
