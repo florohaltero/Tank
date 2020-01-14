@@ -20,7 +20,7 @@ class FileIO extends FileIOInterface {
     val mapNoAttr = (json \ "game" \ "mapNo").as[Int]
     val mapSizeAttr = (json \ "game" \ "size").as[String]
 
-    val activePlayerAttr = (json \ "game" \ "map" \ "activePlayer").as[Player]
+    val activePlayeridAttr = (json \ "game" \ "map" \ "activePlayer_id").as[Int]
     val movesPlayerAttr = (json \ "game" \ "map" \ "moves").as[Int]
 
     val player1NameAttr = (json \ "game" \ "player1" \ "name").as[String]
@@ -40,7 +40,7 @@ class FileIO extends FileIOInterface {
 
     game = Game(partyAttr, mapNoAttr, mapSizeAttr, "", "")
 
-    Map.activePlayer = activePlayerAttr
+    Map.activePlayer = Map.getPlayer(activePlayeridAttr)
 
     Map.moves = movesPlayerAttr
 
@@ -60,11 +60,11 @@ class FileIO extends FileIOInterface {
     pw.close
   }
 
-  implicit val gameWrites = new Writes[gameInterface] {
-    def writes(game: gameInterface) = Json.obj(
-      "game" -> gameToJson(game)
-    )
-  }
+//  implicit def gameWrites = new Writes[gameInterface] {
+//    def writes(game: gameInterface) = Json.obj(
+//      "game" -> gameToJson(game)
+//    )
+//  }
 
   def gameToJson(game: gameInterface) = {
     Json.obj(
@@ -73,7 +73,7 @@ class FileIO extends FileIOInterface {
                 "mapNo" -> game.mapNum,
                 "size" -> game.mapSize.getName,
         "map" -> Json.obj(
-          "activePlayer" -> Map.activePlayer.name,
+          "activePlayer_id" -> Map.activePlayer.id.toInt,
                   "moves" -> Map.moves
         ),
         "player1" -> Json.obj(

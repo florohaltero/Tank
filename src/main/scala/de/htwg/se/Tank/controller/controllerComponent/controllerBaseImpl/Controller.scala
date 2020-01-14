@@ -10,6 +10,7 @@ import de.htwg.se.Tank.model.fileIoComponent.FileIOInterface
 import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, Map}
 import de.htwg.se.Tank.util.{Observable, UndoManager}
 import de.htwg.se.Tank.model.gameComponent.{gameInterface, mapInterface}
+import play.api.libs.json.{JsError, JsSuccess, Json}
 
 
 class Controller @Inject() (var game: gameInterface) extends ControllerInterface {
