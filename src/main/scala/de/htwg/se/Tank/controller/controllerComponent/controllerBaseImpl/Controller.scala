@@ -91,6 +91,7 @@ class Controller @Inject() (var game: gameInterface) extends ControllerInterface
 
   override def load: Unit = {
     game = fileIo.load
+    publish(new UpdateMap)
   }
 
 }

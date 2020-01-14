@@ -37,7 +37,9 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
   listenTo(controller)
   reactions += {
     case event: NewGame => createOverlay()
-    case event: UpdateMap => createMap()
+    case event: UpdateMap => {
+      createMap()
+    }
     case event: Fire => showFire
     case event: Hit => updateText
   }
@@ -202,13 +204,16 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     val save = new MenuItem("Save") {
       onAction = (e:ActionEvent) => controller.save
     }
+    val load = new MenuItem("Load") {
+      onAction = (e:ActionEvent) => controller.load
+    }
     val undo = new MenuItem("Undo") {
       onAction = (e:ActionEvent) => controller.undo
     }
     val redo = new MenuItem("Redo") {
       onAction = (e:ActionEvent) => controller.redo
     }
-    options.items = List(undo, redo, save)
+    options.items = List(undo, redo, save, load)
     fileMenu.items = List(newGame, exitGame)
     menuBar.menus = List(fileMenu, options)
     rootPane.top= menuBar
