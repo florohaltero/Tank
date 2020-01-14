@@ -1,13 +1,13 @@
 package de.htwg.se.Tank.model.playerComponent.playerBase
 
 import de.htwg.se.Tank.model.ItemTemplate
-import de.htwg.se.Tank.model.gameComponent.gameBase
+import de.htwg.se.Tank.model.gameComponent.{gameBase, gameInterface}
 import de.htwg.se.Tank.model.playerComponent.PlayerFactoryInterface
 
 import scala.collection.mutable.ListBuffer
 
 trait Player {
-   var id : Integer
+   val id : Integer
    var tank : Tank
    var name : String
    var pos : Position
@@ -32,7 +32,7 @@ object PlayerFactory extends PlayerFactoryInterface{
    }
 
 
-   case class Player1(name: String, var pos: Position) extends Player {
+   case class Player1(var name: String, var pos: Position) extends Player {
       override val id: Integer = PLAYER1
       override def toString: String = {
          val s = "Player: " + name + "\n" + tank.toString
@@ -42,7 +42,7 @@ object PlayerFactory extends PlayerFactoryInterface{
       override var power: Int = DEFAULT_POWER
    }
 
-   case class Player2(name: String, var pos: Position) extends Player {
+   case class Player2(var name: String, var pos: Position) extends Player {
       override val id: Integer = PLAYER2
       override def toString: String = {
          val s = "Player: " + name + "\n" + tank.toString
@@ -54,8 +54,8 @@ object PlayerFactory extends PlayerFactoryInterface{
 
 }
 
-object Player {
-   import play.api.libs.json._
-   implicit val playerWrites = Json.writes[Player]
-   implicit val playerReads = Json.reads[Player]
-}
+//object Player {
+//   import play.api.libs.json._
+//   implicit def playerWrites = Json.writes[gameInterface]
+//   implicit def playerReads = Json.reads[gameInterface]
+//}

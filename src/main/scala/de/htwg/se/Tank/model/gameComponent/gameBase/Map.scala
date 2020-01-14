@@ -181,9 +181,9 @@ object Map extends mapInterface {
   }
 
 
-  import play.api.libs.json._
-  implicit val mapWrites = Json.writes[mapInterface]
-  implicit val mapReads = Json.reads[mapInterface]
+//  import play.api.libs.json._
+//  implicit def mapWrites = Json.writes[gameInterface]
+//  implicit def mapReads = Json.reads[gameInterface]
 }
 
 
