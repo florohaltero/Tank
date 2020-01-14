@@ -6,7 +6,7 @@ import de.htwg.se.Tank.model.fileIoComponent.FileIOInterface
 import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, Map}
 import de.htwg.se.Tank.model.gameComponent.gameInterface
 import de.htwg.se.Tank.model.playerComponent.playerBase.{Player, Position}
-import play.api.libs.json.{JsNumber, JsValue, Json, Writes}
+import play.api.libs.json.{JsNumber, JsObject, JsValue, Json, Writes}
 import de.htwg.se.Tank.model.playerComponent.playerBase
 
 import scala.io.Source
@@ -66,7 +66,7 @@ class FileIO extends FileIOInterface {
 //    )
 //  }
 
-  def gameToJson(game: gameInterface) = {
+  def gameToJson(game: gameInterface) :JsObject = {
     Json.obj(
       "game" -> Json.obj(
         "partyname" -> game.partyname,
