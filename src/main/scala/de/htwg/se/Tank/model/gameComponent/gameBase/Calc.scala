@@ -3,6 +3,7 @@ package de.htwg.se.Tank.model.gameComponent.gameBase
 
 import de.htwg.se.Tank.model.playerComponent.playerBase.{Player, Position}
 
+import scala.collection.GenSeq
 import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks.{break, breakable}
 
@@ -18,6 +19,7 @@ object Calc {
     var y : Double = 0
     val listbuffer: ListBuffer[(Double, Double)] = ListBuffer.empty[(Double, Double)]
     var t : Double = 0
+    val map = Map.getFXList(true)
     breakable{
       while(y >= 0 && x < Map.endOfMap._1){
         //Berechnung von x,y Koordinate
@@ -25,7 +27,10 @@ object Calc {
         y =  x*Math.tan(alpha) - G/(2*Math.pow(v0,2)*Math.pow(Math.cos(alpha),2)) * Math.pow(x,2) + h0
         //Start X wird auf den Schiefen Wurf addiert um diesen später richtig anzuzeigen
         listbuffer.append((x + sx,y))
-        if(fire && hit(x + sx,y)){
+
+        //var inXRange : Boolean = map.containsSlice(Range[Double](x + sx - 0.5,x + sx + 0.5))
+
+        if(fire && hit(x + sx,y)) {
           break
         }
         //Intervall von 0.2sek schiefer Wurf ausrechnen
@@ -36,15 +41,15 @@ object Calc {
 
   def hit(pos : ((Double), (Double))) : Boolean = {
     if(Map.activePlayer.equals(Map.p1)){
-      if(Map.p2.tank.hitbox.posInHitbox(Position(pos._1,pos._2))) {
-        Map.p2.tank.getDamage(20)
-        if(Map.p2.tank.lp <= 0){
-          win(Map.activePlayer)
-          true
+        if(Map.p2.tank.hitbox.posInHitbox(Position(pos._1,pos._2))) {
+          Map.p2.tank.getDamage(20)
+          if(Map.p2.tank.lp <= 0){
+            win(Map.activePlayer)
+            true
+          }
+          return true
         }
-        return true
-      }
-      false
+        false
     } else {
       if(Map.p1.tank.hitbox.posInHitbox(Position(pos._1,pos._2))) {
         Map.p1.tank.getDamage(20)

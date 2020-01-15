@@ -21,7 +21,7 @@ class Controller @Inject() (var game: gameInterface) extends ControllerInterface
 
   override def setGame(partyname: String, map: Int, size:String, name1: String, name2: String): Unit = {
     game = Game(partyname, map ,size, name1, name2)
-    publish(new NewGame)
+    //publish(new NewGame)
     publish(new UpdateMap)
   }
 
