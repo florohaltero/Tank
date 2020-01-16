@@ -4,7 +4,7 @@ import de.htwg.se.Tank.model.gameComponent.gameBase.Hitbox
 import de.htwg.se.Tank.model.playerComponent.TankInterface
 
 case class Tank(pos: Position,var lp: Int, canonAngle: Int) extends TankInterface{
-  final val STEP = 5
+  final val STEP = 2
   override def toString: String = {
     var s = "Pos(x,y): (" + pos.x + "," + pos.y + ") Life: " + lp + " CannonAngle: " + canonAngle
     s

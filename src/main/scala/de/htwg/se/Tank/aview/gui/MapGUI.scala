@@ -156,7 +156,7 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
       rootPane = new BorderPane
       mainPane = new BorderPane()
       bottomBox = new HBox()
-      title = "Map"
+      title = "Tank"
       scene = new Scene {
         createMenuBar
         createMapShapes
@@ -334,17 +334,21 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     //fire.setRate(10)
     fire.setPath(shootLine)
     fire.playFromStart()
+
     val image = new Image("file:explosion.gif")
     val explosion = new ImageView(image)
     explosion.localToScene(10,10)
+    explosion.sceneToLocal(10,10)
     explosion.layoutX = 100
     explosion.layoutY = 100
+    val vbox = new VBox(){
 
+    }
     fire.setOnFinished(e => {
       if (Map.winner != null)
         showWinnerGif
     })
-    mainPane.children.addAll(mun)
+    mainPane.children.addAll(mun, vbox)
   }
 
   def showFireLine : Unit = {
