@@ -324,17 +324,31 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     bottomBox.children.addAll(moveLeft, moveRight, angleUp, angelDown, power, fire, changePlayer)
   }
 
-  private def createTitle: VBox = new VBox {
-    val infoPlayer1 = new Text() {
-      text = gameBase.Map.p1.toString
+  private def createTitle: Unit = {
+    val topBox = new HBox() {
+      val infoPlayer1 = new Text() {
+        text = gameBase.Map.p1.toString
+      }
+      val infoPlayer2 = new Text() {
+        text = gameBase.Map.p2.toString
+      }
+      val infoControls = new Text() {
+        text = "controls: \n" +
+        "Links/Rechts: a/d\n" +
+        "Winkel: w/s\n" +
+        "Power: +/-\n" +
+        "Schießen: f\n" +
+        "Spielerwechsel: p"
+      }
+      val infoPlayerBox = new VBox {
+        children.addAll(infoPlayer1, infoPlayer2)
+      }
+      val infoControlBox = new VBox {
+        children.addAll(infoControls)
+      }
+      children.addAll(infoPlayerBox, infoControlBox)
     }
-    val infoPlayer2 = new Text() {
-      text = gameBase.Map.p2.toString
-    }
-    val vbox = new VBox {
-      children.addAll(infoPlayer1, infoPlayer2)
-    }
-    mainPane.children.add(vbox)
+    mainPane.children.add(topBox)
   }
 
   def showFire = {

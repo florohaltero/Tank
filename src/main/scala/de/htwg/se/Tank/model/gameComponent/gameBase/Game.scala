@@ -6,6 +6,7 @@ import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.Tank.TankModule
 import de.htwg.se.Tank.model.gameComponent.gameBase.Map._
 import de.htwg.se.Tank.model.gameComponent.{MapSize, gameInterface}
+import de.htwg.se.Tank.model.playerComponent.playerBase
 import de.htwg.se.Tank.model.playerComponent.playerBase.{Player, Position}
 
 case class Game @Inject()(partyname: String, @Named("DefaultMap") mapNum: Int
