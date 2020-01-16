@@ -346,9 +346,11 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     //fire.setRate(10)
     fire.setPath(shootLine)
     fire.playFromStart()
+    fire.setOnFinished(e => {
+      if (Map.winner != null)
+        showWinnerGif
+    })
     mainPane.children.addAll(mun)
-    if (Map.winner != null)
-      showWinnerGif
   }
 
   def showFireLine = {
