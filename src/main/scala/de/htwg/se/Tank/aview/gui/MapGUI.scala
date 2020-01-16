@@ -1,8 +1,6 @@
 package de.htwg.se.Tank.aview.gui
 
 
-import java.awt.image.BufferedImage
-
 import de.htwg.se.Tank.controller.controllerComponent.{ControllerInterface, Fire, Hit, NewGame, UpdateMap}
 import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
 import de.htwg.se.Tank.model.gameComponent.gameBase
@@ -65,7 +63,7 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
   clip.play()
   createOverlay()
 
-  def createOverlay() = {
+  def createOverlay() : Unit = {
     stage = new PrimaryStage {
       scene = new Scene {
         fill = LightBlue
@@ -101,31 +99,6 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
         }
 
         val start = new Button("New Game")
-        /*
-        text.layoutX = 70
-        text.layoutY = 130
-        player1textField.layoutX = 140
-        player1textField.layoutY = 190
-        player2textField.layoutX = 140
-        player2textField.layoutY = 245
-        player1.layoutX = 75
-        player1.layoutY = 205
-        player2.layoutX = 75
-        player2.layoutY = 255
-        player1.setScaleX(1.35)
-        player1.setScaleY(1.35)
-        player2.setScaleX(1.35)
-        player2.setScaleY(1.35)
-        start.scaleX = 1.65
-        start.scaleY = 1.65
-        start.layoutX = 175
-        start.layoutY = 300
-        end.scaleX = 1.5
-        end.scaleY = 1.5
-        end.layoutX = 175
-        end.layoutY = 350
-
-         */
         val end = new Button("Leave Game")
         val load_game = new Button("Load Game") {
           onAction = (e: ActionEvent) => controller.load
@@ -145,8 +118,6 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
             case _ =>
           }
         }
-
-        //val endgif = new ImageView(getClass().getResource("giphy.gif").toExternalForm)
 
         rootPane.prefHeight = 350
         rootPane.setStyle("-fx-background-image: url(de/htwg/se/Tank/aview/gui/Game-Tank-Background-Free-Picture.jpg); -fx-background-size: auto 100%;")
@@ -229,7 +200,7 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     rootPane.top = menuBar
   }
 
-  def createMapShapes = {
+  def createMapShapes : Unit = {
     mainPane = new BorderPane()
     var lb: mutable.Buffer[Double] = getGUIScale(gameBase.Map.getFXList(true)).toBuffer
     lb.append(WIDTH)
@@ -262,13 +233,12 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     mainPane.children.addAll(line, t1, t2)
   }
 
-  def createMapButtons = {
+  def createMapButtons: Unit = {
     val moveLeft = new Button("Move Left") {
       onAction = (e: ActionEvent) => {
         controller.moveLeft()
       }
     }
-
     val moveRight = new Button("Move Right") {
       onAction = (e: ActionEvent) => {
         controller.moveRight()
@@ -308,9 +278,14 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
         controller.changePlayer()
       }
     }
+    buttonEvents(power.getText.toInt)
+    bottomBox.children.addAll(moveLeft, moveRight, angleUp, angelDown, power, fire, changePlayer)
+  }
+
+  private def buttonEvents(power : Int) : Unit = {
     bottomBox.onKeyPressed = (ke: KeyEvent) => {
       ke.code match {
-        case KeyCode.F => controller.shoot(power.text().toInt)
+        case KeyCode.F => controller.shoot(power)
         case KeyCode.A => controller.moveLeft()
         case KeyCode.D => controller.moveRight()
         case KeyCode.W => controller.moveAngleUp()
@@ -321,7 +296,6 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
         case _ =>
       }
     }
-    bottomBox.children.addAll(moveLeft, moveRight, angleUp, angelDown, power, fire, changePlayer)
   }
 
   private def createTitle: Unit = {
@@ -351,7 +325,7 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     mainPane.children.add(topBox)
   }
 
-  def showFire = {
+  def showFire: Unit = {
     val shootLine = Polyline(getGUIScale(Calc.shootCalc(true)): _*)
     val mun = Circle(5, Black)
     val fire = new PathTransition(new Duration(3000), shootLine)
@@ -360,6 +334,12 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     //fire.setRate(10)
     fire.setPath(shootLine)
     fire.playFromStart()
+    val image = new Image("file:explosion.gif")
+    val explosion = new ImageView(image)
+    explosion.localToScene(10,10)
+    explosion.layoutX = 100
+    explosion.layoutY = 100
+
     fire.setOnFinished(e => {
       if (Map.winner != null)
         showWinnerGif
@@ -367,17 +347,17 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     mainPane.children.addAll(mun)
   }
 
-  def showFireLine = {
+  def showFireLine : Unit = {
     val shootLine = Polyline(getGUIScale(Calc.shootCalc(false).slice(0, 50)): _*)
     mainPane.children.add(shootLine)
   }
 
-  def updateText = {
+  def updateText: Unit = {
     createMapShapes
     createTitle
   }
 
-  def winnerdialog = {
+  def winnerdialog : Unit = {
     val alert = new Alert(AlertType.Information) {
       initOwner(stage)
       title = "Winner"
@@ -409,27 +389,6 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
         root = rootPane
       }
     }
-//    stage = new PrimaryStage {
-//      rootPane = new BorderPane
-//      mainPane = new BorderPane
-//      title = "WINNER!!!!"
-//      scene = new Scene {
-//        mainPane.setStyle("-fx-background-image: url(de/htwg/se/Tank/aview/gui/giphy.gif); -fx-background-size: auto 100%;")
-//        rootPane.center = mainPane
-//        root = rootPane
-//      }
-//    }
   }
-
-
-//  stage = new PrimaryStage {
-//    rootPane = new BorderPane
-//    val vbox = new VBox()
-//    scene = new Scene {
-//      rootPane.center = vbox
-//      rootPane.setStyle("-fx-background-image: url(de/htwg/se/Tank/aview/gui/giphy.gif); -fx-background-size: auto 100%;")
-//      root = rootPane
-//    }
-//  }
 
 }
