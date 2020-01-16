@@ -6,6 +6,7 @@ import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.Tank.TankModule
 import de.htwg.se.Tank.model.gameComponent.gameBase.Map._
 import de.htwg.se.Tank.model.gameComponent.{MapSize, gameInterface}
+import de.htwg.se.Tank.model.playerComponent.playerBase
 import de.htwg.se.Tank.model.playerComponent.playerBase.{Player, Position}
 
 case class Game @Inject()(partyname: String, @Named("DefaultMap") mapNum: Int
@@ -13,10 +14,10 @@ case class Game @Inject()(partyname: String, @Named("DefaultMap") mapNum: Int
   var map : Map.type = Map
   val injector = Guice.createInjector(new TankModule)
   var mapSize : MapSize =
-  size match {
-    case "small" => injector.instance[MapSize](Names.named("small"))
-    case "big" => injector.instance[MapSize](Names.named("big"))
-  }
+    size match {
+      case "small" => injector.instance[MapSize](Names.named("small"))
+      case "big" => injector.instance[MapSize](Names.named("big"))
+    }
   GameInit.setMapSettings(mapSize, mapNum, name1, name2)
 
   override def toString: String = {
@@ -28,9 +29,12 @@ case class Game @Inject()(partyname: String, @Named("DefaultMap") mapNum: Int
   def moveLeft() : Player = {
     if(moves > 0) {
       val tmp : Position = activePlayer.pos
+      //val tmpH : playerBase.Tank = activePlayer.tank
       activePlayer.pos = Position(activePlayer.pos.x-1,fx(activePlayer.pos.x-1))
+      //activePlayer.tank = new Hitbox(1,2,activePlayer.pos)
       if(!posInMap(activePlayer.pos)){
         activePlayer.pos = tmp
+        //activePlayer.tank = tmpH
       }
       moves -= 1
     }
@@ -41,9 +45,12 @@ case class Game @Inject()(partyname: String, @Named("DefaultMap") mapNum: Int
   def undoMoveLeft() : Player ={
     if(moves < NUMBER_OF_MOVES) {
       val tmp : Position = activePlayer.pos
+      //val tmpH : Hitbox = activePlayer.tank.hitbox
       activePlayer.pos = Position(activePlayer.pos.x+1,fx(activePlayer.pos.x+1))
+      //activePlayer.tank.hitbox = new Hitbox(1,2,activePlayer.pos)
       if(!posInMap(activePlayer.pos)){
         activePlayer.pos = tmp
+        //activePlayer.tank.hitbox = tmpH
       }
       moves += 1
     }
@@ -54,9 +61,12 @@ case class Game @Inject()(partyname: String, @Named("DefaultMap") mapNum: Int
   def moveRight() : Player ={
     if(moves > 0) {
       val tmp : Position = activePlayer.pos
+      //val tmpH : Hitbox = activePlayer.tank.hitbox
       activePlayer.pos = Position(activePlayer.pos.x + 1,fx(activePlayer.pos.x + 1) )
+      //activePlayer.tank.hitbox = Hitbox(1,2,activePlayer.pos)
       if(!posInMap(activePlayer.pos)){
         activePlayer.pos = tmp
+        //activePlayer.tank.hitbox = tmpH
       }
       moves -= 1
     }
@@ -67,9 +77,12 @@ case class Game @Inject()(partyname: String, @Named("DefaultMap") mapNum: Int
   def undoMoveRight() : Player ={
     if(moves < NUMBER_OF_MOVES) {
       val tmp : Position = activePlayer.pos
+      //val tmpH : Hitbox = activePlayer.tank.hitbox
       activePlayer.pos = Position(activePlayer.pos.x - 1,fx(activePlayer.pos.x - 1) )
+      //activePlayer.tank.hitbox = new Hitbox(1,2,activePlayer.pos)
       if(!posInMap(activePlayer.pos)){
         activePlayer.pos = tmp
+        //activePlayer.tank.hitbox = tmpH
       }
       moves += 1
     }
@@ -90,7 +103,6 @@ case class Game @Inject()(partyname: String, @Named("DefaultMap") mapNum: Int
   def shoot(power :Int) : Unit = {
     //shotList = Calc.shootCalc(activePlayer.pos,activePlayer.tank.canonAngle,power,(beginOfMap._1,endOfMap._1))
     activePlayer.power = power
-
     println("Shoot")
   }
 

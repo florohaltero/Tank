@@ -3,7 +3,7 @@ package de.htwg.se.Tank.model.playerComponent.playerBase
 import de.htwg.se.Tank.model.ItemTemplate
 import de.htwg.se.Tank.model.gameComponent.{gameBase, gameInterface}
 import de.htwg.se.Tank.model.playerComponent.PlayerFactoryInterface
-
+import de.htwg.se.Tank.model.gameComponent.gameBase.Map
 import scala.collection.mutable.ListBuffer
 
 trait Player {
@@ -13,6 +13,19 @@ trait Player {
    var pos : Position
    var power : Int
    var ItemList: ListBuffer[ItemTemplate] = ListBuffer.empty
+
+   val WIDTH = 2
+   val HEIGHT = 1
+
+   def posInHitbox(p: Position): Boolean ={
+      val xRange : ((Double),(Double)) = ((pos.x - 0.5 * WIDTH),(pos.x + 0.5 * WIDTH))
+      val yRange: ((Double), (Double)) = ((pos.y - 0.5 * HEIGHT), (pos.y + 0.5 * HEIGHT))
+      if(p.x >= xRange._1 && p.x <= xRange._2 && p.y >= yRange._1 && p.y <= yRange._2) {
+         return true
+      }
+      false
+   }
+
 }
 
 object PlayerFactory extends PlayerFactoryInterface{
@@ -53,9 +66,3 @@ object PlayerFactory extends PlayerFactoryInterface{
    }
 
 }
-
-//object Player {
-//   import play.api.libs.json._
-//   implicit def playerWrites = Json.writes[gameInterface]
-//   implicit def playerReads = Json.reads[gameInterface]
-//}
