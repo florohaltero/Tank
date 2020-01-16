@@ -9,7 +9,9 @@ case class Tank(pos: Position,var lp: Int, canonAngle: Int) extends TankInterfac
     var s = "Pos(x,y): (" + pos.x + "," + pos.y + ") Life: " + lp + " CannonAngle: " + canonAngle
     s
   }
-  var hitbox = Hitbox(1, 2, pos)
+  //var hitbox = Hitbox(1, 2, pos)
+
+
   var damage = 30
   override def canonUp(): Tank = {
     copy(pos, lp, canonAngle + STEP)
@@ -21,4 +23,5 @@ case class Tank(pos: Position,var lp: Int, canonAngle: Int) extends TankInterfac
     //copy(pos,lp -damage, canonAngle)
     lp = lp - damage
   }
+
 }
