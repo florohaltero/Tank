@@ -1,0 +1,29 @@
+<game>
+    <party>Standard</party>
+    <mapNo>0</mapNo>
+    <map>
+        <activePlayer>1</activePlayer>
+        <moves>8</moves>
+    </map>
+    <size>small</size>
+    <player>
+        <name></name>
+        <id>1</id>
+        <tank>
+            <life>100</life>
+            <angle>30</angle>
+        </tank>
+        <posx>14.884179877132787</posx>
+        <posy>11.98304411520222</posy>
+    </player>
+    <player>
+        <name></name>
+        <id>2</id>
+        <tank>
+            <life>100</life>
+            <angle>150</angle>
+        </tank>
+        <posx>75.3800521704593</posx>
+        <posy>11.752467078375089</posy>
+    </player>
+</game>

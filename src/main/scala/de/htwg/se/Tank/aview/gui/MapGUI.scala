@@ -138,6 +138,7 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
       }
     }
     stage.getIcons.add(new Image("de/htwg/se/Tank/aview/gui/tank.png"))
+    stage.resizable = false
   }
 
 
@@ -329,26 +330,18 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     val shootLine = Polyline(getGUIScale(Calc.shootCalc(true)): _*)
     val mun = Circle(5, Black)
     val fire = new PathTransition(new Duration(3000), shootLine)
-    //fire.node = mun
     fire.setNode(mun)
-    //fire.setRate(10)
     fire.setPath(shootLine)
     fire.playFromStart()
 
     val image = new Image("file:explosion.gif")
     val explosion = new ImageView(image)
-    explosion.localToScene(10,10)
-    explosion.sceneToLocal(10,10)
-    explosion.layoutX = 100
-    explosion.layoutY = 100
-    val vbox = new VBox(){
 
-    }
     fire.setOnFinished(e => {
       if (Map.winner != null)
         showWinnerGif
     })
-    mainPane.children.addAll(mun, vbox)
+    mainPane.children.addAll(mun)
   }
 
   def showFireLine : Unit = {
