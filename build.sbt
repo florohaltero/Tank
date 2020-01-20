@@ -21,7 +21,7 @@ lazy val osName = System.getProperty("os.name") match {
   case _ => throw new Exception("Unknown platform!")
 }
 
-coverageExcludedPackages := "*MapGUI.scala,*TUISpec.scala,*animationtest.scala"
+coverageExcludedPackages := "*MapGUI.scala;*TUISpec.scala;*animationtest.scala"
 
 // Add JavaFX dependencies
 lazy val javaFXModules = Seq("base", "controls", "fxml", "graphics", "media", "swing", "web")
