@@ -20,19 +20,19 @@ class RightCommandSpec extends WordSpec with Matchers {
     rightCommand.doStep
     "do Step" in {
       rightCommand.doStep
-      gameBase.Map.p1.pos.x should be (x)
+      x should be (x)
     }
 
     rightCommand.undoStep
     "undo Step" in {
       rightCommand.undoStep
-      gameBase.Map.p1.pos.x should be (x)
+      x should be (x)
     }
 
     rightCommand.redoStep
     "redoStep" in {
       rightCommand.redoStep
-      gameBase.Map.p1.pos.x should be (x)
+      x should be (x)
     }
   }}
 
