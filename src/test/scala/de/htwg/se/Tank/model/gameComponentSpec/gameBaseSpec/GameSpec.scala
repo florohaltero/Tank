@@ -1,7 +1,8 @@
 package de.htwg.se.Tank.model.gameComponentSpec.gameBaseSpec
 
 import de.htwg.se.Tank.model.gameComponent.gameBase
-import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, GameInit, SmallMap}
+import de.htwg.se.Tank.model.gameComponent.gameBase.{Map,Game, GameInit, SmallMap}
+import de.htwg.se.Tank.model.playerComponent.playerBase.{PlayerFactory, Position}
 import org.junit.runner.RunWith
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner
@@ -9,9 +10,11 @@ import org.scalatest.junit.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class GameSpec extends WordSpec with Matchers{
   "A Game" when { "new" should {
-    val game_0 = Game("Standard", 0,"small", "Flo", "Sascha")
+    val game_0 = Game("Standard", 2,"small", "Flo", "Sascha")
+    Map.p1 = PlayerFactory.createPlayer1("Flo",Position(5,0))
+    val str = game_0.toString
     "have a nice String Presentatiopn" in {
-      game_0.toString should be(game_0.toString)
+      str should be (game_0.toString)
     }
     "have partyname" in {
       game_0.partyname should be("Standard")
@@ -23,7 +26,7 @@ class GameSpec extends WordSpec with Matchers{
       gameBase.Map.endOfMap._2 should be(new(SmallMap).MAP_Y)
     }
     "have map" in {
-      game_0.mapNum should be (0)
+      game_0.mapNum should be (2)
     }
     "have Player 1" in {
       game_0.name1 should be ("Flo")
@@ -34,8 +37,9 @@ class GameSpec extends WordSpec with Matchers{
     "have Player1 map" in {
       gameBase.Map.p1.name should be ("Flo")
     }
-    game_0.moveLeft()
+
     "have moveLeft" in {
+      game_0.moveLeft()
       gameBase.Map.p1.pos.x should be (gameBase.Map.p1.pos.x)
       gameBase.Map.moves should be (gameBase.Map.moves)
     }
