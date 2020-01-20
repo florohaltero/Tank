@@ -10,7 +10,7 @@ import org.scalatest.junit.JUnitRunner
 class TankSpec extends WordSpec with Matchers {
   val pos = Position(200,50)
   val angle = 10
-  val step = 5
+  val step = 2
   "A Tank" when { "new" should {
     var tank = playerBase.Tank(pos, 100, angle)
     "have vars" in {
