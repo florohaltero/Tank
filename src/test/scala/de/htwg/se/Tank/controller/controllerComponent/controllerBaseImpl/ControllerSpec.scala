@@ -2,7 +2,7 @@ package de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl
 
 import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
 import de.htwg.se.Tank.model.gameComponent.gameBase
-import de.htwg.se.Tank.model.gameComponent.gameBase.Game
+import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, Map}
 import de.htwg.se.Tank.util.{Observer, UndoManager}
 import org.scalatest.{Matchers, WordSpec}
 
@@ -14,6 +14,7 @@ class ControllerSpec extends WordSpec with Matchers {
       val undoManager = new UndoManager
       val leftCommand = new LeftCommand(controller)
       val rightCommand = new RightCommand(controller)
+      val power = Map.getActivePlayer.power
       val observer = new Observer {
         var updated: Boolean = false
         def isUpdated: Boolean = updated
@@ -32,7 +33,6 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.moveLeft()
       "notify its Observer after move left" in {
         undoManager.doStep(leftCommand) should be (undoManager.doStep(leftCommand))
-
       }
       controller.moveRight()
       "notify its Observer after move right" in {
@@ -59,6 +59,18 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.changePlayer()
       "change Player" in {
         controller.changePlayer() should be (controller.changePlayer())
+      }
+
+      controller.powerUp()
+      "power up" in {
+        controller.powerUp()
+        Map.getActivePlayer.power should be (power + 1)
+      }
+
+      controller.powerUp()
+      "power down" in {
+        controller.powerDown()
+        Map.getActivePlayer.power should be (power)
       }
     }
   }

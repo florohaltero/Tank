@@ -7,7 +7,9 @@ import scala.collection.mutable.ListBuffer
 
 trait PlayerFactoryInterface {
   def createPlayer1(name: String): Player
+  def createPlayer1(name: String, pos: Position): Player
   def createPlayer2(name: String): Player
+  def createPlayer2(name: String, pos: Position): Player
 }
 
 trait TankInterface {

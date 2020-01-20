@@ -40,8 +40,16 @@ object PlayerFactory extends PlayerFactoryInterface{
       Player1(name, gameBase.Map.generatePos(1))
    }
 
+   override def createPlayer1(name: String,pos: Position): Player = {
+      Player1(name, pos)
+   }
+
    override def createPlayer2(name: String): Player = {
       Player2(name, gameBase.Map.generatePos(2))
+   }
+
+   override def createPlayer2(name: String,pos : Position): Player = {
+      Player2(name, pos)
    }
 
 
