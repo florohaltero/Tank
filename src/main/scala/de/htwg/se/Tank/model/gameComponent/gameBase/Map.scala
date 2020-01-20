@@ -64,6 +64,8 @@ object Map extends mapInterface {
       true
     case Some(1) => fx = (x: Double) => 10
       true
+    case Some(2) => fx = (x: Double) => 0
+      true
     case None =>
       false
   }
