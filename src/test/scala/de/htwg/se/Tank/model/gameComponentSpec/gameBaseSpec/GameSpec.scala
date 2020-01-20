@@ -11,6 +11,7 @@ import org.scalatest.junit.JUnitRunner
 class GameSpec extends WordSpec with Matchers{
   "A Game" when { "new" should {
     val game_0 = Game("Standard", 2,"small", "Flo", "Sascha")
+
     Map.p1 = PlayerFactory.createPlayer1("Flo",Position(5,0))
     val str = game_0.toString
     "have a nice String Presentatiopn" in {
