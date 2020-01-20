@@ -4,8 +4,11 @@ import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.control
 import de.htwg.se.Tank.model.gameComponent.gameBase
 import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, Map}
 import de.htwg.se.Tank.util.{Observer, UndoManager}
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 import org.scalatest.{Matchers, WordSpec}
 
+@RunWith(classOf[JUnitRunner])
 class ControllerSpec extends WordSpec with Matchers {
   "A Controller" when {
     "observed by an Observer" should {
