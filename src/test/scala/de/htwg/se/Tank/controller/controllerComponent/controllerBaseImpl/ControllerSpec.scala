@@ -12,7 +12,7 @@ import org.scalatest.{Matchers, WordSpec}
 class ControllerSpec extends WordSpec with Matchers {
   "A Controller" when {
     "observed by an Observer" should {
-      val game = Game("Standard", 0,"small", "Flo", "Sasch")
+      val game = Game("Standard", 2,"small", "Flo", "Sasch")
       val controller = new Controller(game)
       val undoManager = new UndoManager
       val leftCommand = new LeftCommand(controller)
@@ -24,14 +24,15 @@ class ControllerSpec extends WordSpec with Matchers {
         override def update: Boolean = {updated = true; updated}
       }
 
+
       "notify its Observer after creation" in {
-        controller.setGame("Standard", 0,"small", "Flo", "Sasch")
+        controller.setGame("Standard", 2,"small", "Flo", "Sasch")
         gameBase.Map.p1.name should be ("Flo")
         gameBase.Map.p2.name should be ("Sasch")
       }
-      controller.gametoString
+      val str : String = controller.gametoString
       "to String" in {
-        controller.gametoString should be (controller.gametoString)
+         str should be (str)
       }
       controller.moveLeft()
       "notify its Observer after move left" in {
