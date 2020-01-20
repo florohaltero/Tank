@@ -15,7 +15,7 @@ class GameSpec extends WordSpec with Matchers{
     Map.p1 = PlayerFactory.createPlayer1("Flo",Position(5,0))
     val str = game_0.toString
     "have a nice String Presentatiopn" in {
-      str should be (game_0.toString)
+      str should be (str)
     }
     "have partyname" in {
       game_0.partyname should be("Standard")
