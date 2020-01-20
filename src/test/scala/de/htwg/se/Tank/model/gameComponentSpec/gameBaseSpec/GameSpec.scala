@@ -35,9 +35,6 @@ class GameSpec extends WordSpec with Matchers{
     "have Player 2" in {
       game_0.name2 should be ("Sascha")
     }
-    "have Player1 map" in {
-      gameBase.Map.p1.name should be ("Flo")
-    }
 
     "have moveLeft" in {
       game_0.moveLeft()
