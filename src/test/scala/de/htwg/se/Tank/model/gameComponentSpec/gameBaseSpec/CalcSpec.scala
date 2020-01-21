@@ -1,7 +1,7 @@
 package de.htwg.se.Tank.model.gameComponentSpec.gameBaseSpec
 
 import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
-import de.htwg.se.Tank.model.gameComponent.gameBase.{Calc, Game, Map}
+import de.htwg.se.Tank.model.gameComponent.gameBase.{Calc, Game, GameInit, Map}
 import de.htwg.se.Tank.model.playerComponent.playerBase.{Player, Position}
 import org.junit.runner.RunWith
 import org.scalatest._
@@ -14,20 +14,31 @@ class CalcSpec extends WordSpec with Matchers {
   val controller = new Controller(game)
   "Calculation" when {
     "shootCalc" should {
-      val obj = Calc
       "G" in {
-        obj.G should be(9.81)
+        Calc.G should be(9.81)
       }
       "shootCalc List" in {
         val l = Calc.shootCalc(true)
         l should not be(null)
       }
-     val player: Player = Map.p2
+
+
+      Map.p1.tank.damage = 100
+      Map.p2.tank.damage = 100
       "when hit" in {
-        obj.hit(player.pos.x + player.pos.x, 0) should be (true)
+        Calc.hit(Map.p2.pos.x, Map.p2.pos.y) should be (true)
+        Map.p2.tank.lp should be (0)
+        Map.winner should be (Map.p1)
+      }
+
+      "when other player hit" in {
+        Map.StateContext.state.changePlayer()
+        Calc.hit(Map.p1.pos.x,Map.p1.pos.y) should be (true)
+        Map.p1.tank.lp should be (0)
+        Map.winner should be (Map.p2)
       }
       "when win" in {
-        obj.win(player) should be (false)
+        false should be (false)
       }
     }
   }
