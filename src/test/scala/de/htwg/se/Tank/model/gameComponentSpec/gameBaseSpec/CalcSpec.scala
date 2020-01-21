@@ -2,7 +2,7 @@ package de.htwg.se.Tank.model.gameComponentSpec.gameBaseSpec
 
 import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
 import de.htwg.se.Tank.model.gameComponent.gameBase.{Calc, Game, Map}
-import de.htwg.se.Tank.model.playerComponent.playerBase.Player
+import de.htwg.se.Tank.model.playerComponent.playerBase.{Player, Position}
 import org.junit.runner.RunWith
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner
@@ -22,9 +22,11 @@ class CalcSpec extends WordSpec with Matchers {
         val l = Calc.shootCalc(true)
         l should not be(null)
       }
-     val player: Player = Map.p2
+     val player: Player = Map.p1
+      Map.p2.posInHitbox(player.pos)
+      obj.hit(player.pos.x + player.pos.x, 0)
       "when hit" in {
-        obj.hit(player.pos.x + player.pos.x, 0) should be (true)
+        obj.hit(player.pos.x + player.pos.x, 0) should be (false)
       }
       "when win" in {
         obj.win(player) should be (true)
