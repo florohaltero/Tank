@@ -22,11 +22,9 @@ class CalcSpec extends WordSpec with Matchers {
         val l = Calc.shootCalc(true)
         l should not be(null)
       }
-     val player: Player = Map.p1
-      Map.p2.posInHitbox(player.pos)
-      obj.hit(player.pos.x + player.pos.x, 0)
+     val player: Player = Map.p2
       "when hit" in {
-        obj.hit(player.pos.x + player.pos.x, 0) should be (false)
+        obj.hit(player.pos.x + player.pos.x, 0) should be (true)
       }
       "when win" in {
         obj.win(player) should be (true)
