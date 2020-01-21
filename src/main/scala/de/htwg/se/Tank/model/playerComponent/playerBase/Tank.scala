@@ -1,6 +1,5 @@
 package de.htwg.se.Tank.model.playerComponent.playerBase
 
-import de.htwg.se.Tank.model.gameComponent.gameBase.Hitbox
 import de.htwg.se.Tank.model.playerComponent.TankInterface
 
 case class Tank(pos: Position,var lp: Int, canonAngle: Int) extends TankInterface{

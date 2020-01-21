@@ -1,7 +1,7 @@
 {
   "game" : {
     "partyname" : "Standard",
-    "mapNo" : 0,
+    "mapNo" : 2,
     "size" : "small",
     "map" : {
       "activePlayer_id" : 2,

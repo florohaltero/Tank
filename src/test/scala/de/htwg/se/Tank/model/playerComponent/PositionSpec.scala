@@ -1,4 +1,4 @@
-package de.htwg.se.Tank.model.playerComponentSpec
+package de.htwg.se.Tank.model.playerComponent
 
 import de.htwg.se.Tank.model.playerComponent.playerBase.Position
 import org.junit.runner.RunWith

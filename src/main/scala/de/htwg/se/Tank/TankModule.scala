@@ -17,7 +17,6 @@ class TankModule extends AbstractModule with ScalaModule {
   val defaultmap : Int  = 1
   val defaultsize : String = "small"
 
-
   override def configure(): Unit = {
     bindConstant().annotatedWith(Names.named("DefaultMap")).to(defaultmap)
     bindConstant().annotatedWith(Names.named("DefaultSize")).to(defaultsize)

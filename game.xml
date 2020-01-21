@@ -1,9 +1,9 @@
 <game>
     <party>Standard</party>
-    <mapNo>0</mapNo>
+    <mapNo>2</mapNo>
     <map>
         <activePlayer>1</activePlayer>
-        <moves>8</moves>
+        <moves>10</moves>
     </map>
     <size>small</size>
     <player>

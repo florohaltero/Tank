@@ -42,31 +42,25 @@ object Calc {
   def hit(pos : ((Double), (Double))) : Boolean = {
     if(Map.activePlayer.equals(Map.p1)){
         if(Map.p2.posInHitbox(Position(pos._1,pos._2))) {
-          Map.p2.tank.getDamage(20)
+          Map.p2.tank.getDamage(Map.p1.tank.damage)
           if(Map.p2.tank.lp <= 0){
-            win(Map.activePlayer)
-            true
+            Map.winner = Map.activePlayer
+            return true
           }
           return true
         }
         false
     } else {
       if(Map.p1.posInHitbox(Position(pos._1,pos._2))) {
-        Map.p1.tank.getDamage(20)
+        Map.p1.tank.getDamage(Map.p2.tank.damage)
         if(Map.p1.tank.lp <= 0){
-          win(Map.activePlayer)
-          true
+          Map.winner = Map.activePlayer
+          return true
         }
         return true
       }
       false
     }
-
-  }
-
-  def win(player: Player): Boolean = {
-    Map.winner = player
-    true
   }
 
 }

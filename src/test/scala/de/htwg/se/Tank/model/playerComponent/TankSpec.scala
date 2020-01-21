@@ -1,4 +1,4 @@
-package de.htwg.se.Tank.model.playerComponentSpec
+package de.htwg.se.Tank.model.playerComponent
 
 import de.htwg.se.Tank.model.playerComponent.playerBase
 import de.htwg.se.Tank.model.playerComponent.playerBase.Position
