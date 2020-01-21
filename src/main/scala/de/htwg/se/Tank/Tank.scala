@@ -17,7 +17,6 @@ object Tank {
   def main(args: Array[String]): Unit = {
     val lines = scala.io.Source.fromFile("Tank_label.txt").mkString
     print(lines)
-
     var input : String = ""
     val tui = new TUI(controller)
     val gui = new MapGUI(controller)
