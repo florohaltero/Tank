@@ -32,7 +32,7 @@ libraryDependencies ++= javaFXModules.map( m=>
 )
 
 
-//*******************************************************************************//
+//*******************************************************f************************//
 //Libraries that we will use in later lectures compatible with this scala version
 // uncomment to use!!
 
