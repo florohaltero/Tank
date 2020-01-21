@@ -22,23 +22,23 @@ class CalcSpec extends WordSpec with Matchers {
         l should not be(null)
       }
 
-
+      "when win" in {
+        false should be (false)
+      }
+    }
+    "hit" should {
       Map.p1.tank.damage = 100
       Map.p2.tank.damage = 100
-      "when hit" in {
+      "p1 wins" in {
         Calc.hit(Map.p2.pos.x, Map.p2.pos.y) should be (true)
         Map.p2.tank.lp should be (0)
         Map.winner should be (Map.p1)
       }
-
-      "when other player hit" in {
+      "p2 wins" in {
         Map.StateContext.state.changePlayer()
         Calc.hit(Map.p1.pos.x,Map.p1.pos.y) should be (true)
         Map.p1.tank.lp should be (0)
         Map.winner should be (Map.p2)
-      }
-      "when win" in {
-        false should be (false)
       }
     }
   }

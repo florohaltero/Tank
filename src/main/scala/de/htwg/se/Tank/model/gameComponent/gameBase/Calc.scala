@@ -45,7 +45,7 @@ object Calc {
           Map.p2.tank.getDamage(Map.p1.tank.damage)
           if(Map.p2.tank.lp <= 0){
             Map.winner = Map.activePlayer
-            true
+            return true
           }
           return true
         }
@@ -55,7 +55,7 @@ object Calc {
         Map.p1.tank.getDamage(Map.p2.tank.damage)
         if(Map.p1.tank.lp <= 0){
           Map.winner = Map.activePlayer
-          true
+          return true
         }
         return true
       }
