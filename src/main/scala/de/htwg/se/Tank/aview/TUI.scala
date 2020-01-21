@@ -8,11 +8,12 @@ import de.htwg.se.Tank.util.Observer
 import scala.swing.Reactor
 import scala.util.{Failure, Success, Try}
 
-class TUI(controller: ControllerInterface) extends Reactor{
+class TUI(controller: ControllerInterface) extends Reactor {
   listenTo(controller)
-  def processInputLine(input: String): Unit ={
+  def processInputLine(input: String): Unit = {
     Try(input match {
-      case "n" => controller.setGame("Standard", 0, scala.io.StdIn.readLine(), scala.io.StdIn.readLine(),scala.io.StdIn.readLine())
+      case "n" => controller.setGame("Standard", 0,
+                  scala.io.StdIn.readLine(), scala.io.StdIn.readLine(),scala.io.StdIn.readLine())
       case "a" => controller.moveLeft()
       case "d" => controller.moveRight()
       case "w" => controller.moveAngleUp()
@@ -27,7 +28,7 @@ class TUI(controller: ControllerInterface) extends Reactor{
       case Success(e) =>
       case Failure(e) => println("falsche Eingabe")
     }
-    }
+  }
 
 
   reactions += {
