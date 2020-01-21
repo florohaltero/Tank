@@ -27,7 +27,7 @@ class CalcSpec extends WordSpec with Matchers {
         obj.hit(player.pos.x + player.pos.x, 0) should be (true)
       }
       "when win" in {
-        obj.win(player) should be (true)
+        obj.win(player) should be (false)
       }
     }
   }
