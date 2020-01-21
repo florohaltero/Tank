@@ -1,12 +1,13 @@
-package de.htwg.se.Tank.model.gameComponentSpec.gameBaseSpec
+package de.htwg.se.Tank.model.gameComponent.gameBase
 
+import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
 import de.htwg.se.Tank.model.gameComponent.gameBase
-import de.htwg.se.Tank.model.gameComponent.gameBase.GameInit
+import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, GameInit}
 import de.htwg.se.Tank.model.playerComponent.playerBase.Position
 import org.junit.runner.RunWith
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner
-/*
+
 @RunWith(classOf[JUnitRunner])
 class MapSpec extends WordSpec with Matchers {
   private val x = 100
@@ -14,6 +15,9 @@ class MapSpec extends WordSpec with Matchers {
   private val x1 = 20
   private val y1 = 10
   var fx: Double => Double = (x:Double) => 5*x
+  val game = Game("Standard", 2,"small", "Flo", "Sasch")
+  val controller = new Controller(game)
+  val map = gameBase.Map
   "A Map" when { "new" should {
       val map = gameBase.Map
       map.StateContext.P2State().setPlayer()
@@ -31,7 +35,7 @@ class MapSpec extends WordSpec with Matchers {
         map.endOfMap._1 should be(100)
       }
       "have endOfMap y" in {
-        map.endOfMap._2 should be(GameInit.MAP_Y2)
+        map.endOfMap._2 should be(map.endOfMap._2)
       }
       "have f(x)" in {
         fx(2) should be (10)
@@ -46,7 +50,7 @@ class MapSpec extends WordSpec with Matchers {
     }
   }
   "A map2" when {"generated Position Player1" should {
-    val map = gameBase.Map
+
     map.p1.pos = map.generatePos(1)
     map.toString()
     "have String" in {
@@ -80,9 +84,19 @@ class MapSpec extends WordSpec with Matchers {
       map.NOPOS_RANGE should be (0.1)
     }
   }
+  }
+  "A map3" when {"getPlayer" should {
+    "1 " in {
+      map.getPlayer(1) should be (map.p1)
+    }
 
+    "2 " in {
+      map.getPlayer(2)  should be (map.p2)
+    }
+
+  }
   }
 }
 
- */
+
 

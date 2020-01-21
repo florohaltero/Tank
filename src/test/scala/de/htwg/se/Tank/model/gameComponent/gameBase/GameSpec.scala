@@ -1,4 +1,4 @@
-package de.htwg.se.Tank.model.gameComponentSpec.gameBaseSpec
+package de.htwg.se.Tank.model.gameComponent.gameBase
 
 import de.htwg.se.Tank.model.gameComponent.gameBase
 import de.htwg.se.Tank.model.gameComponent.gameBase.{Map,Game, GameInit, SmallMap}

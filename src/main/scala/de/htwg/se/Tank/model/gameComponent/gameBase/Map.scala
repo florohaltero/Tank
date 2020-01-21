@@ -178,7 +178,6 @@ object Map extends mapInterface {
     id match {
       case 1 => p1
       case 2 => p2
-      case _ => throw new IllegalArgumentException
     }
   }
 

@@ -1,4 +1,4 @@
-package de.htwg.se.Tank.model.gameComponentSpec.gameBaseSpec
+package de.htwg.se.Tank.model.gameComponent.gameBase
 
 import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
 import de.htwg.se.Tank.model.gameComponent.gameBase.{Calc, Game, GameInit, Map}
