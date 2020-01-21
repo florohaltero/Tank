@@ -2,7 +2,7 @@ package de.htwg.se.Tank.model.gameComponent.gameBase
 
 import de.htwg.se.Tank.controller.controllerComponent.controllerBaseImpl.controller.Controller
 import de.htwg.se.Tank.model.gameComponent.gameBase
-import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, GameInit}
+import de.htwg.se.Tank.model.gameComponent.gameBase.{Game, GameInit,Map}
 import de.htwg.se.Tank.model.playerComponent.playerBase.Position
 import org.junit.runner.RunWith
 import org.scalatest._
@@ -17,81 +17,81 @@ class MapSpec extends WordSpec with Matchers {
   var fx: Double => Double = (x:Double) => 5*x
   val game = Game("Standard", 2,"small", "Flo", "Sasch")
   val controller = new Controller(game)
-  val map = gameBase.Map
+  
   "A Map" when { "new" should {
-      val map = gameBase.Map
-      map.StateContext.P2State().setPlayer()
+      Map.StateContext.P2State().setPlayer()
       "set Player2" in {
-        map.activePlayer should be (map.activePlayer)
-        map.StateContext.state should be (map.StateContext.P1State())
+        Map.activePlayer should be (Map.activePlayer)
+        Map.StateContext.state should be (Map.StateContext.P1State())
       }
       "have beginOfMap x" in {
-        map.beginOfMap._1 should be(GameInit.MAP_X1)
+        Map.beginOfMap._1 should be(GameInit.MAP_X1)
       }
       "have beginOfMap y" in {
-        map.beginOfMap._2 should be(GameInit.MAP_Y1)
+        Map.beginOfMap._2 should be(GameInit.MAP_Y1)
       }
       "have endOfMap x" in {
-        map.endOfMap._1 should be(100)
+        Map.endOfMap._1 should be(100)
       }
       "have endOfMap y" in {
-        map.endOfMap._2 should be(map.endOfMap._2)
+        Map.endOfMap._2 should be(Map.endOfMap._2)
       }
       "have f(x)" in {
         fx(2) should be (10)
       }
-    map.setFX(Option(0))
+    Map.setFX(Option(0))
     "have no Pos in Map" in {
-      map.posInMap(Position(-1,0)) should be (false)
+      Map.posInMap(Position(-1,0)) should be (false)
     }
     "have Number of moves" in {
-      map.moves should be (map.moves)
+      Map.moves should be (Map.moves)
     }
     }
   }
-  "A map2" when {"generated Position Player1" should {
+  "A Map2" when {"generated Position Player1" should {
 
-    map.p1.pos = map.generatePos(1)
-    map.toString()
+    Map.p1.pos = Map.generatePos(1)
+    Map.toString()
+    val str = Map.toString()
     "have String" in {
-      map.toString() should be(map.toString())
+      str should be(str)
     }
     "changed Player" in {
-      map.activePlayer should be (map.p1)
-      map.StateContext.state.changePlayer()
-      map.activePlayer should be (map.p2)
+      Map.activePlayer should be (Map.p1)
+      Map.StateContext.state.changePlayer()
+      Map.activePlayer should be (Map.p2)
     }
     "check active Player" in {
-      map.moves = 0
-      map.StateContext.state.changePlayer()
-      map.activePlayer should be (map.p1)
+      Map.moves = 0
+      Map.StateContext.state.changePlayer()
+      Map.activePlayer should be (Map.p1)
     }
-    map.StateContext.P1State().setPlayer()
+    Map.StateContext.P1State().setPlayer()
     "set Player" in {
-      map.activePlayer should be (map.p1)
-      map.StateContext.state should be (map.StateContext.P1State())
+      Map.activePlayer should be (Map.p1)
+      Map.StateContext.state should be (Map.StateContext.P1State())
     }
-    map.StateContext.getState
+    Map.StateContext.getState
     "StateComtext state" in {
-      map.StateContext.state should be (map.StateContext.P1State())
+      Map.StateContext.state should be (Map.StateContext.P1State())
     }
-    map.setFX(Option(1))
+    Map.setFX(Option(1))
 
     "have POSX_RANGE" in {
-      map.POSX_RANGE should be (0.2)
+      Map.POSX_RANGE should be (0.2)
     }
     "have NOPOS_RANGE" in {
-      map.NOPOS_RANGE should be (0.1)
+      Map.NOPOS_RANGE should be (0.1)
     }
   }
   }
-  "A map3" when {"getPlayer" should {
+  "A Map3" when {"getPlayer" should {
     "1 " in {
-      map.getPlayer(1) should be (map.p1)
+      Map.getPlayer(1) should be (Map.p1)
     }
 
     "2 " in {
-      map.getPlayer(2)  should be (map.p2)
+      Map.getPlayer(2)  should be (Map.p2)
     }
 
   }
