@@ -25,8 +25,6 @@ class TankModule extends AbstractModule with ScalaModule {
     bind[gameInterface].to[Game]
     bind[MapSize].annotatedWithName("small").toInstance(new SmallMap)
     bind[MapSize].annotatedWithName("big").toInstance(new BigMap)
-//    bind[Player].annotatedWithName("1").to[Player1]
-//    bind[Player].annotatedWithName("2").to[Player2]
     bind[FileIOInterface].to[FileIO]
   }
 }
