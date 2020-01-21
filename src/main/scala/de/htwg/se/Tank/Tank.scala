@@ -21,7 +21,6 @@ object Tank {
     val tui = new TUI(controller)
     val gui = new MapGUI(controller)
     gui.main(Array())
-
     controller.publish(new NewGame)
     do {
       input = scala.io.StdIn.readLine()
