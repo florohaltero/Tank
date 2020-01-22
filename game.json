@@ -4,25 +4,25 @@
     "mapNo" : 2,
     "size" : "small",
     "map" : {
-      "activePlayer_id" : 2,
+      "activePlayer_id" : 1,
       "moves" : 10
     },
     "player1" : {
-      "name" : "432432",
+      "name" : "Flo",
       "id" : 1,
-      "posx" : 23.848966947592025,
-      "posy" : 10.432614005402662
+      "posx" : 23.70941613156329,
+      "posy" : 0
     },
     "player2" : {
-      "name" : "432423",
+      "name" : "Sasch",
       "id" : 2,
-      "posx" : 69.86599194850511,
-      "posy" : 10.234125067118814
+      "posx" : 75.12397494270145,
+      "posy" : 0
     },
     "tank" : {
-      "life1" : 60,
-      "angle1" : 45,
-      "life2" : 20,
+      "life1" : 100,
+      "angle1" : 30,
+      "life2" : 100,
       "angle2" : 150
     }
   }

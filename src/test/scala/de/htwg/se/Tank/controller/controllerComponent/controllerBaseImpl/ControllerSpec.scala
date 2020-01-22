@@ -76,6 +76,14 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.powerDown()
         Map.getActivePlayer.power should be (power)
       }
+      "save" in {
+        controller.save
+        true should be (true)
+      }
+      "load " in {
+        controller.load
+        true should be (true)
+      }
     }
   }
 }
