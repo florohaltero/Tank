@@ -31,6 +31,7 @@ class CalcSpec extends WordSpec with Matchers {
       Map.p2.tank.damage = 100
       "p1 wins" in {
         Calc.hit(Map.p2.pos.x, Map.p2.pos.y) should be (true)
+
         Map.p2.tank.lp should be (0)
         Map.winner should be (Map.p1)
       }
