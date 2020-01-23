@@ -85,7 +85,7 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
         }
 
         val player1textField = new TextField()
-        val player2textField = new TextField
+        val player2textField = new TextField()
 
         val player1 = new Text {
           text = "Player 1: "
@@ -94,9 +94,10 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
           text = "Player 2: "
         }
 
-        val mapNum = new ChoiceBox(FXCollections.observableArrayList(0, 1)) {
-          accessibleHelp = "Test"
-        }
+        val mapNum = new ChoiceBox(FXCollections.observableArrayList("Wolfsschanze", "Gerade","Test","Sägezahnhügel"))
+        mapNum.setValue("Wolfsschanze")
+        val mapSize = new ChoiceBox(FXCollections.observableArrayList("small"))
+        mapSize.setValue("small")
 
         val start = new Button("New Game")
         val end = new Button("Leave Game")
@@ -104,9 +105,8 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
           onAction = (e: ActionEvent) => controller.load
         }
 
-
         start.onAction = (e: ActionEvent) => {
-          controller.setGame("Standard", mapNum.getSelectionModel.getSelectedItem, "small", player1textField.text(), player2textField.text())
+          controller.setGame("Standard", mapNum.getSelectionModel.getSelectedIndex, mapSize.getSelectionModel.getSelectedItem, player1textField.text(), player2textField.text())
         }
         end.onAction = (e: ActionEvent) => {
           val alert = new Alert(AlertType.Confirmation)
@@ -118,23 +118,34 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
             case _ =>
           }
         }
-
-        rootPane.prefHeight = 350
         rootPane.setStyle("-fx-background-image: url(de/htwg/se/Tank/aview/gui/Game-Tank-Background-Free-Picture.jpg); -fx-background-size: auto 100%;")
-        //rootPane.setBackground(new Background(new BackgroundImage(new Image("D:\\Wichtig\\OneDrive\\Studium\\3.Semester\\SE\\Tank\\src\\main\\scala\\de\\htwg\\se\\Tank\\aview\\gui\\Game-Tank-Background-Free-Picture.jpg",32,32,false,true),
-        //  BackgroundRepeat.Repeat, BackgroundRepeat.NoRepeat, BackgroundPosition.Default, BackgroundSize.Default)))
-        rootPane.center = vbox
+        val setBOX = new VBox
+        val map = new HBox
         playerbox1.children.addAll(player1, player1textField)
         playerbox2.children.addAll(player2, player2textField)
+        val choosemap = new Text("Choose Map: ")
+        val choosesize = new Text("Choose MapSize: ")
+        val mapsize = new HBox()
+        mapsize.children.addAll(choosesize, mapSize)
+        map.children.addAll(choosemap, mapNum)
         val hbuttons = new HBox()
-        hbuttons.alignment = Pos.Center
-        hbuttons.children.addAll(start, end)
-        vbox.children.addAll(text, playerbox1, playerbox2, mapNum, hbuttons, load_game)
+        hbuttons.children.addAll(start, end, load_game)
+        hbuttons.alignment = Pos.BottomCenter
+        val title = new VBox
+        //setBOX.children.addAll(playerbox1,playerbox2,map)
+        rootPane.top = title
+        title.children.addAll(text)
+        title.alignment = Pos.TopCenter
         playerbox1.alignment = Pos.TopCenter
         playerbox2.alignment = Pos.TopCenter
-        vbox.alignment = Pos.TopCenter
-        //content = List(start, end, text, player1textField, player2textField, player1, player2)
+        map.alignment = Pos.TopCenter
+        mapsize.alignment = Pos.TopCenter
+        vbox.children.addAll(playerbox1,playerbox2,map,mapsize)
+        rootPane.center = vbox
+        rootPane.bottom = hbuttons
         root = rootPane
+        rootPane.prefWidth = 622
+        rootPane.prefHeight = 400
       }
     }
     stage.getIcons.add(new Image("de/htwg/se/Tank/aview/gui/tank.png"))
@@ -213,8 +224,10 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
     line.fill = Green
     line.layoutX = 0
     line.layoutY = 0
+    val p1 = getPosinGUIScale(gameBase.Map.p1.pos)
+    val p2 = getPosinGUIScale(gameBase.Map.p2.pos)
     val t1 = new Rectangle {
-      val p1 = getPosinGUIScale(gameBase.Map.p1.pos)
+
       height = 10
       width = 20
       x = p1._1 - 0.5 * width()
@@ -222,13 +235,22 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
       fill = Blue
     }
     val t2 = new Rectangle {
-      val p2 = getPosinGUIScale(gameBase.Map.p2.pos)
       height = 10
       width = 20
       x = p2._1 - 0.5 * width()
       y = p2._2 - 0.5 * height()
       fill = Red
     }
+    /*
+    val cannont1 = new Rectangle{
+      height = 3
+      width = 10
+      rotate = Map.p1.tank.canonAngle - 90
+      x = p1._1 - 0.5 * width()
+      y = p1._2 - 0.5 * height()
+    }
+
+     */
     mainPane.prefWidth = WIDTH
     mainPane.prefHeight = HEIGHT
     mainPane.children.addAll(line, t1, t2)
@@ -360,9 +382,6 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
       title = "Winner"
       headerText = "Press OK for a New Game!"
       contentText = "Winner:" + Map.winner.name
-//      jfxBackgroundImage2sfx(new BackgroundImage(new Image("de/htwg/se/Tank/aview/gui/giphy.gif",32,32,false,true),
-//        BackgroundRepeat.Repeat, BackgroundRepeat.NoRepeat, BackgroundPosition.Default,
-//        BackgroundSize.Default))
     }
     val result = alert.showAndWait()
     result match {
@@ -383,6 +402,7 @@ class MapGUI(controller: ControllerInterface) extends JFXApp with Reactor {
         rootPane.setStyle("-fx-background-image: url(de/htwg/se/Tank/aview/gui/giphy.gif); -fx-background-size: 100% Auto;")
         mainPane.prefWidth = WIDTH
         mainPane.prefHeight = HEIGHT
+        mainPane.setStyle("-fx-background-image: url(de/htwg/se/Tank/aview/gui/winnereigen.gif); -fx-background-size: 100% 50%; -fx-background-repeat: no-repeat;")
         root = rootPane
       }
     }

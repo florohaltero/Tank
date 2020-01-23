@@ -66,6 +66,8 @@ object Map extends mapInterface {
       true
     case Some(2) => fx = (x: Double) => 0
       true
+    case Some(3) =>fx = (x:Double) => (2*(math.sin(0.5*x)*math.cos(x)) + 7)
+      true
     case None =>
       false
   }
