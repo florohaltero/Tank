@@ -8,4 +8,5 @@ RUN \
   apt-get install -y sbt libxrender1 libxtst6 libxi6 openjfx
 WORKDIR /Sources
 ADD . /Sources
-CMD sbt run
+CMD sbt test
+

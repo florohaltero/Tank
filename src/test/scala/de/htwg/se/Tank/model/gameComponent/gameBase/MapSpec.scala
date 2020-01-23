@@ -22,7 +22,7 @@ class MapSpec extends WordSpec with Matchers {
       Map.StateContext.P2State().setPlayer()
       "set Player2" in {
         Map.activePlayer should be (Map.activePlayer)
-        Map.StateContext.state should be (Map.StateContext.P1State())
+        Map.StateContext.state should be (Map.StateContext.P2State())
       }
       "have beginOfMap x" in {
         Map.beginOfMap._1 should be(GameInit.MAP_X1)
@@ -57,23 +57,23 @@ class MapSpec extends WordSpec with Matchers {
       str should be(str)
     }
     "changed Player" in {
-      Map.activePlayer should be (Map.p1)
-      Map.StateContext.state.changePlayer()
       Map.activePlayer should be (Map.p2)
+      Map.StateContext.state.changePlayer()
+      Map.activePlayer should be (Map.p1)
     }
     "check active Player" in {
       Map.moves = 0
       Map.StateContext.state.changePlayer()
-      Map.activePlayer should be (Map.p1)
+      Map.activePlayer should be (Map.p2)
     }
     Map.StateContext.P1State().setPlayer()
     "set Player" in {
-      Map.activePlayer should be (Map.p1)
-      Map.StateContext.state should be (Map.StateContext.P1State())
+      Map.activePlayer should be (Map.p2)
+      Map.StateContext.state should be (Map.StateContext.P2State())
     }
     Map.StateContext.getState
     "StateComtext state" in {
-      Map.StateContext.state should be (Map.StateContext.P1State())
+      Map.StateContext.state should be (Map.StateContext.P2State())
     }
     Map.setFX(Option(1))
 
